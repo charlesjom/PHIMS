@@ -12,5 +12,5 @@ This application requires the following dependencies installed in your system
 3. Run `rails s` to run the server on your machine (default IP address is 0.0.0.0 or localhost). Run `rails s -b <your-ip-address> [-p <preferred port number>]` to boot the server on your local network.
 
 ## Credits
-Charles Jo U. Marquez
-Prof. Joseph Anthony C. Hermocilla - CMSC 190 adviser
+* Charles Jo U. Marquez
+* Prof. Joseph Anthony C. Hermocilla - CMSC 190 adviser
