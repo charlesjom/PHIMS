@@ -35,6 +35,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'mongoid', '~> 6.0'
 # Use bson_ext to accelerate Ruby BSON serialization
 gem 'bson_ext'
+# Use HAML for HTML
+gem 'haml-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
