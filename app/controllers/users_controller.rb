@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     
-    # GET /users/new
+    # GET /users/
     def new
         # if current_user.nil?
         @user = User.new 
