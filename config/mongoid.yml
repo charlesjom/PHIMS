@@ -159,3 +159,12 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+# Mongoid configurations in the production environment
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGOLAB_URI'] %>
+    options:
+      skip_version_check: true
+    safe: true
