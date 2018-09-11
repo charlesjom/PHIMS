@@ -39,6 +39,8 @@ gem 'bson_ext'
 gem 'haml-rails'
 # Use Devise for user authentication
 gem 'devise'
+# For encryption
+gem 'openssl', git: 'https://github.com/ruby/openssl'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
