@@ -8,8 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
       pub_key = keypair.public_key.to_pem
 
-      params[:encrypted_pri_key] = encrypted_pri_key
-      params[:pub_key] = pub_key
+      params[:user][:encrypted_pri_key] = encrypted_pri_key
+      params[:user][:pub_key] = pub_key
 
       super
     end
@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # private key is encrypted again with the new password using AES-256
       new_encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
 
-      params[:encrypted_pri_key] = new_encrypted_pri_key
+      params[:user][:encrypted_pri_key] = new_encrypted_pri_key
 
       super
     end
