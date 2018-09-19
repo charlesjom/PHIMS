@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  devise_for :users, :controllers => { registrations: 'users/registrations'}
-  root to: 'users#index'
+  devise_for :users, :path => 'accounts', :controllers => { registrations: 'users/registrations'}
 
   authenticated :user do
-    root to: 'home#index', as: :authenticated_root
+    root to: 'records#index', as: :authenticated_root
+    # TODO fix home index
   end
   root to: redirect('/users/sign_in')
 
-  # get '/signup', to: 'users#new'
-  # post '/signup', to: 'users#create'
+  resources :records
 end
