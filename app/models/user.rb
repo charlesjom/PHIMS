@@ -28,12 +28,15 @@ class User
   field :encrypted_pri_key, type: String
   field :pub_key, type: String
 
+  ## Records
+  has_many :records
+
   before_validation(on: :create) do
     self.email = email.downcase
     self.id = email
   end
 
-  validates_presence_of :email, :password, :pub_key, :encrypted_pri_key
+  validates_presence_of :email, :pub_key, :encrypted_pri_key
   validates_presence_of :first_name, :middle_name, :last_name, :username
   validates_presence_of :encrypted_pri_key, :pub_key
   validates_format_of :first_name, :middle_name, :last_name, with: /\A[\w ]+\z/i
