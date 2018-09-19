@@ -15,14 +15,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	end
 
 	def update
-		# the private key is retrieved using the current password
-		encrypted_pri_key = User.find_by(email: params[:user][:email])[:encrypted_pri_key]
-		keypair = OpenSSL::PKey::RSA.new(encrypted_pri_key, params[:user][:current_password])
-		# private key is encrypted again with the new password using AES-256
-		new_encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
+		# if password is changed
+		if !params[:user][:password].blank? && !params[:user][:password_confirmation].blank?
+		# update the encrypted private key with new password
+			# the user's private key is retrieved using the current password
+			encrypted_pri_key = User.find_by(email: params[:user][:email])[:encrypted_pri_key]
+			keypair = OpenSSL::PKey::RSA.new(encrypted_pri_key, params[:user][:current_password])
+			# private key is encrypted again with the new password using AES-256
+			new_encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
 
-		params[:user][:encrypted_pri_key] = new_encrypted_pri_key
-
+			params[:user][:encrypted_pri_key] = new_encrypted_pri_key
+		end
+		
 		super
 	end
 
@@ -48,6 +52,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	end
 
 	def account_update_params
-		params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :encrypted_pri_key)
+		params.require(:user).permit(:first_name, :middle_name, :last_name, :username, :email, :password, :password_confirmation, :current_password, :encrypted_pri_key)
 	end
 end
