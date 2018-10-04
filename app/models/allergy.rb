@@ -1,6 +1,7 @@
 class Allergy
     include ActiveModel::Model
     include ActiveModel::Validations
+    include ActiveModel::Serializers::JSON
 
     attr_accessor :allergen, :symptoms, :medications
 
