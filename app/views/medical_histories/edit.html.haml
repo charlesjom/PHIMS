@@ -1,0 +1,44 @@
+%h2 Edit Personal Data
+= form_for(@medical_history, url: medical_history_path(@medical_history), method: :put) do |f|
+	= f.fields_for :allergies do |a|
+		.field
+			= a.label "Allergen"
+			= a.text_field :allergen, autofocus: true, placeholder: "What are you allergic to?", required: true
+		.field
+			= a.label "Symptoms"
+			= a.text_field :symptoms, placeholder: "What are the symptoms of this allergy?", required: true
+		.field
+			= a.label "Medications"
+			= a.text_field :medications, placeholder: "What can treat this allergy?", required: true
+	= f.fields_for :health_conditions do |h|
+		.field
+			= h.label "Name of Condition"
+			= h.text_field :name_of_condition, placeholder: "What do you call this condition?", required: true
+		.field
+			= h.label "Date of Diagnosis"
+			= h.date_field :date_of_diagnosis, placeholder: "When is this condition diagnosed?", required: true
+		.field
+			= h.label "Date of Last Checkup"
+			= h.date_field :date_of_last_checkup, placeholder: "When did you last had your checkup for this condition?", required: true
+	= f.fields_for :medications do |m|
+		.field
+			= m.label "Medicine Name"
+			= m.text_field :medicine_name, placeholder: "What medicine/s do you take for this condition?", required: true
+		.field
+			= m.label "Dosage"
+			= m.text_field :dosage, placeholder: "What is the dosage of this medicine?", required: true
+		.field
+			= m.label "Frequency"
+			= m.text_field :frequency, placeholder: "How frequent should you take this medication?", required: true
+		.field
+			= m.check_box :active
+			= m.label "Currently active?"
+	= f.fields_for :vaccinations do |v|
+		.field
+			= v.label "Target Disease"
+			= v.text_field :target_disease, "What disease is the vaccine for?", required: true
+		.field
+			= v.label "Date Administered"
+			= v.date_field :date_administered, required: true
+	.actions
+		= f.submit "Sign up"
