@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   devise_for :users, :path => 'accounts', :controllers => { registrations: 'users/registrations'}
 
   authenticated :user do
-    root to: 'records#index', as: :authenticated_root
-    # TODO fix home index
+    root to: 'user#show', as: :authenticated_root
   end
   root to: redirect('/users/sign_in')
 
-  resources :records
+  resources :users, only: :show do
+    resource :medical_history
+    resource :personal_data
+  end
 end
