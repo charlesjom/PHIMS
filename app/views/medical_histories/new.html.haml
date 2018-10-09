@@ -1,4 +1,4 @@
-%h2 New Personal Data
+%h2 New Medical History
 = form_for(@medical_history, url: medical_history_path(@medical_history), method: :post) do |f|
 	= f.fields_for :allergies do |a|
 		.field
