@@ -6,7 +6,5 @@ class InsuranceProvider
     attr_accessor :target_disease, :date_administered
     
     validates_presence_of :target_disease, :date_administered
-
-    # TODO validator for date administered
-    # should be before today
+    validates_date :date_administered, :on_or_before => :today
 end
