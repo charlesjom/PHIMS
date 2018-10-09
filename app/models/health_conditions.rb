@@ -7,7 +7,6 @@ class HealthCondition
 
     # validators for each attributes
     validates_presence_of :name_of_condition, :date_of_diagnosis, :date_of_last_checkup
-
-    # TODO validation for date_of_diagnosis, date_of_last_checkup
-    # :date_of_diagnosis, :date_of_last_checkup should be on or before today
+    validates_date :date_of_diagnosis, :on_or_before => :today
+    validates_date :date_of_last_checkup, :on_or_before => :today
 end
