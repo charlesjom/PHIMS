@@ -1,4 +1,4 @@
-%h2 Edit Personal Data
+%h2 Edit Medical History
 = form_for(@medical_history, url: medical_history_path(@medical_history), method: :put) do |f|
 	= f.fields_for :allergies do |a|
 		.field
@@ -31,14 +31,14 @@
 			= m.label "Frequency"
 			= m.text_field :frequency, placeholder: "How frequent should you take this medication?", required: true
 		.field
-			= m.check_box :active
+			= m.check_box :still_active
 			= m.label "Currently active?"
 	= f.fields_for :vaccinations do |v|
 		.field
 			= v.label "Target Disease"
-			= v.text_field :target_disease, "What disease is the vaccine for?", required: true
+			= v.text_field :target_disease, placeholder: "What disease is the vaccine for?", required: true
 		.field
 			= v.label "Date Administered"
 			= v.date_field :date_administered, required: true
 	.actions
-		= f.submit "Sign up"
+		= f.submit "Submit"
