@@ -1,6 +1,6 @@
 class HealthCondition
     include ActiveModel::Model
-    include ActiveModel::Validation
+    include ActiveModel::Validations
     include ActiveModel::Serializers::JSON
 
     attr_accessor :name_of_condition, :date_of_diagnosis, :date_of_last_checkup
