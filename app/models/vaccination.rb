@@ -1,4 +1,4 @@
-class InsuranceProvider
+class Vaccination
     include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Serializers::JSON
