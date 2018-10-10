@@ -2,34 +2,44 @@
 = form_for(@personal_data, url: personal_data_path(@personal_data), method: :post) do |f|
 	= f.fields_for :patient_demographics do |p|
 		.field
-			= p.label "Allergen"
-			= p.text_field :allergen, autofocus: true, placeholder: "What are you allergic to?", required: true
+			= p.label "Sex"
+			= p.select :sex, PatientDemographics::SEX_CHOICES, required: true
 		.field
-			= p.label "Symptoms"
-			= p.text_field :symptoms, placeholder: "What are the symptoms of this allergy?", required: true
+			= p.label "Birthdate"
+			= p.date_field :birthdate, required: true
 		.field
-			= p.label "Medications"
-			= p.text_field :medications, placeholder: "What can treat this allergy?", required: true
+			= p.label "Civil Status"
+			= p.select :civil_status, PatientDemographics::CIVIL_STATUS_CHOICES, required: true
+		.field
+			= p.label "Weight in Kilograms"
+			= p.number_field :weight_in_kg
+		.field
+			= p.label "Height in Centimeters"
+			= p.number_field :height_in_cm
+		.field
+			= p.label "ABO Blood Type"
+			= p.select :abo_blood_type, PatientDemographics::ABO_BLOOD_TYPES, required: true
+		.field
+			= p.label "RH Blood Type"
+			= p.select :rh_blood_type, PatientDemographics::RH_BLOOD_TYPES, required: true
 	= f.fields_for :emergency_contacts do |e|
 		.field
-			= e.label "Name of Condition"
-			= e.text_field :name_of_condition, placeholder: "What do you call this condition?", required: true
+			= e.label "First Name"
+			= e.text_field :first_name, required: true
 		.field
-			= e.label "Date of Diagnosis"
-			= e.date_field :date_of_diagnosis, placeholder: "When is this condition diagnosed?", required: true
+			= e.label "Middle Name"
+			= e.text_field :middle_name, required: true
 		.field
-			= e.label "Date of Last Checkup"
-			= e.date_field :date_of_last_checkup, placeholder: "When did you last had your checkup for this condition?", required: true
-	= f.fields_for :medications do |m|
+			= e.label "Last Name"
+			= e.text_field :last_name, required: true
+	= f.fields_for :insurances do |i|
 		.field
-			= h.label "Medicine Name"
-			= h.text_field :medicine_name, placeholder: "What medicine/s do you take for this condition?", required: true
-	= f.fields_for :vaccinations do |v|
+			= i.label "Name of Insuracnce Provider"
+			= i.text_field :provider_name, placeholder: "What is your insurace provider?", required: true
 		.field
-			= v.label "Target Disease"
-			= v.text_field :target_disease, "What disease is the vaccine for?", required: true
+			= i.label "Insurance ID No."
+			= i.number_field :provider_name, placeholder: "What is your insurace identification number?", required: true
 		.field
-			= v.label "Date Administered"
-			= v.date_field :date_administered, required: true
+			= i.label "Telephone No."
 	.actions
-		= f.submit "Sign up"
+		= f.submit "Submit"
