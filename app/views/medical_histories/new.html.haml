@@ -31,12 +31,12 @@
 			= m.label "Frequency"
 			= m.text_field :frequency, placeholder: "How frequent should you take this medication?", required: true
 		.field
-			= m.check_box :active
+			= m.check_box :still_active
 			= m.label "Currently active?"
 	= f.fields_for :vaccinations do |v|
 		.field
 			= v.label "Target Disease"
-			= v.text_field :target_disease, "What disease is the vaccine for?", required: true
+			= v.text_field :target_disease, placeholder: "What disease is the vaccine for?", required: true
 		.field
 			= v.label "Date Administered"
 			= v.date_field :date_administered, required: true
