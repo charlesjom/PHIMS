@@ -7,15 +7,16 @@ class MedicalHistory
     include ActiveModel::Serializers::JSON
     extend ActiveModel::Naming
 
-    def initialize
-        @errors = ActiveModel::Errors.new(self)
-    end
+    # def initialize
+    #     @errors = ActiveModel::Errors.new(self)
+    # end
 
     attr_accessor :allergies, :health_conditions, :medications, :vaccinations 
     attr_reader :errors
 
     ## Associations with other models
-    belongs_to :user, foreign_key: "owner"
+    ## TODO: need to fix association with user
+    # belongs_to :user, foreign_key: "owner"
 
     def allergies_attributes=(attributes)
         @allergies ||= []
@@ -25,21 +26,21 @@ class MedicalHistory
     end
 
     def health_conditions_attributes=(attributes)
-        @health_conditions || = []
+        @health_conditions ||= []
         attributes.each do |i, health_condition_params|
             @health_conditions.push(HealthCondition.new(health_condition_params))
         end
     end
 
     def medications_attributes=(attributes)
-        @medications || = []
+        @medications ||= []
         attributes.each do |i, medical_condition_params|
             @medications.push(Medication.new(medical_condition_params))
         end
     end
 
     def vaccinations_attributes=(attributes)
-        @vaccinations || = []
+        @vaccinations ||= []
         attributes.each do |i, vaccination_params|
             @vaccinations.push(Vaccination.new(vaccination_params))
         end
@@ -53,6 +54,19 @@ class MedicalHistory
     
     def attributes
         instance_values
+    end
+
+    # Method for handling error messages
+    def read_attribute_for_validation(attr)
+        send(attr)
+    end
+
+    def self.human_attribute_name(attr, options = {})
+        attr
+    end
+
+    def self.lookup_ancestors
+        [self]
     end
 
     ## Methods
@@ -110,24 +124,25 @@ class MedicalHistory
                 while inf.read(4096, buf)
                     outf << aes256_cipher_decrypt.update(buf)
                 end
-                outf << aes256_cipher_decrypt.final
+            outf << aes256_cipher_decrypt.final
         end
     end
 
     private
-    def aes256_cipher_encrypt
-		cipher = OpenSSL::Cipher::AES256.new(:CBC)
-		cipher.encrypt # encryption mode
-		key = cipher.random_key
-		iv = cipher.random_iv
-        return cipher
-    end
+        def aes256_cipher_encrypt
+            cipher = OpenSSL::Cipher::AES256.new(:CBC)
+            cipher.encrypt # encryption mode
+            key = cipher.random_key
+            iv = cipher.random_iv
+            return cipher
+        end
 
-    def aes256_cipher_decrypt
-		cipher = OpenSSL::Cipher::AES256.new(:CBC)
-		cipher.decrypt # decryption mode
-		key = cipher.random_key
-		iv = cipher.random_iv
-		return cipher
+        def aes256_cipher_decrypt
+            cipher = OpenSSL::Cipher::AES256.new(:CBC)
+            cipher.decrypt # decryption mode
+            key = cipher.random_key
+            iv = cipher.random_iv
+            return cipher
+        end
     end
 end
