@@ -1,4 +1,4 @@
-class PatientDemographic
+class PatientDemographics
     include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Serializers::JSON
@@ -8,7 +8,7 @@ class PatientDemographic
     SEX_CHOICES =  %w( M F )
     SEX_CHOICES.freeze
     CIVIL_STATUS_CHOICES = %w( Single Married Separated Widowed )
-    CIVIL_STATUSES.freeze
+    CIVIL_STATUS_CHOICES.freeze
     ABO_BLOOD_TYPES = %w( A B AB O Unknown )
     ABO_BLOOD_TYPES.freeze
     RH_BLOOD_TYPES = %w( + - Unknown )
