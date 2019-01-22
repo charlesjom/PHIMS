@@ -41,6 +41,14 @@ gem 'haml-rails'
 gem 'devise'
 # For encryption
 gem 'openssl', git: 'https://github.com/ruby/openssl'
+# AWS SDK
+gem 'aws-sdk'
+gem 'aws-sdk-rails'
+gem 'aws-sdk-s3', '~> 1'
+# Date validator for models
+gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
+
+gem 'awesome_print'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
