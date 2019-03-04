@@ -39,6 +39,18 @@ gem 'bson_ext'
 gem 'haml-rails'
 # Use Devise for user authentication
 gem 'devise'
+# For encryption
+gem 'openssl', git: 'https://github.com/ruby/openssl'
+# AWS SDK
+gem 'aws-sdk'
+gem 'aws-sdk-rails'
+gem 'aws-sdk-s3', '~> 1'
+# Date validator for models
+gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
+
+gem 'awesome_print'
+gem 'simple_form'
+gem "bulma-rails", "~> 0.7.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -52,6 +64,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'solargraph'
 end
 
 group :test do

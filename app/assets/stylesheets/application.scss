@@ -1,0 +1,141 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "bulma";
+
+// Elements
+
+html {
+    height: 100%;
+    font-family: serif;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+// Layout
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-margin-x {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.no-margin-y {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.no-margin-top {
+    margin-top: 0 !important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.no-margin-left {
+    margin-left: 0 !important;
+}
+
+.no-margin-right {
+    margin-right: 0 !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.center {
+    margin: auto;
+}
+
+// Text and background colors
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.color-success {
+    color: #529A00;
+    // background-color: ;
+}
+
+.color-warning {
+    color: #FFAA00;
+    // background-color: ;
+}
+
+.color-danger {
+    color: #9A0052;
+    // background-color: ;
+}
+
+.color-info {
+    color: #00529A;
+    background-color: #BDE5F8;
+}
+
+// Forms
+
+label {
+    display: inline-block;
+    font-weight: bold;
+    max-width: 100%;
+}
+
+// Login and sign up
+
+.login-container {
+    width: 35%;
+}
+
+.signup-container {
+    width: 35%;
+}
+
+// Error pages
+
+.page-error {
+
+}
+
+.error-container {
+
+}
+
+// Icons
