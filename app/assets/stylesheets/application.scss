@@ -14,6 +14,7 @@
  *= require_self
  */
 
+ @import "bulma";
 
 // Elements
 
@@ -24,34 +25,10 @@ html {
 
 body {
     margin: 0;
-    
-    // font-size:
-
-}
-
-a {
-
-}
-
-p {
-
-}
-
-table {
-
+    height: 100%;
 }
 
 // Layout
-
-.navbar {
-    min-height: 40px;
-    padding-left: 10px;
-    padding-right: 15px;
-}
-
-.navbar-right {
-    float: right! important;
-}
 
 .no-margin {
     margin: 0 !important;
@@ -133,17 +110,6 @@ table {
     background-color: #BDE5F8;
 }
 
-// Buttons
-
-.btn {
-}
-
-// navigation header
-
-.navbar {
-
-}
-
 // Forms
 
 label {
@@ -155,11 +121,11 @@ label {
 // Login and sign up
 
 .login-container {
-    width: 30%;
+    width: 35%;
 }
 
 .signup-container {
-    width: 30%;
+    width: 35%;
 }
 
 // Error pages
