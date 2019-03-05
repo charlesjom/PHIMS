@@ -1,29 +1,26 @@
 .login-container.center
 	%h2.title.text-center PHIMS
-	= form_for resource, as: resource_name, url: session_path(resource_name), html: { autocomplete: 'off', class: 'box' } do |f|
-		.field
-			= f.label :email
-			.control.has-icons-left
-				= f.email_field :email, autofocus: true, autocomplete: "off", class: 'input'
-				%span.icon.is-small.is-left
-					%i.fas.fa-envelope
-		.field
-			= f.label :password
-			.control.has-icons-left
-				= f.password_field :password, autocomplete: "off", class: 'input'
-				%span.icon.is-small.is-left
-					%i.fas.fa-lock
-		- if devise_mapping.rememberable?
+	.box
+		= render "users/shared/error_messages", resource: resource
+		= form_for resource, as: resource_name, url: session_path(resource_name), html: { autocomplete: 'off' } do |f|
 			.field
-				.has-text-centeredr
-					= f.check_box :remember_me, class: 'checkbox'
-					= f.label :remember_me
-		.field
-			.control.has-text-centered
-				-# = f.check_box :tos_agree, class: 'checkbox'
-				-# = f.label "I agree to the Terms and Services"
-
-		.field
-			.control.has-text-centered
-				= f.submit "Log in", class: 'button is-link is-fullwidth'
+				= f.label :email
+				.control.has-icons-left
+					= f.email_field :email, autofocus: true, autocomplete: "off", class: 'input'
+					%span.icon.is-small.is-left
+						%i.fas.fa-envelope
+			.field
+				= f.label :password
+				.control.has-icons-left
+					= f.password_field :password, autocomplete: "off", class: 'input'
+					%span.icon.is-small.is-left
+						%i.fas.fa-lock
+			- if devise_mapping.rememberable?
+				.field
+					.has-text-centered
+						= f.check_box :remember_me, class: 'checkbox'
+						= f.label :remember_me
+			.field
+				.control.has-text-centered
+					= f.submit "Log in", class: 'button is-link is-fullwidth'
 	= render "users/shared/links"

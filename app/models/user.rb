@@ -28,6 +28,7 @@ class User
   field :encrypted_pri_key, type: String
   field :pub_key, type: String
 
+	attr_accessor :tac_acceptance
   ## Records
   has_many :records
 
