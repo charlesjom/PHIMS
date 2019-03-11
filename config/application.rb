@@ -28,7 +28,7 @@ module PHIMS
     # the framework and any gems in your application.
 
     config.generators do |g|
-      g.orm :mongoid
+      g.template_engine :haml
     end
   end
 end
