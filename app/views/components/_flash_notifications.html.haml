@@ -1,0 +1,10 @@
+- if flash.present?
+    .flash-container
+        - flash.each do |key, message|
+            .message.is-small{class: flash_class(key)}
+                .message-header
+                    %strong
+                        = key.capitalize
+                    %button.delete.is-small
+                .message-body
+                    = message.html_safe

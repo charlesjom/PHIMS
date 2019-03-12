@@ -1,2 +1,10 @@
 - if resource.errors.any?
-    "Error encountered"
+    .notification-container
+        - resource.errors.full_messages.each do |error|
+            .message.is-small.is-danger
+                .message-header
+                    %strong
+                        Error!
+                    %button.delete.is-small
+                .message-body
+                    = error

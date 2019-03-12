@@ -60,4 +60,9 @@ Rails.application.configure do
   logger = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Use letter_opener to view emails
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 end
