@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '958de97a12b745e3e019bf0f22b0edaff7d35a41ba9199654e23bb83e403444927cf74d9c2d45d799ab82a2185967c56c5d36c20326d3da2fddb11d610df9f46'
+  # config.secret_key = '06c262a07b38734ff71fd9f9dc49d5f687cba3c9c2755df73da3cc33562377e14387353abc6a792445cde8bae372e9b2fc2768e702eeb2e1bd621fc57a267b89'
   
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -18,10 +18,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'phims-admin@phims-uplb.com'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = 'Devise::Mailer'
+  config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -30,7 +30,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/mongoid'
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -114,7 +114,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '4aec5ed9f57341d0925a99ee3cd419c3e915e7fe9b16c55c153d8c7f4bf1da85f5bb139bed6cb7a08841ce3f73089cb4431e83b7899c22103fa2251ede48d8ae'
+  # config.pepper = 'bc9d1ee5df41adb58373b1158a1405586a313a5e4684bbfa9e3160a6b8001bd5fd462dee015645f461424a65f965151903363f6a9a6a54672bd7d549affcd3cd'
 
   # Send a notification to the original email when the user's email is changed.
   config.send_email_changed_notification = false
@@ -152,7 +152,7 @@ Devise.setup do |config|
   # config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
-  config.expire_all_remember_me_on_sign_out = false
+  config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false

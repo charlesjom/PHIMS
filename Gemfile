@@ -31,6 +31,8 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# PostgreSQL for ActiveRecord database
+gem 'pg'
 # Use Mongoid for database
 gem 'mongoid', '~> 6.0'
 # Use bson_ext to accelerate Ruby BSON serialization
@@ -67,6 +69,9 @@ group :development do
   gem 'solargraph'
   gem 'httplog'
   gem 'shog'
+  gem 'ruby-debug-ide'
+  gem 'debase'
+  gem "letter_opener"
 end
 
 group :test do
