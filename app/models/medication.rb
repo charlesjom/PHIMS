@@ -4,10 +4,10 @@ class Medication
     include ActiveModel::Validations::Callbacks
     include ActiveModel::Serializers::JSON
 
-    attr_accessor :medicine_name, :dosage, :frequency, :still_active, :date_modified
+    attr_accessor :medicine_name, :dosage_amount_value, :dosage_amount_unit, :dosage_frequency_value, :dosage_frequency_unit, :frequency, :still_active, :date_modified
     
     # validators for each attributes
-    validates_presence_of :medicine_name, :dosage, :frequency, :still_active, :date_modified
+    validates_presence_of :medicine_name, :dosage_amount_value, :dosage_amount_unit, :dosage_frequency_value, :dosage_frequency_unit, :frequency, :still_active, :date_modified
     validates_inclusion_of :active, in: [true, false]
 
     before_validation :set_date_modified, on: [:create, :update]
