@@ -8,7 +8,7 @@ class PatientDemographics
     SEX_CHOICES = %w( Male Female Intersex ).freeze
     CIVIL_STATUS_CHOICES = %w( Single Married Separated Widowed ).freeze
     ABO_BLOOD_TYPES = %w( A B AB O ).freeze
-    RH_BLOOD_TYPES = %w( + - )freeze
+    RH_BLOOD_TYPES = %w( + - ).freeze
 
     with_options allow_blank: true do |v|
         v.validates_inclusion_of :sex, in: SEX_CHOICES
