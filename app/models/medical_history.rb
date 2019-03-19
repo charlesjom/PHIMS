@@ -1,6 +1,7 @@
 class MedicalHistory
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
+    include ActiveModel::Validations
     extend ActiveModel::Naming
 
     # def initialize
@@ -10,6 +11,13 @@ class MedicalHistory
     attr_accessor :allergies, :health_conditions, :medications, :vaccinations 
     attr_reader :errors
 
+    def initialize(attributes = {})
+        # @errors = ActiveModel::Errors.new(self)
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+    end
+    
     ## Associations with other models
     ## TODO: need to fix association with user
     # belongs_to :user, foreign_key: "owner"

@@ -1,7 +1,8 @@
 class PersonalData
-    extend ActiveModel::Naming
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
+    include ActiveModel::Validations
+    extend ActiveModel::Naming
 
     # def initialize
     #     @errors = ActiveModel::Errors.new(self)
@@ -10,12 +11,17 @@ class PersonalData
     attr_accessor :patient_demographics, :emergency_contacts, :insurances
     attr_reader :errors
 
+    def initialize(attributes = {})
+        # @errors = ActiveModel::Errors.new(self)
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+    end
+
     ## Associations with other models
     ## TODO: need to fix association with user
     # belongs_to :user, foreign_key: "owner"
     
-    # def validate!
-    # end
 
     def patient_demographics_attributes=(attributes)
         @patient_demographics = PatientDemographics.new(patient_demographics_params)
