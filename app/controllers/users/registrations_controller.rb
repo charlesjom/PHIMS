@@ -1,33 +1,16 @@
-require "openssl"
-require "base64"
-
 class Users::RegistrationsController < Devise::RegistrationsController
 	def create
-		keypair = OpenSSL::PKey::RSA.new(4096)
-		# private key is encrypted with password using AES-256
-		encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
-		pub_key = keypair.public_key.to_pem
-
-		params[:user][:encrypted_pri_key] = encrypted_pri_key
-		params[:user][:pub_key] = pub_key
-
 		super
 	end
 
 	def update
-		# if password is changed
-		if !params[:user][:password].blank? && !params[:user][:password_confirmation].blank?
-		# update the encrypted private key with new password
-			# the user's private key is retrieved using the current password
-			encrypted_pri_key = User.find_by(email: params[:user][:email])[:encrypted_pri_key]
-			keypair = OpenSSL::PKey::RSA.new(encrypted_pri_key, params[:user][:current_password])
-			# private key is encrypted again with the new password using AES-256
-			new_encrypted_pri_key = keypair.to_pem(aes256_cipher_encrypt, params[:user][:password])
-
-			params[:user][:encrypted_pri_key] = new_encrypted_pri_key
-		end
-		
 		super
+	end
+
+	protected
+
+	def after_sign_up_path_for(resource)
+		
 	end
 
 	private
@@ -48,10 +31,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	end
 
 	def sign_up_params
-		params.require(:user).permit(:first_name, :middle_name, :last_name, :username, :email, :password, :password_confirmation, :encrypted_pri_key, :pub_key)
+		params.require(:user).permit(:first_name, :middle_name, :last_name, :username, :email, :password, :password_confirmation)
 	end
 
 	def account_update_params
-		params.require(:user).permit(:first_name, :middle_name, :last_name, :username, :email, :password, :password_confirmation, :current_password, :encrypted_pri_key)
+		params.require(:user).permit(:first_name, :middle_name, :last_name, :username, :email, :password, :password_confirmation)
 	end
 end
