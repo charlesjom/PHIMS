@@ -1,3 +1,5 @@
 {
-    "solargraph.diagnostics": true
+    "ruby.intellisense": "rubyLocate",
+    "ruby.codeCompletion": "rcodetools",
+    "ruby.useLanguageServer": true
 }
