@@ -1,45 +1,30 @@
-%h2 New Personal Data
-= form_for(@personal_data, url: personal_data_path(@personal_data), method: :post) do |f|
-	= f.fields_for :patient_demographics do |p|
-		.field
-			= p.label "Sex"
-			= p.select :sex, PatientDemographics::SEX_CHOICES, required: true
-		.field
-			= p.label "Birthdate"
-			= p.date_field :birthdate, required: true
-		.field
-			= p.label "Civil Status"
-			= p.select :civil_status, PatientDemographics::CIVIL_STATUS_CHOICES, required: true
-		.field
-			= p.label "Weight in Kilograms"
-			= p.number_field :weight_in_kg
-		.field
-			= p.label "Height in Centimeters"
-			= p.number_field :height_in_cm
-		.field
-			= p.label "ABO Blood Type"
-			= p.select :abo_blood_type, PatientDemographics::ABO_BLOOD_TYPES, required: true
-		.field
-			= p.label "RH Blood Type"
-			= p.select :rh_blood_type, PatientDemographics::RH_BLOOD_TYPES, required: true
-	= f.fields_for :emergency_contacts do |e|
-		.field
-			= e.label "First Name"
-			= e.text_field :first_name, required: true
-		.field
-			= e.label "Middle Name"
-			= e.text_field :middle_name, required: true
-		.field
-			= e.label "Last Name"
-			= e.text_field :last_name, required: true
-	= f.fields_for :insurances do |i|
-		.field
-			= i.label "Name of Insuracnce Provider"
-			= i.text_field :provider_name, placeholder: "What is your insurace provider?", required: true
-		.field
-			= i.label "Insurance ID No."
-			= i.number_field :provider_name, placeholder: "What is your insurace identification number?", required: true
-		.field
-			= i.label "Telephone No."
-	.actions
-		= f.submit "Submit"
+.container.is-fluid
+	%h2.title.text-center New Personal Data
+	= simple_form_for @personal_data, url: personal_data_path do |f|
+		%span Patient Demographics
+		= f.simple_fields_for :patient_demographics do |p|
+			= p.input :birthdate, as: :date, end_year: Date.today.year
+			= p.input :sex, as: :radio_buttons, collection: PatientDemographics::SEX_CHOICES, item_label_class: 'radio'
+			= p.input :civil_status, as: :radio_buttons, collection: PatientDemographics::CIVIL_STATUS_CHOICES, label: 'Civil Status', item_label_class: 'radio'
+			= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
+			= p.input :height_in_cm, as: :integer, label: 'Height (in cm)'
+			= p.input :abo_blood_type, as: :radio_buttons, collection: PatientDemographics::ABO_BLOOD_TYPES, label: 'ABO Blood Type', item_label_class: 'radio'
+			= p.input :rh_blood_type, as: :radio_buttons, collection: PatientDemographics::RH_BLOOD_TYPES, label: 'RH Blood Type', item_label_class: 'radio'
+		%span Emergency Contacts
+		= f.simple_fields_for :emergency_contacts do |e|
+			= e.input :first_name
+			= e.input :middle_name
+			= e.input :last_name
+			= e.input :cellphone_number
+			= e.input :address
+			= e.input :relationship
+		%span Insurances
+		= f.simple_fields_for :insurances do |i|
+			= i.input :provider_name
+			= i.input :id_number, label: "ID Number"
+			= i.input :valid_until
+			= i.input :name_of_insured
+			= i.input :birthdate_of_insured
+			= i.input :relationship_of_beneficiary_to_insured
+			= i.input :telephone_number
+		= f.button :submit, class: 'is-primary'

@@ -76,6 +76,12 @@ body {
     margin: auto;
 }
 
+// Flash message notification
+.flash-container, .error-container {
+    width: 30%;
+    margin: auto;
+}
+
 // Text and background colors
 
 .text-left {
@@ -90,25 +96,6 @@ body {
     text-align: center !important;
 }
 
-.color-success {
-    color: #529A00;
-    // background-color: ;
-}
-
-.color-warning {
-    color: #FFAA00;
-    // background-color: ;
-}
-
-.color-danger {
-    color: #9A0052;
-    // background-color: ;
-}
-
-.color-info {
-    color: #00529A;
-    background-color: #BDE5F8;
-}
 
 // Forms
 
@@ -118,14 +105,11 @@ label {
     max-width: 100%;
 }
 
-// Login and sign up
+// Containers related to user account management
 
-.login-container {
+.devise-container {
     width: 35%;
-}
-
-.signup-container {
-    width: 35%;
+    margin: auto;
 }
 
 // Error pages

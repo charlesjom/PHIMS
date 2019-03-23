@@ -1,44 +1,26 @@
-%h2 New Medical History
-= form_for(@medical_history, url: medical_history_path(@medical_history), method: :post) do |f|
-	= f.fields_for :allergies do |a|
-		.field
-			= a.label "Allergen"
-			= a.text_field :allergen, autofocus: true, placeholder: "What are you allergic to?", required: true
-		.field
-			= a.label "Symptoms"
-			= a.text_field :symptoms, placeholder: "What are the symptoms of this allergy?", required: true
-		.field
-			= a.label "Medications"
-			= a.text_field :medications, placeholder: "What can treat this allergy?", required: true
-	= f.fields_for :health_conditions do |h|
-		.field
-			= h.label "Name of Condition"
-			= h.text_field :name_of_condition, placeholder: "What do you call this condition?", required: true
-		.field
-			= h.label "Date of Diagnosis"
-			= h.date_field :date_of_diagnosis, placeholder: "When is this condition diagnosed?", required: true
-		.field
-			= h.label "Date of Last Checkup"
-			= h.date_field :date_of_last_checkup, placeholder: "When did you last had your checkup for this condition?", required: true
-	= f.fields_for :medications do |m|
-		.field
-			= m.label "Medicine Name"
-			= m.text_field :medicine_name, placeholder: "What medicine/s do you take for this condition?", required: true
-		.field
-			= m.label "Dosage"
-			= m.text_field :dosage, placeholder: "What is the dosage of this medicine?", required: true
-		.field
-			= m.label "Frequency"
-			= m.text_field :frequency, placeholder: "How frequent should you take this medication?", required: true
-		.field
-			= m.check_box :still_active
-			= m.label "Currently active?"
-	= f.fields_for :vaccinations do |v|
-		.field
-			= v.label "Target Disease"
-			= v.text_field :target_disease, placeholder: "What disease is the vaccine for?", required: true
-		.field
-			= v.label "Date Administered"
-			= v.date_field :date_administered, required: true
-	.actions
-		= f.submit "Submit"
+.container.is-fluid
+	%h2.title.text-center New Medical History
+	= simple_form_for @medical_history, url: medical_histories_path do |f|
+		%span Allergies
+		= f.simple_fields_for :allergies do |a|
+			= a.input :allergen
+			= a.input :symptoms
+			= a.input :medications
+		%span Health Conditions
+		= f.simple_fields_for :health_conditions do |h|
+			= h.input :name_of_condition
+			= h.input :date_of_diagnosis, as: :date
+			= h.input :date_of_last_checkup, as: :date
+		%span Medications
+		= f.simple_fields_for :medications do |m|
+			= m.input :medicine_name
+			= m.input :dosage_amount_value
+			= m.input :dosage_amount_unit
+			= m.input :dosage_frequency_value
+			= m.input :dosage_frequency_unit
+			= m.input :still_active, as: :radio_buttons, collection: [['Yes', true], ['No', false]], item_label_class: 'radio'
+		%span Vaccinations
+		= f.simple_fields_for :vaccinations do |v|
+			= v.input :target_disease
+			= v.input :date_administered, as: :date
+		= f.button :submit, class: 'is-primary'

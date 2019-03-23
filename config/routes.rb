@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  devise_for :users, :path => 'accounts', :controllers => { registrations: 'users/registrations'}
+  devise_for :users, path: 'accounts', controllers: { registrations: 'users/registrations'}
 
-  authenticated :users do
-    root to: 'users#show', as: :authenticated_root
+  devise_scope :user do
+    authenticated :users do
+      root 'users#show', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
   end
-  root to: redirect('/users/sign_in')
 
-  resources :users, only: :show
-  resource :medical_history
-  resource :personal_data
+  get 'user/me', to: 'users#show'
+  resources :medical_histories
+  resources :personal_data
+
 end
