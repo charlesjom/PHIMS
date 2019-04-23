@@ -1,8 +1,8 @@
 class Medication
-    include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Validations::Callbacks
     include ActiveModel::Serializers::JSON
+    include ActiveModel::Model
 
     attr_accessor :medicine_name, :dosage_amount_value, :dosage_amount_unit, :dosage_frequency_value, :dosage_frequency_unit, :frequency, :still_active, :date_modified
     

@@ -1,7 +1,7 @@
 class Insurance
-    include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Serializers::JSON
+    include ActiveModel::Model
 
     attr_accessor :provider_name, :id_number, :valid_until, :name_of_insured, :birthdate_of_insured, :relationship_of_beneficiary_to_insured, :telephone_number
 
