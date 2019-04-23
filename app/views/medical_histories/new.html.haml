@@ -9,8 +9,8 @@
 		%span Health Conditions
 		= f.simple_fields_for :health_conditions do |h|
 			= h.input :name_of_condition
-			= h.input :date_of_diagnosis, as: :date
-			= h.input :date_of_last_checkup, as: :date
+			= h.input :date_of_diagnosis, as: :date, html5: true
+			= h.input :date_of_last_checkup, as: :date, html5: true
 		%span Medications
 		= f.simple_fields_for :medications do |m|
 			= m.input :medicine_name
@@ -22,5 +22,5 @@
 		%span Vaccinations
 		= f.simple_fields_for :vaccinations do |v|
 			= v.input :target_disease
-			= v.input :date_administered, as: :date
+			= v.input :date_administered, as: :date, html5: true
 		= f.button :submit, class: 'is-primary'

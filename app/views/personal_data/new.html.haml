@@ -3,7 +3,7 @@
 	= simple_form_for @personal_data, url: personal_data_path do |f|
 		%span Patient Demographics
 		= f.simple_fields_for :patient_demographics do |p|
-			= p.input :birthdate, as: :date, end_year: Date.today.year
+			= p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
 			= p.input :sex, as: :radio_buttons, collection: PatientDemographics::SEX_CHOICES, item_label_class: 'radio'
 			= p.input :civil_status, as: :radio_buttons, collection: PatientDemographics::CIVIL_STATUS_CHOICES, label: 'Civil Status', item_label_class: 'radio'
 			= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
