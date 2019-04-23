@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_one :medical_history, dependent: :destroy
   has_one :personal_data, dependent: :destroy
   has_many :share_keys, dependent: :destroy
-  has_many :records, dependent: :destroy
+  has_many :user_records, dependent: :destroy
 
   def generate_user_id
     self.user_id = "MEMBER-#{email}"
