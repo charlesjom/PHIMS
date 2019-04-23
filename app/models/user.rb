@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   before_create :generate_user_id
   before_create :generate_user_keys
-
+  
   # Model associations
   has_one :medical_history, dependent: :destroy
   has_one :personal_data, dependent: :destroy
@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :user_records, dependent: :destroy
 
   def generate_user_id
-    self.user_id = "MEMBER-#{email}"
+    self.identifier = "MEMBER-#{DateTime.now.to_s(:number)}"
   end
 
   def generate_user_keys
