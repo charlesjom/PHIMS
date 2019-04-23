@@ -1,7 +1,7 @@
 class EmergencyContact
-    include ActiveModel::Model
     include ActiveModel::Validations
     include ActiveModel::Serializers::JSON
+    include ActiveModel::Model
     
     attr_accessor :first_name, :middle_name, :last_name, :telephone_number, :cellphone_number, :address, :relationship
 
