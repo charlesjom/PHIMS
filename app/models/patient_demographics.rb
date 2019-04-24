@@ -19,4 +19,8 @@ class PatientDemographics
         v.validates_date :birthdate, :on_or_before => :today
     end
     validates_presence_of :abo_blood_type, :if => lambda { self.rh_blood_type.present? }
+
+    def attributes
+        instance_values
+    end
 end

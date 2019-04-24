@@ -11,4 +11,8 @@ class Insurance
         validates_format_of :telephone_number, with: /\A\+?(\d{1,3})?-?(\d{3})?-?(\d{3}-?\d{4})\Z/i
         validates_date :birthdate_of_insured, :on_or_before => :today
     end
+
+    def attributes
+        instance_values
+    end
 end

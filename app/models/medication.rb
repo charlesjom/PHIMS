@@ -1,6 +1,5 @@
 class Medication
     include ActiveModel::Validations
-    include ActiveModel::Validations::Callbacks
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
 
@@ -14,5 +13,9 @@ class Medication
     
     def set_date_modified
         self.date_modified = Date.current
+    end
+
+    def attributes
+        instance_values
     end
 end
