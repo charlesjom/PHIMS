@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates_length_of     :first_name, :middle_name, :last_name, maximum: 30, allow_nil: true
   validates_acceptance_of :tac_acceptance
 
-  before_create :generate_user_id
+  before_create :generate_identifier
   before_create :generate_user_keys
   
   # Model associations
@@ -21,29 +21,27 @@ class User < ApplicationRecord
   has_many :share_keys, dependent: :destroy
   has_many :user_records, dependent: :destroy
 
-  def generate_user_id
-    self.identifier = "MEMBER-#{DateTime.now.to_s(:number)}"
+  def generate_identifier
+    self.identifier = "USER-#{DateTime.now.to_s(:number)}"
   end
 
   def generate_user_keys
     keypair = OpenSSL::PKey::RSA.new(4096)
-    self.encrypted_private_key = keypair.export(aes256_cipher_encrypt, self.password)
+
+    cipher_encrypt = OpenSSL::Cipher::AES256.new(:CBC)
+    cipher_encrypt.encrypt # set to encryption mode
+    key = cipher.random_key
+    iv = cipher.random_iv
+
+    self.encrypted_private_key = keypair.export(cipher_encrypt, self.password)
 		self.public_key = keypair.public_key
   end
 
-  def aes256_cipher_encrypt
-		cipher = OpenSSL::Cipher::AES256.new(:CBC)
-		cipher.encrypt # set to encryption mode
-		key = cipher.random_key
-		iv = cipher.random_iv
-		cipher
-	end
-
-	def aes256_cipher_decrypt
-		cipher = OpenSSL::Cipher::AES256.new(:CBC)
-		cipher.decrypt # set to decryption mode
-		key = cipher.random_key
-		iv = cipher.random_iv
-		cipher
+  def aes256_cipher_decrypt
+    cipher = OpenSSL::Cipher::AES256.new(:CBC)
+    cipher.decrypt # set to decryption mode
+    key = cipher.random_key
+    iv = cipher.random_iv
+    cipher
 	end
 end
