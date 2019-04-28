@@ -1,26 +1,29 @@
 class MedicalHistory
-    include ActiveModel::Model
     include ActiveModel::Serializers::JSON
     include ActiveModel::Validations
+    include ActiveModel::Model
     extend ActiveModel::Naming
 
-    # def initialize
-    #     @errors = ActiveModel::Errors.new(self)
-    # end
+    include HasManageableFile
 
-    attr_accessor :allergies, :health_conditions, :medications, :vaccinations 
+    attr_accessor :allergies, :health_conditions, :medications, :vaccinations, :owner_id
     attr_reader :errors
 
+    ## Associations with other models
+    ## TODO: need to fix association with user
+    # belongs_to :user, foreign_key: "owner"
+
     def initialize(attributes = {})
-        # @errors = ActiveModel::Errors.new(self)
+        super
         attributes.each do |name, value|
             send("#{name}=", value)
         end
     end
-    
-    ## Associations with other models
-    ## TODO: need to fix association with user
-    # belongs_to :user, foreign_key: "owner"
+
+    def save
+        # TODO: validation goes here
+        run_callbacks :save
+    end
 
     def allergies_attributes=(attributes)
         @allergies ||= []
