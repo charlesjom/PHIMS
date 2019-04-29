@@ -9,11 +9,12 @@ class MedicalHistoriesController < ApplicationController
     end
     
     def create
-        @medical_history = current_user.medical_history.new(medical_history_params)
-        if @medical_history.create_file
-            redirect_to user_path(current_user)
+        params[:medical_history].merge!({owner_id: current_user.id})
+        @medical_history = MedicalHistory.new(medical_history_params)
+        if @medical_history.save
+            redirect_to medical_histories_path
         else
-            redirect_back fallback_location: new_user_medical_history_path(current_user)
+            redirect_back fallback_location: new_medical_history_path(current_user)
             # return error
         end
     end
@@ -41,5 +42,11 @@ class MedicalHistoriesController < ApplicationController
 
     private
     def medical_history_params
+        params.require(:medical_history).permit(:owner_id,
+            allergies_attributes: [:allergen, :symptoms, :medications],
+            vaccinations_attributes: [:target_disease, :date_administered],
+            health_conditions_attributes: [:name_of_condition, :date_of_diagnosis, :date_of_last_checkup],
+            medications_attributes: [:medicine_name, :dosage_amount_value, :dosage_amount_unit, :dosage_frequency_value, :dosage_frequency_unit, :still_active]
+        )
     end
 end

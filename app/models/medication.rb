@@ -1,5 +1,6 @@
 class Medication
     include ActiveModel::Validations
+    include ActiveModel::Validations::Callbacks
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
 

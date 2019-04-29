@@ -8,8 +8,8 @@ module HasManageableFile
     end
 
     def store_file
-        # uploader = FileUploader.new(self, self.owner_id)
-        # uploader.process
+        uploader = FileUploader.new(self, self.owner_id)
+        uploader.process
         return
     end
 

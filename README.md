@@ -4,7 +4,7 @@ Cloud-based Personal Health Information Management System (PHIMS) is an applicat
 ## Prerequisites
 This application requires the following to be installed in your system
 1. Ruby on Rails
-2. MongoDB
+2. PostgreSQL
 
 ## Installation
 1. Clone this repository
