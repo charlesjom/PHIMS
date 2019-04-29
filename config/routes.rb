@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, path: 'accounts', controllers: { registrations: 'users/registrations'}
 
   devise_scope :user do
-    authenticated :users do
+    authenticated :user do
       root 'users#show', as: :authenticated_root
     end
 
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get 'user/me', to: 'users#show'
   resources :medical_histories
   resources :personal_data
+  resources :users, only: [:show]
 
 end

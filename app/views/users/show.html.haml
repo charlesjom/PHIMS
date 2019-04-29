@@ -1,2 +1,19 @@
 .main-content
-    %h2.title.text-center Own Records
+    .container.is-fluid
+        %h2.title.text-center Own Records
+        = link_to 'New Medical History', new_medical_history_path, class: 'button'
+        = link_to 'New Personal Data', new_personal_datum_path, class: 'button'
+        
+        - if @records.any?
+            %table.table.is-bordered.is-fullwidth.is-striped
+                %tbody
+                    %tr
+                        %th Record ID
+                        %th Owner
+                    - @records.each do |record|
+                        %tr
+                            %td= record.id
+                            %td= link_to user_path(@record.user_id)
+        - else
+            %h3.text-center No Records Yet
+                

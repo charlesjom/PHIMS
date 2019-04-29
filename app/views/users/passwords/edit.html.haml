@@ -10,13 +10,13 @@
         .control
           = f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'input'
           - if @minimum_password_length
-          %span.help
-            #{@minimum_password_length} characters minimum
+            %span.help
+              #{@minimum_password_length} characters minimum
       .field
         = f.label :password_confirmation, "Confirm new password"
         .control
-          = f.password_field :password_confirmation, autocomplete: "off"
+          = f.password_field :password_confirmation, autocomplete: "off", class: 'input'
       .field
         .control.has-text-centered
-          = f.submit "Change my password"
+          = f.submit "Change my password", class: 'button is-link is-fullwidth'
   = render "users/shared/links"
