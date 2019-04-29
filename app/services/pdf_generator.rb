@@ -6,7 +6,6 @@ class PdfGenerator
     end
 
     def process
-        
-
+        return
     end
 end
