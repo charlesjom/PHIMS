@@ -38,7 +38,7 @@ gem 'mongoid', '~> 6.0'
 # Use bson_ext to accelerate Ruby BSON serialization
 gem 'bson_ext'
 # Use HAML for HTML
-gem 'haml-rails'
+gem 'haml-rails', '~> 1'
 # Use Devise for user authentication
 gem 'devise'
 # For encryption
