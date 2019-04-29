@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_23_180624) do
+ActiveRecord::Schema.define(version: 2019_04_24_154647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2019_04_23_180624) do
   end
 
   create_table "user_records", force: :cascade do |t|
-    t.string "public_file_key"
+    t.string "encrypted_file_key"
     t.string "encrypted_cipher_key"
     t.string "encrypted_cipher_iv"
     t.bigint "user_id"
