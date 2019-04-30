@@ -3,6 +3,6 @@ class UsersController < ApplicationController
 
     # GET /user/me
     def show
-        @records = current_user.user_records
+        @user_records = current_user.user_records
     end
 end
