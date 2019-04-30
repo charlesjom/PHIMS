@@ -23,6 +23,7 @@ class FileUploader
         encrypted_file_key = owner_public_key.public_encrypt(file_key)
         # delete file_key after encryption
         file_key = nil
+        object_type = object.class.to_s
         
         if File.exist?(file_name) && encrypted_file_key.present?
             Rails.logger.info "[FileUploader] PHR file creation and encryption succeeded"
@@ -34,7 +35,8 @@ class FileUploader
                     owner_records = owner.user_records.create!(
                         encrypted_file_key: encrypted_file_key,
                         encrypted_cipher_key: encrypted_key,
-                        encrypted_cipher_iv: encrypted_iv
+                        encrypted_cipher_iv: encrypted_iv,
+                        phr_type: object_type
                     )
                     # attach file to record model
                     owner_records.file.attach(
@@ -47,10 +49,12 @@ class FileUploader
                 errors << "[FileUploader] Encrypted PHR file was not saved. Error: #{e.message}"
             ensure
                 # delete temporary file
-                file_to_attach.close! if file_to_attach.present?
-                # delete encrypted file
-                File.delete(file_name)
-                Rails.logger.info "[FileUploader] Encrypted PHR file deleted"
+                if file_to_attach.present?
+                    file_to_attach.close
+                    # delete encrypted file
+                    File.delete(file_to_attach)
+                    Rails.logger.info "[FileUploader] Encrypted PHR file deleted"
+                end
             end
         else
             errors << "[FileUploader] PHR file creation and encryption failed"
