@@ -21,6 +21,12 @@ class User < ApplicationRecord
   has_many :share_keys, dependent: :destroy
   has_many :user_records, dependent: :destroy
 
+  def fullname
+    "#{first_name} #{middle_name} #{last_name}"
+  end
+
+  private
+
   def generate_identifier
     self.identifier = "USER-#{DateTime.now.to_s(:number)}"
   end
@@ -28,12 +34,12 @@ class User < ApplicationRecord
   def generate_user_keys
     keypair = OpenSSL::PKey::RSA.new(4096)
 
-    cipher_encrypt = OpenSSL::Cipher::AES256.new(:CBC)
-    cipher_encrypt.encrypt # set to encryption mode
+    cipher = OpenSSL::Cipher::AES256.new(:CBC)
+    cipher.encrypt # set to encryption mode
     key = cipher.random_key
     iv = cipher.random_iv
 
-    self.encrypted_private_key = keypair.export(cipher_encrypt, self.password)
+    self.encrypted_private_key = Base64.encode64(keypair.export(cipher, self.password))
 		self.public_key = keypair.public_key
   end
 
@@ -43,5 +49,5 @@ class User < ApplicationRecord
     key = cipher.random_key
     iv = cipher.random_iv
     cipher
-	end
+  end
 end
