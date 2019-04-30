@@ -2,24 +2,24 @@ require 'tempfile'
 require "openssl"
 
 class FileDownloader
-    attr_reader :user_record, :user_id, :errors
+    attr_reader :user_record, :errors, :user
 
-    def initialize(user_record = nil, user_id = nil)
+    def initialize(user_record = nil, user = nil)
         @user_record = user_record
-        @user_id = user_id
+        @user = user
         @errors = []
     end
 
     def process(password)
-        return if user_record.nil? || user_id.nil?
+        return if user_record.nil? || user.nil?
         
         # if owner of user record is the one downloading the file,
         # then use encrypted_file_key of user record
         # else, use share key of user for that user record
-        encrypted_file_key = if user_record.owner_id == user_id
-            user_record.encrypted_file_key
+        encrypted_file_key = if user_record.user_id == user.id
+            Base64.decode64(user_record.encrypted_file_key)
         else
-            user_record.share_keys.find_by(user_id: user_id)
+            Base64.decode64(user_record.share_keys.find_by(user_id: user_id))
         end
         return if encrypted_file_key.nil?
 
@@ -46,7 +46,7 @@ class FileDownloader
 
     def decrypt_file(password)
         # decrypt private key with password
-        private_key = OpenSSL::PKey::RSA.new(user.encrypted_private_key, password)
+        private_key = OpenSSL::PKey::RSA.new(Base64.decode64(user.encrypted_private_key), password)
         file_key = private_key.private_decrypt(encrypted_file_key)
 
         # decrypt cipher_key and cipher_iv with decrypted file key
