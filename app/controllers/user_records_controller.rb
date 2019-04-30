@@ -4,6 +4,17 @@ class UserRecordsController < ApplicationController
     end
 
     def show
-        @user_record = UserRecord.find(params[:id]).read_file(current_user.id)
+        @user_record = UserRecord.where(id: params[:id]).includes(:user).first
+    end
+
+    def view
+        user_record = UserRecord.find(params[:id])
+        @output = user_record.read_file(current_user, user_record_params[:password])
+    end
+    
+    private
+    
+    def user_record_params
+        params.require(:user_record).permit(:password)
     end
 end

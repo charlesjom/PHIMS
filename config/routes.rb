@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   resources :medical_histories, except: [:show]
   resources :personal_data, except: [:show]
   resources :users, only: [:show]
-  resources :user_records, only: [:show]
+  resources :user_records, only: [:show] do
+    member do
+      post :view
+    end
+  end
 
 end
