@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   end
 
   get 'user/me', to: 'users#show'
-  resources :medical_histories
-  resources :personal_data
+  resources :medical_histories, except: [:show]
+  resources :personal_data, except: [:show]
   resources :users, only: [:show]
+  resources :user_records, only: [:show]
 
 end

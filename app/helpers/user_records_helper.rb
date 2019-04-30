@@ -1,2 +1,2 @@
-module RecordsHelper
+module UserRecordsHelper
 end

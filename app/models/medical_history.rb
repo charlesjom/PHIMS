@@ -7,7 +7,7 @@ class MedicalHistory
     include HasManageableFile
 
     attr_accessor :allergies, :health_conditions, :medications, :vaccinations, :owner_id
-    attr_reader :errors
+    attr_accessor :errors
 
     ## Associations with other models
     ## TODO: need to fix association with user
@@ -18,12 +18,17 @@ class MedicalHistory
         attributes.each do |name, value|
             send("#{name}=", value)
         end
+        @errors = []
     end
 
     def save
         # TODO: validation goes here
+        # validate
         run_callbacks :save
     end
+
+    # def validate
+    # end
 
     def allergies_attributes=(attributes)
         @allergies ||= []

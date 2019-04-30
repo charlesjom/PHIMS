@@ -12,13 +12,4 @@ module HasManageableFile
         uploader.process
         return
     end
-
-    def read_file
-        # TODO: get file_key and object_key
-        # current_user.user_records.where()
-        # downloader = FileDownloader.new(object_key, file_key)
-        
-        # output_file = downloader.process
-        return
-    end
 end
