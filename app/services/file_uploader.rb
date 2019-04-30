@@ -20,7 +20,7 @@ class FileUploader
         Rails.logger.info "[FileUploader] Encrypting PHR file"
         # encrypt file_key using the owner's public_key
         owner_public_key = OpenSSL::PKey::RSA.new(owner.public_key)
-        encrypted_file_key = owner_public_key.public_encrypt(file_key)
+        encrypted_file_key = Base64.encode64(owner_public_key.public_encrypt(file_key))
         # delete file_key after encryption
         file_key = nil
         object_type = object.class.to_s
