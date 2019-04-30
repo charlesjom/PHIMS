@@ -54,6 +54,7 @@ gem 'awesome_print'
 gem 'simple_form'
 gem "bulma-rails", "~> 0.7.4"
 gem 'httplog'
+gem "letter_opener"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -71,7 +72,6 @@ group :development do
   gem 'shog'
   gem 'ruby-debug-ide'
   gem 'debase'
-  gem "letter_opener"
 end
 
 group :test do
