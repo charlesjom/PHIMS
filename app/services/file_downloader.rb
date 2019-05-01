@@ -2,8 +2,8 @@ require 'tempfile'
 require "openssl"
 
 class FileDownloader
-    attr_reader :user_record, :errors, :user
-
+    attr_reader :user_record, :errors, :user, :encrypted_file_key
+    
     def initialize(user_record = nil, user = nil)
         @user_record = user_record
         @user = user
@@ -16,7 +16,7 @@ class FileDownloader
         # if owner of user record is the one downloading the file,
         # then use encrypted_file_key of user record
         # else, use share key of user for that user record
-        encrypted_file_key = if user_record.user_id == user.id
+        @encrypted_file_key = if user_record.user_id == user.id
             Base64.decode64(user_record.encrypted_file_key)
         else
             Base64.decode64(user_record.share_keys.find_by(user_id: user_id))
@@ -35,7 +35,8 @@ class FileDownloader
         # PdfGenerator.new(object)
         # return PDF file
     rescue => e
-        Rails.logger.info "[FileDownloader] Error: #{e.message}"
+        errors << "[FileDownloader] Error: #{e.message}"
+        Rails.logger.error "[FileDownloader] Error: #{e.message}"
     end
 
     private
@@ -45,6 +46,7 @@ class FileDownloader
     end
 
     def decrypt_file(password)
+        Rails.logger.info "[FileDownloader] Decrypting file"
         # decrypt private key with password
         private_key = OpenSSL::PKey::RSA.new(Base64.decode64(user.encrypted_private_key), password)
         file_key = private_key.private_decrypt(encrypted_file_key)
@@ -61,17 +63,13 @@ class FileDownloader
         cipher.iv = crypt.decrypt_and_verify(user_record.encrypted_cipher_iv)
 
         # download file
-        encrypted_file = user_record.file.download_blob_to_tempfile()
-        encrypted_data = encrypted_file.read
-        encrypted_file.close
+        encrypted_data = user_record.file.download
 
         decrypted_data = cipher.update(encrypted_data)
         decrypted_data << cipher.final
     rescue => e
-        Rails.logger.error "[FileDownloader] Error encountered while decrypting. #{e.message}"
-        errors << "[FileDownloader] Error encountered while decrypting. #{e.message}"
-    ensure
-        encrypted_file.close! if encrypted_file.present?
+        Rails.logger.error "[FileDownloader] Error encountered while decrypting. Error: #{e.message}"
+        errors << "[FileDownloader] Error encountered while decrypting. Error: #{e.message}"
     end
 
 end
