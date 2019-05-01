@@ -13,10 +13,10 @@ Rails.application.routes.draw do
   end
 
   get 'user/me', to: 'users#show'
-  resources :medical_histories, except: [:show]
-  resources :personal_data, except: [:show]
+  resources :medical_histories, except: [:show, :destroy]
+  resources :personal_data, except: [:show, :destroy]
   resources :users, only: [:show]
-  resources :user_records, only: [:show] do
+  resources :user_records, only: [:show, :destroy] do
     member do
       post :view
     end
