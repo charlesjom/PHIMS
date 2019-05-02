@@ -88,4 +88,19 @@ Rails.application.configure do
 
   # Store files on Amazon S3.
   config.active_storage.service = :amazon
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.credentials[Rails.env.to_sym][:aws_ses][:address],
+    port:                 587,
+    user_name:            Rails.application.credentials[Rails.env.to_sym][:aws_ses][:username],
+    password:             Rails.application.credentials[Rails.env.to_sym][:aws_ses][:password],
+    authentication:       'login',
+    enable_starttls_auto: true
+  }
 end
