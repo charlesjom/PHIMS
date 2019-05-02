@@ -103,4 +103,6 @@ Rails.application.configure do
     authentication:       'login',
     enable_starttls_auto: true
   }
+
+  config.action_mailer.default_url_options = { host: 'https://phims.herokuapp.com', port: ENV['PORT'] || 3000 }
 end
