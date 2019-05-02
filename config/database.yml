@@ -83,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: phims_production
-  username: phims
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
