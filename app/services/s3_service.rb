@@ -3,8 +3,8 @@ class S3Service
 
     def initialize(opts = {})
         @s3 = Aws::S3::Client.new(
-            access_key_id: ENV['AWS_ACCESS_KEY_ID']
-            secret_access_key: ENV['AWS_SECRET_ACCESS_KEY_']
+            access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+            secret_access_key: ENV['AWS_SECRET_ACCESS_KEY_'],
             region: ENV['AWS_REGION']
         )
         @s3_bucket = fetch_bucket
