@@ -54,7 +54,6 @@ gem 'awesome_print'
 gem 'simple_form'
 gem "bulma-rails", "~> 0.7.4"
 gem 'httplog'
-gem "letter_opener"
 gem 'shog'
 
 group :development, :test do
@@ -72,6 +71,8 @@ group :development do
   gem 'solargraph'
   gem 'ruby-debug-ide'
   gem 'debase'
+  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :test do
