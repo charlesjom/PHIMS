@@ -56,6 +56,12 @@ gem "bulma-rails", "~> 0.7.4"
 gem 'httplog'
 gem 'shog'
 
+# For PDF generation
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+gem 'enumerize'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
