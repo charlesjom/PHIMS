@@ -20,17 +20,12 @@ class PersonalDataController < ApplicationController
     end
 
     def edit
-        @personal_data = current_user.personal_data
+        # @personal_data = current_user.personal_data
     end
 
     def update
-        @personal_data = current_user.personal_data
-        @personal_data.update(personal_data_params)
-    end
-
-    def destroy
-        @personal_data = current_user.personal_data
-        @personal_data.destroy
+        # @personal_data = current_user.personal_data
+        # @personal_data.update(personal_data_params)
     end
 
     private

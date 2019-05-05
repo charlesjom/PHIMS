@@ -24,20 +24,15 @@ class MedicalHistoriesController < ApplicationController
         # Retrieve record
         # Decrypt record
         # Create new @medical_history, and fill with details from retrieved record
-        @medical_history = current_user.medical_history
+        # @medical_history = current_user.medical_history
     end
 
     def update
         # TODO: Steps in updating
         # Create new file with updated values
         # Delete previous record or keep it (?)
-        @medical_history = current_user.medical_history
-        @medical_history.update(medical_history_params)
-    end
-
-    def destroy
-        @medical_history = current_user.medical_history
-        @medical_history.destroy
+        # @medical_history = current_user.medical_history
+        # @medical_history.update(medical_history_params)
     end
 
     private

@@ -5,11 +5,8 @@ class UserRecordsController < ApplicationController
         @user_records = current_user.user_records
     end
 
-    def show
-    end
-
     def view
-        @output = @user_record.read_file(current_user, user_record_params[:password])
+        output = @user_record.read_file(current_user, user_record_params[:password])
     end
 
     def destroy
