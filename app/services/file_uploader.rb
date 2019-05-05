@@ -23,13 +23,12 @@ class FileUploader
         encrypted_file_key = Base64.encode64(owner_public_key.public_encrypt(file_key))
         # delete file_key after encryption
         file_key = nil
-        object_type = object.class.to_s
+        object_type = object.class.to_s.underscore
         
         if File.exist?(file_name) && encrypted_file_key.present?
             Rails.logger.info "[FileUploader] PHR file creation and encryption succeeded"
 
             begin
-                file_to_attach = File.open(file_name)
                 ActiveRecord::Base.transaction do
                     # create a record model
                     owner_records = owner.user_records.create!(
@@ -39,6 +38,7 @@ class FileUploader
                         phr_type: object_type
                     )
                     # attach file to record model
+                    file_to_attach = File.open(file_name)
                     owner_records.file.attach(
                         io: file_to_attach,
                         filename: file_name
@@ -46,24 +46,22 @@ class FileUploader
                 end
             rescue ActiveRecord::ActiveRecordError => e
                 Rails.logger.error "[FileUploader] Encrypted PHR file was not saved. Error: #{e.message}"
+                Rails.logger.error e.backtrace.join("\n")
                 errors << "[FileUploader] Encrypted PHR file was not saved. Error: #{e.message}"
             ensure
-                # delete temporary file
-                if file_to_attach.present?
-                    file_to_attach.close
-                    # delete encrypted file
-                    File.delete(file_to_attach)
-                    Rails.logger.info "[FileUploader] Encrypted PHR file deleted"
-                end
+                # delete temporary encrypted file
+                File.delete(file_name)
+                Rails.logger.info "[FileUploader] Temporary PHR file was deleted"
             end
         else
             errors << "[FileUploader] PHR file creation and encryption failed"
             raise "[FileUploader] PHR file creation and encryption failed"
-            
+            return errors
         end
 
     rescue StandardError => e
         errors << "[FileUploader] Error: #{e.message}"
+        Rails.logger.error e.backtrace.join("\n")
         Rails.logger.error "[FileUploader] Error: #{e.message}"
     end
 
@@ -76,8 +74,7 @@ class FileUploader
         cipher_iv = cipher.random_iv
 
         File.open(file_name, "wb") do |outf|
-            content = cipher.update("#{object.class}")
-            content << cipher.update(object.to_json)
+            content = cipher.update(object.to_json)
             content << cipher.final
             outf.write(content)
         end
