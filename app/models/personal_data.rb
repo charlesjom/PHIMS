@@ -7,8 +7,8 @@ class PersonalData
 
     include HasManageableFile
 
-    attr_accessor :patient_demographics, :emergency_contacts, :insurances
-    attr_reader :errors
+    attr_accessor :patient_demographics, :emergency_contacts, :insurances, :owner_id
+    attr_accessor :errors
 
     ## Associations with other models
     ## TODO: need to fix association with user
@@ -28,7 +28,8 @@ class PersonalData
     
 
     def patient_demographics_attributes=(attributes)
-        @patient_demographics = PatientDemographics.new(patient_demographics_params)
+        patient_demographic_params = attributes.values.first
+        @patient_demographics = PatientDemographics.new(patient_demographic_params)
     end
 
     def emergency_contacts_attributes=(attributes)
@@ -40,7 +41,7 @@ class PersonalData
 
     def insurances_attributes=(attributes)
         @insurances ||= []
-        attributes.each do |i, insurances|
+        attributes.each do |i, insurance_params|
             @insurances.push(Insurance.new(insurance_params))
         end
     end
