@@ -55,12 +55,10 @@ gem 'simple_form'
 gem "bulma-rails", "~> 0.7.4"
 gem 'httplog'
 gem 'shog'
+gem 'enumerize'
 
 # For PDF generation
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
-
-gem 'enumerize'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -79,6 +77,7 @@ group :development do
   gem 'debase'
   gem 'letter_opener'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'wkhtmltopdf-binary-edge'
 end
 
 group :test do
@@ -87,6 +86,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+end
+
+group :production do
+  gem 'wkhtmltopdf-heroku'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
