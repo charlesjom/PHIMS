@@ -1,5 +1,5 @@
 - phr_type = user_record.phr_type
-%h2.text-center
+%h2.title.has-text-centered
     = "#{t("phr_types.#{phr_type}")} of #{user_record.user.fullname}"
 .box
     - if phr_type.present?

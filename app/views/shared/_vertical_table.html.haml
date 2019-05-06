@@ -1,0 +1,6 @@
+%table.table.is-bordered.is-fullwidth.is-striped
+    - section.each do |name, value|
+        %tr
+            %td.has-text-weight-bold
+                = t(name, scope: [:headers, type.to_sym, section.to_sym])
+            %td= value

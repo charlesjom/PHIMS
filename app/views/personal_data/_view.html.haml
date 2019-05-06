@@ -7,31 +7,14 @@
     %table.table.is-bordered.is-fullwidth.is-striped
         - personal_demographics.each do |name, value|
             %tr
-                %td= t(name, scope: [:headers, :personal_data, :personal_demographics])
+                %td.has-text-weight-bold
+                    = t(name, scope: [:headers, :personal_data, :personal_demographics])
                 %td= value
 
 - if insurances.present?
     %h3= "#{t(:insurance, scope: [:headers, :personal_data, :sections])}".pluralize(insurances.size)
-    %table.table.is-bordered.is-fullwidth.is-striped
-        %th
-            - headers = insurances.first.keys
-            %tr
-                - headers.each do |header|
-                    %td= t(header, scope: [:headers, :personal_data, :insurance])
-        - insurances.each do |insurance|
-            %tr
-                - insurance.each do |key, value|
-                    %td= value
+    = render 'shared/horizontal_table', hashes: insurances, type: 'personal_data', section: 'insurance'
 
 - if emergency_contacts.present?
     %h3= "#{t(:emergency_contact, scope: [:headers, :personal_data, :sections])}".pluralize(emergency_contacts.size)
-    %table.table.is-bordered.is-fullwidth.is-striped
-        %th
-            - headers = emergency_contacts.first.keys
-            %tr
-                - headers.each do |header|
-                    %td= t(header, scope: [:headers, :personal_data, :emergency_contact])
-        - emergency_contacts.each do |emergency_contact|
-            %tr
-                - emergency_contact.each do |key, value|
-                    %td= value
+    = render 'shared/horizontal_table', hashes: emergency_contacts, type: 'personal_data', section: 'emergency_contact'

@@ -19,11 +19,10 @@ class PdfGenerator
         pdf = WickedPdf.new.pdf_from_string(
             view.render(
                 pdf: file_name,
+                layout: 'layouts/pdf',
                 template: 'user_records/view.html.haml',
-                layouts: 'views/layouts/pdf.html.haml',
                 locals: { content: object, user_record: user_record },
                 zoom: 1.0,
-                header: {right: '[page] of [topage]'}
             )
         )
 

@@ -49,7 +49,7 @@ en:
         birthdate_of_insured: "Birthdate of Insured"
         relationship_of_beneficiary_to_insured: Relationship of Beneficiary to Insured
         telephone_number: "Telephone Number of Provider"
-      personal_demorgraphics:
+      personal_demographics:
         birthdate: "Birthdate"
         sex: "Sex"
         civil_status: "Civil Status"
