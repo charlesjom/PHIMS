@@ -1,15 +1,15 @@
 .container.is-fluid
 	%h2.title.text-center New Personal Data
-	= simple_form_for @personal_data, url: personal_data_path do |f|
-		%span Patient Demographics
-		= f.simple_fields_for :patient_demographics do |p|
+	= simple_form_for @personal_data, url: personal_data_index_path do |f|
+		%span Personal Demographics
+		= f.simple_fields_for :personal_demographics do |p|
 			= p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
-			= p.input :sex, as: :radio_buttons, collection: PatientDemographics::SEX_CHOICES, item_label_class: 'radio'
-			= p.input :civil_status, as: :radio_buttons, collection: PatientDemographics::CIVIL_STATUS_CHOICES, label: 'Civil Status', item_label_class: 'radio'
+			= p.input :sex, as: :radio_buttons, collection: PersonalDemographics::SEX_CHOICES, item_label_class: 'radio'
+			= p.input :civil_status, as: :radio_buttons, collection: PersonalDemographics::CIVIL_STATUS_CHOICES, label: 'Civil Status', item_label_class: 'radio'
 			= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
 			= p.input :height_in_cm, as: :integer, label: 'Height (in cm)'
-			= p.input :abo_blood_type, as: :radio_buttons, collection: PatientDemographics::ABO_BLOOD_TYPES, label: 'ABO Blood Type', item_label_class: 'radio'
-			= p.input :rh_blood_type, as: :radio_buttons, collection: PatientDemographics::RH_BLOOD_TYPES, label: 'RH Blood Type', item_label_class: 'radio'
+			= p.input :abo_blood_type, as: :radio_buttons, collection: PersonalDemographics::ABO_BLOOD_TYPES, label: 'ABO Blood Type', item_label_class: 'radio'
+			= p.input :rh_blood_type, as: :radio_buttons, collection: PersonalDemographics::RH_BLOOD_TYPES, label: 'RH Blood Type', item_label_class: 'radio'
 		%span Emergency Contacts
 		= f.simple_fields_for :emergency_contacts do |e|
 			= e.input :first_name

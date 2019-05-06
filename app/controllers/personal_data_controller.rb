@@ -5,16 +5,16 @@ class PersonalDataController < ApplicationController
     end
 
     def new
-        @personal_data = PersonalData.new(patient_demographics: [PatientDemographics.new], emergency_contacts: [EmergencyContact.new], insurances: [Insurance.new])
+        @personal_data = PersonalData.new(personal_demographics: [PersonalDemographics.new], emergency_contacts: [EmergencyContact.new], insurances: [Insurance.new])
     end
     
     def create
         params[:personal_data].merge!({owner_id: current_user.id})
         @personal_data = PersonalData.new(personal_data_params)
         if @personal_data.save
-            redirect_to personal_data_path
+            redirect_to personal_data_index_path
         else
-            redirect_back fallback_location: new_user_personal_data_path(current_user)
+            redirect_back fallback_location: new_user_personal_data_index_path(current_user)
             # return error
         end
     end
@@ -32,7 +32,7 @@ class PersonalDataController < ApplicationController
 
     def personal_data_params
         params.require(:personal_data).permit(:owner_id,
-            patient_demographics_attributes: [:birthdate, :sex, :civil_status, :weight_in_kg, :height_in_cm, :abo_blood_type, :rh_blood_type],
+            personal_demographics_attributes: [:birthdate, :sex, :civil_status, :weight_in_kg, :height_in_cm, :abo_blood_type, :rh_blood_type],
             emergency_contacts_attributes: [:first_name, :middle_name, :last_name, :cellphone_number, :address, :relationship],
             insurances_attributes: [:provider_name, :id_number, :valid_until, :name_of_insured, :birthdate_of_insured, :relationship_of_beneficiary_to_insured, :telephone_number]
         )

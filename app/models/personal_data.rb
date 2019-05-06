@@ -7,7 +7,7 @@ class PersonalData
 
     include HasManageableFile
 
-    attr_accessor :patient_demographics, :emergency_contacts, :insurances, :owner_id
+    attr_accessor :personal_demographics, :emergency_contacts, :insurances, :owner_id
     attr_accessor :errors
 
     ## Associations with other models
@@ -27,9 +27,9 @@ class PersonalData
     end
     
 
-    def patient_demographics_attributes=(attributes)
+    def personal_demographics_attributes=(attributes)
         patient_demographic_params = attributes.values.first
-        @patient_demographics = PatientDemographics.new(patient_demographic_params)
+        @personal_demographics = PersonalDemographics.new(patient_demographic_params)
     end
 
     def emergency_contacts_attributes=(attributes)
