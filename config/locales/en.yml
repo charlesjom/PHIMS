@@ -33,3 +33,41 @@ en:
   phr_types:
     medical_history: "Medical History"
     personal_data: "Personal Data"
+  headers:
+    personal_data:
+      sections:
+        emergency_contact: "Emergency Contact"
+        insurance: "Insurance"
+        personal_demographics: "Personal Demographics"
+      emergency_contact:
+        first_name: "First Name"
+      insurance:
+        provider_name: "Provider Name"
+        id_number: "ID Number"
+        valid_until: "Valid Until"
+        name_of_insured: "Name of Insured"
+        birthdate_of_insured: "Birthdate of Insured"
+        relationship_of_beneficiary_to_insured: Relationship of Beneficiary to Insured
+        telephone_number: "Telephone Number of Provider"
+      personal_demorgraphics:
+        birthdate: "Birthdate"
+        sex: "Sex"
+        civil_status: "Civil Status"
+        weight_in_kg: "Weight (in kg)"
+        height_in_cm: "Height (in cm)"
+        abo_blood_type: "ABO Blood Type"
+        rh_blood_type: "RH Blood Type"
+    medical_history:
+      sections:
+        allergy: "Allergy"
+        health_condition: "Health Condition"
+        medication: "Medication"
+        vaccination: "Vaccination"
+      allergy:
+        allergen: "Allergen"
+      health_condition:
+        name_of_condition: "Name of Condition"
+      medication:
+        medicine_name: "Medicine Name"
+      vaccination:
+        target_disease: "Target Disease"
