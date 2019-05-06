@@ -77,7 +77,7 @@ group :development do
   gem 'debase'
   gem 'letter_opener'
   gem 'letter_opener_web', '~> 1.0'
-  gem 'wkhtmltopdf-binary-edge'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.4.0'
 end
 
 group :test do

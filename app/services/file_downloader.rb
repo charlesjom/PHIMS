@@ -25,15 +25,15 @@ class FileDownloader
 
         decrypted_data = decrypt_file(password, encrypted_file_key)
 
-        # TODO: resolve to an object
         # read type based on file
-        # type = 
-        # @object = {type.constantize}.new()
+        type = user_record.phr_type
+        object = type.classify.constantize.new
+        object.from_json(decrypted_data)
 
         # TODO: should return a PDF file
         # Create service to transform serialized hash to PDF
-        # PdfGenerator.new(object)
-        # return PDF file
+        pdf_generator = PdfGenerator.new(object, user_record)
+        pdf_generator.process   # return PDF file
     rescue => e
         errors << "[FileDownloader] Error: #{e.message}"
         Rails.logger.error "[FileDownloader] Error: #{e.message}"

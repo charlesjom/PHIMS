@@ -7,6 +7,7 @@ class UserRecordsController < ApplicationController
 
     def view
         output = @user_record.read_file(current_user, user_record_params[:password])
+        send_file(output, type: 'application/pdf', disposition: 'inline')
     end
 
     def destroy
