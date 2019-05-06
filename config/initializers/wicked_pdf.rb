@@ -8,14 +8,15 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-WickedPdf.config = {
+WickedPdf.config ||= {}
+WickedPdf.config.merge!({
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
   # exe_path: '/usr/local/bin/wkhtmltopdf',
   #   or
-  exe_path: (Rails.env.production? ? '/usr/local/bin/wkhtmltopdf' : `which wkhtmltopdf`)
+  # exe_path: (Rails.env.production? ? '/usr/local/bin/wkhtmltopdf' : `which wkhtmltopdf`),
 
   # Layout file to be used for all PDFs
   # (but can be overridden in `render :pdf` calls)
   layout: 'layouts/pdf'
-}
+})
