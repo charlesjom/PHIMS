@@ -1,4 +1,10 @@
 - if user_signed_in?
 	.navbar
-		.container
-			= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+		.navbar-brand
+			= link_to "PHIMS", authenticated_root_path, class: 'navbar-item'
+		.navbar-menu
+			.navbar-start
+				= link_to "Medical History", medical_histories_path, class: 'navbar-item'
+				= link_to "Personal Data", personal_data_index_path, class: 'navbar-item'
+			.navbar-end
+				= link_to "Logout", destroy_user_session_path, method: :delete, class: 'navbar-item button is-danger'
