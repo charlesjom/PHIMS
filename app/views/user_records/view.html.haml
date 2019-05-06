@@ -1,1 +1,8 @@
-= @output
+- phr_type = user_record.phr_type
+%h2.text-center
+    = "#{t("phr_types.#{phr_type}")} of #{user_record.user.fullname}"
+.box
+    - if phr_type.present?
+        = render "#{phr_type.pluralize}/view", content: content
+    - else
+        = render 'invalid', content: content
