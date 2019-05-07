@@ -4,14 +4,14 @@
 - vaccinations = content.vaccinations
 
 - if allergies.present?
-    %h3= t(:allergies, scope: [:headers, :medical_history, :sections])
+    %h3= t(:allergy, scope: [:headers, :medical_history, :sections])
     = render 'shared/horizontal_table', hashes: allergies, type: 'medical_history', section: 'allergy'
 - if health_conditions.present?
-    %h3= t(:health_conditions, scope: [:headers, :medical_history, :sections])
+    %h3= t(:health_condition, scope: [:headers, :medical_history, :sections])
     = render 'shared/horizontal_table', hashes: health_conditions, type: 'medical_history', section: 'health_condition'
 - if medications.present?
-    %h3= t(:medications, scope: [:headers, :medical_history, :sections])
+    %h3= t(:medication, scope: [:headers, :medical_history, :sections])
     = render 'shared/horizontal_table', hashes: medications, type: 'medical_history', section: 'medication'
 - if vaccinations.present?
-    %h3= t(:vaccinations, scope: [:headers, :medical_history, :sections])
+    %h3= t(:vaccination, scope: [:headers, :medical_history, :sections])
     = render 'shared/horizontal_table', hashes: vaccinations, type: 'medical_history', section: 'vaccination'
