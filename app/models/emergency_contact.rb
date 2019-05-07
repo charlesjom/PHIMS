@@ -3,7 +3,8 @@ class EmergencyContact
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
     
-    attr_accessor :first_name, :middle_name, :last_name, :telephone_number, :cellphone_number, :address, :relationship
+    ATTRIBUTES = [:first_name, :middle_name, :last_name, :telephone_number, :cellphone_number, :address, :relationship]
+    attr_accessor(*ATTRIBUTES)
 
     # validators for each attributes
     validates_presence_of :first_name, :middle_name, :last_name, :relationship
