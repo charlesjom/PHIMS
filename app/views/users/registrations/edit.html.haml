@@ -1,48 +1,59 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label "First_Name"
-    = f.text_field :first_name, autofocus: true, placeholder: "First Name", required: true
-  .field
-    = f.label "Middle Name"
-    = f.text_field :middle_name, placeholder: "Middle Name", required: true
-  .field
-    = f.label "Last Name"
-    = f.text_field :last_name, placeholder: "Last Name", required: true
-  .field
-    = f.label "Username"
-    = f.text_field :username, placeholder: "Username", required: true
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autocomplete: "email"
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-    - if @minimum_password_length
-      %br/
-      %em
-        = @minimum_password_length
-        characters minimum
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "current-password"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.devise-container
+  .level.floating-parent
+    .level-left.floating
+      = link_to :back, class: 'is-pulled-left button is-small' do
+        %span.icon
+          %i.fas.fa-arrow-left
+        %span Back
+    .level-item
+      %h2.text-center Edit #{resource_name.to_s.humanize}
+    
+  .box
+    = render "users/shared/error_messages", resource: resource
+    
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .field
+        = f.label :first_name, "First Name"
+        .control
+          = f.text_field :first_name, autofocus: true, placeholder: "First Name", required: true, class: 'input'
+      .field
+        = f.label "Middle Name"
+        .control
+          = f.text_field :middle_name, placeholder: "Middle Name", required: true, class: 'input'
+      .field
+        = f.label "Last Name"
+        .control
+          = f.text_field :last_name, placeholder: "Last Name", required: true, class: 'input'
+      .field
+        = f.label "Username"
+        .control
+          = f.text_field :username, placeholder: "Username", required: true, class: 'input'
+      .field
+        = f.label :email, "Email Address"
+        .control
+          = f.email_field :email, autocomplete: "email", class: 'input'
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .field
+        = f.label :password
+        %i (leave blank if you don't want to change it)
+        .control
+          = f.password_field :password, autocomplete: "new-password", class: 'input'
+        - if @minimum_password_length
+          %p.help
+            #{@minimum_password_length} characters minimum
+      .field
+        = f.label :password_confirmation
+        .control
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'
+      .field
+        = f.label :current_password
+        %i (we need your current password to confirm your changes)
+        .control
+          = f.password_field :current_password, autocomplete: "current-password", class: 'input'
+      .field
+        .control.has-text-centered
+        = f.submit "Update", class: 'button is-primary is-fullwidth'
+    
+    = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button is-danger is-fullwidth'
