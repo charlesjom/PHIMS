@@ -1,0 +1,9 @@
+%tr
+    = f.simple_fields_for :insurances, wrapper: :no_label do |i|
+        %td= i.input :provider_name
+        %td= i.input :id_number
+        %td= i.input :valid_until
+        %td= i.input :name_of_insured
+        %td= i.input :birthdate_of_insured
+        %td= i.input :relationship_of_beneficiary_to_insured
+        %td= i.input :telephone_number

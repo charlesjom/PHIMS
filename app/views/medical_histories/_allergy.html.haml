@@ -1,0 +1,5 @@
+%tr
+    = f.simple_fields_for :allergies, wrapper: :no_label do |a| 
+        %td= a.input :allergen
+        %td= a.input :symptoms
+        %td= a.input :medications

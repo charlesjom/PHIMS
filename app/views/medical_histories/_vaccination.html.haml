@@ -1,0 +1,4 @@
+%tr
+    = f.simple_fields_for :vaccinations, wrapper: :no_label do |v|
+        %td= v.input :target_disease
+        %td= v.input :date_administered, as: :date, html5: true

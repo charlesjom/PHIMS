@@ -1,0 +1,5 @@
+%tr
+    = f.simple_fields_for :health_conditions, wrapper: :no_label do |h|
+        %td= h.input :name_of_condition
+        %td= h.input :date_of_diagnosis, as: :date, html5: true
+        %td= h.input :date_of_last_checkup, as: :date, html5: true

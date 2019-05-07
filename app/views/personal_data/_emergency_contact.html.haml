@@ -1,0 +1,9 @@
+%tr
+    = f.simple_fields_for :emergency_contacts, wrapper: :no_label do |e|
+        %td= e.input :first_name
+        %td= e.input :middle_name
+        %td= e.input :last_name
+        %td= e.input :telephone_number
+        %td= e.input :cellphone_number
+        %td= e.input :address
+        %td= e.input :relationship
