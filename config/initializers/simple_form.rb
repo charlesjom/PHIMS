@@ -13,7 +13,7 @@ SimpleForm.setup do |config|
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :default, class: ['field', 'is-horizontal'],
+  config.wrappers :default, class: ['field'],
     hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
@@ -79,6 +79,43 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: :span, class: :help }
     b.use :error, wrap_with: { tag: :span, class: :error }
 
+  end
+
+  config.wrappers :horizontal_field_expanded, class: ['field', 'is-horizontal'],
+    hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
+    
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    
+    b.use :label, wrap_with: { class: 'field-label' }
+    b.wrapper tag: :div, class: 'field-body' do |ba|
+      ba.wrapper tag: :div, class: 'field' do |bb|
+        bb.use :input, class: 'input', wrap_with: { class: 'control is-expanded' }
+      end
+    end
+    b.use :hint,  wrap_with: { tag: :span, class: :help }
+    b.use :error, wrap_with: { tag: :span, class: :error }
+  end
+
+  config.wrappers :no_label, class: ['field', 'is-horizontal'],
+    hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
+    
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+
+    b.use :input, wrap_with: { class: 'field-body' }
+    b.use :hint,  wrap_with: { tag: :span, class: :help } 
+    b.use :error, wrap_with: { tag: :span, class: :error }
   end
 
   # The default wrapper to be used by the FormBuilder.

@@ -65,9 +65,20 @@ en:
         vaccination: "Vaccination"
       allergy:
         allergen: "Allergen"
+        symptoms: "Symptoms"
+        medications: "Medications"
       health_condition:
         name_of_condition: "Name of Condition"
+        date_of_diagnosis: "Date of Diagnosis"
+        date_of_last_checkup: "Date of Last Checkup"
       medication:
         medicine_name: "Medicine Name"
+        dosage_amount_value: "Dosage Amount Value"
+        dosage_amount_unit: "Dosage Amount Unit"
+        dosage_frequency_value: "Dosage Frequency Value"
+        dosage_frequency_unit: "Dosage Frequency Unit"
+        frequency: "Frequency"
+        still_active: "Still Active?"
       vaccination:
         target_disease: "Target Disease"
+        date_administered: "Date Administered"
