@@ -96,11 +96,11 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              Rails.application.credentials[:production][:aws_ses][:address],
+    address:              Rails.application.credentials[:production][:gmail][:address],
     port:                 587,
-    user_name:            Rails.application.credentials[:production][:aws_ses][:username],
-    password:             Rails.application.credentials[:production][:aws_ses][:password],
-    authentication:       'login',
+    user_name:            Rails.application.credentials[:production][:gmail][:username],
+    password:             Rails.application.credentials[:production][:gmail][:password],
+    authentication:       'plain',
     enable_starttls_auto: true
   }
 
