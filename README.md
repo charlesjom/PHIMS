@@ -11,7 +11,10 @@ This application requires the following to be installed in your system
   `git clone https://github.com/charlesjom/PHIMS.git`
 2. Go to the directory of the repository
   `cd PHIMS`
-3. Run `rails s` to run the server on your machine (default IP address is 0.0.0.0 or localhost, default port is 3000).
+3. Run `bundle install`
+4. Run `gem install mailcatcher`
+5. Run `mailcatcher`
+5. Run `rails s` to run the server on your machine (default IP address is 0.0.0.0 or localhost, default port is 3000).
   Run `rails s -b <your_ip_address> [-p <port_number>]` to make it available to your local network.
 
 ## Credits
