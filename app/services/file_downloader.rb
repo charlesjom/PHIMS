@@ -10,8 +10,8 @@ class FileDownloader
         @errors = []
     end
 
-    def process(password)
-        return if user_record.nil? || user.nil?
+    def process(password = nil)
+        return if user_record.nil? || user.nil? || password.nil?
         
         # if owner of user record is the one downloading the file,
         # then use encrypted_file_key of user record
