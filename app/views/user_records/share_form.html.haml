@@ -1,0 +1,12 @@
+.container
+    %h2.title.text-center
+        = "Share #{t("phr_types.#{@user_record.phr_type}")}"
+    = form_tag share_user_record_path(@user_record), method: :post do
+        .field
+            = label :share_recipient, :share_recipient, 'Recipient'
+            = text_field_tag 'user_record[share_recipient]', nil, class: 'input', placeholder: 'Enter email address of recipient (that has a confirmed account)'
+        .field
+            = label :password, :password, 'Password'
+            = password_field_tag 'user_record[password]', nil, class: 'input', placeholder: 'Enter password to share record'
+        .field
+            = submit_tag 'Submit', class: 'button is-link'

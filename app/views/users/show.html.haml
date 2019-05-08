@@ -20,6 +20,7 @@
                                 - if record.user_id == current_user.id && record.phr_type.present?
                                     = link_to 'Edit', eval("edit_#{record.phr_type}_path(record.id)")
                                     = link_to 'Delete', user_record_path(record), title: 'Delete User Record', remote: true, method: :delete, data: {confirm_message: "Are you sure you want to delete this user record?"}
+                                    = link_to 'Share', share_form_user_record_path(record)
         - else
             %h3.text-center No Records Yet
                 
