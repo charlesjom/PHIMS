@@ -1,12 +1,10 @@
 - headers = hashes.first.keys
 %table.table.is-bordered.is-fullwidth.is-striped
-    %th
+    %tr
+        - headers.each do |header|
+            %th.has-text-weight-bold.has-text-centered
+                = t(header, scope: [:headers, type.to_sym, section.to_sym])
+    - hashes.each do |hash|
         %tr
-            - headers.each do |header|
-                %td.has-text-weight-bold
-                    = t(header, scope: [:headers, type.to_sym, section.to_sym])
-        %tbody
-            - hashes.each do |hash|
-                %tr
-                    - hash.each do |key, value|
-                        %td= value
+            - hash.each do |key, value|
+                %td= value
