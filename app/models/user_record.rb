@@ -21,9 +21,9 @@ class UserRecord < ApplicationRecord
     def share_file(owner = nil, args = {})
         return false if owner.nil?
         password = args[:password]
-        recipient = args[:recipient]
-        return false if password.nil? || recipient.nil?
-        sharer = FileSharer.new(self, owner, recipient)
+        share_recipient = args[:share_recipient]
+        return false if password.nil? || share_recipient.nil?
+        sharer = FileSharer.new(self, owner, share_recipient)
         status = sharer.process(password)
         return status
     end

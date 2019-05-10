@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :user_records, only: [:index, :show, :edit, :update, :destroy] do
     member do
       post :view
+      post :share
+      get :share_form
     end
   end
 

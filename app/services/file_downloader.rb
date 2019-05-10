@@ -19,7 +19,7 @@ class FileDownloader
         encrypted_file_key = if user_record.user_id == user.id
             Base64.decode64(user_record.encrypted_file_key)
         else
-            Base64.decode64(user_record.share_keys.find_by(user_id: user_id))
+            Base64.decode64(user_record.share_keys.find_by(user_id: user.id).share_key)
         end
         return if encrypted_file_key.nil?
 
