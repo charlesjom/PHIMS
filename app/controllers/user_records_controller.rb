@@ -2,7 +2,8 @@ class UserRecordsController < ApplicationController
     before_action :set_user_record, only: [:show, :view, :destroy, :share, :share_form]
 
     def index
-        @user_records = current_user.user_records
+        @user_records = current_user.user_records.to_a || []
+        (@user_records << current_user.records_with_access.to_a).flatten!
     end
 
     def view

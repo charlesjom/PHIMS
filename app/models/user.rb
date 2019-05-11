@@ -25,6 +25,11 @@ class User < ApplicationRecord
     "#{first_name} #{middle_name} #{last_name}"
   end
 
+  def records_with_access
+    ids = share_keys.pluck(:user_record_id)
+    UserRecord.where(id: ids)
+  end
+
   private
 
   def generate_identifier

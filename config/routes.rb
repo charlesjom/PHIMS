@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root 'users#show', as: :authenticated_root
+      root 'user_records#index'
     end
 
     unauthenticated do
