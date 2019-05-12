@@ -1,9 +1,11 @@
-.container
-    %h2.title.text-center
-        = "#{t("phr_types.#{@user_record.phr_type}")} of #{@user_record.user.fullname}"
-    = form_tag view_user_record_path(@user_record), method: :post do
-        .field
-            = label :password, :password, 'Enter password to view record'
-            = password_field_tag 'user_record[password]', nil, class: 'input'
-        .field
-            = submit_tag 'Submit', class: 'button is-link'
+.six.wide.column
+    .centered.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.page.header.center.aligned
+                = "#{t("phr_types.#{@user_record.phr_type}")} of #{@user_record.user.fullname}"
+            = form_tag view_user_record_path(@user_record), method: :post, class: 'ui form' do
+                .field
+                    = label :password, :password, 'Enter password to view record'
+                    = password_field_tag 'user_record[password]', nil
+                .field
+                    = submit_tag 'Submit', class: 'ui primary button fluid'
