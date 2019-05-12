@@ -15,7 +15,3 @@
 //= require jquery
 //= require semantic-ui
 //= require_tree .
-
-$(document).ready(function(){
-    $('.tabular.menu .item').tab();
-});

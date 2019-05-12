@@ -1,10 +1,12 @@
-.ui.middle.aligned.center.aligned.row
-    .column
-        .ui.page.header.center.aligned All Records
-        = link_to 'New Medical History', new_medical_history_path, class: 'ui button'
-        = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
-        
-        - if @user_records.any?
-            = render 'shared/items', user_records: @user_records
-        - else
-            = render 'shared/empty_records'
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.huge.header.center.aligned All Records
+            = link_to 'New Medical History', new_medical_history_path, class: 'ui button'
+            = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
+            = link_to 'Edit Profile', edit_user_registration_path, class: 'ui button'
+            
+            - if @user_records.any?
+                = render 'shared/items', user_records: @user_records
+            - else
+                = render 'shared/empty_records'

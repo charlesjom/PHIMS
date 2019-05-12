@@ -1,11 +1,22 @@
 .ui.segment
-    .fields
-        = f.simple_fields_for :medications do |m|
+    = f.simple_fields_for :medications do |m|
+        .inline.fields
             = m.input :medicine_name
-            = m.input :dosage_dose_amount 
-            = m.input :dosage_dose_unit 
-            = m.input :dosage_frequency_value
-            = m.input :dosage_frequency_unit
-            = m.input :dosage_duration_value
-            = m.input :dosage_duration_unit
-            = m.input :still_active, as: :boolean, checked_value: true, unchecked_value: false
+            = m.input :still_active, as: :boolean
+        .fields
+            .inline.field
+                %label Dose
+                .fields
+                    = m.input :dosage_dose_amount, as: :integer, placeholder: 'Amount', label: false
+                    = m.input :dosage_dose_unit, as: :select, placeholder: 'Unit', label: false, collection: Medication::DOSE_UNITS, prompt: 'Select unit'
+            .inline.field
+                %label Frequency
+                .fields
+                    = m.input :dosage_frequency_value, as: :integer, placeholder: 'Value', label: false
+                    = m.input :dosage_frequency_unit, as: :select, label: false, collection: Medication::FREQUENCY_UNITS, prompt: 'Select unit'
+            .inline.field
+                %label Duration
+                .fields
+                    = m.input :dosage_duration_value, as: :integer, placeholder: 'Value', label: false
+                    = m.input :dosage_duration_unit, as: :select, label: false, collection: Medication::DURATION_UNITS, prompt: 'Select unit'
+        
