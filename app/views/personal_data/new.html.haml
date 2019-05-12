@@ -1,5 +1,5 @@
 .container.column
-	%h2.title.text-center New Personal Data
+	.ui.page.header.center.aligned New Personal Data
 	= simple_form_for @personal_data, url: personal_data_index_path do |f|
 		.ui.three.item.tabular.menu
 			= tag.div class: 'active item', data: { tab: 'personal-demographics' } do
@@ -30,7 +30,6 @@
 			.ui.dividing.header Emergency Contacts
 			= render 'shared/add_button', type: 'personal_data', object: 'emergency_contact'
 			#emergency-contacts
-				= render 'emergency_contact', f: f
 		
 		.ui.tab{data: {tab: 'insurances'}}
 			.ui.dividing.header Insurances

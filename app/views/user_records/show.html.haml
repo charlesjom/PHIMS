@@ -1,7 +1,7 @@
-.six.wide.column
+.eight.wide.column
     .centered.aligned.row
         .ui.vertical.center.aligned.segment
-            .ui.page.header.center.aligned
+            .ui.huge.header.center.aligned
                 = "#{t("phr_types.#{@user_record.phr_type}")} of #{@user_record.user.fullname}"
             = form_tag view_user_record_path(@user_record), method: :post, class: 'ui form' do
                 .field
