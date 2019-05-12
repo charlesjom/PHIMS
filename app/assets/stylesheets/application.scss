@@ -14,7 +14,7 @@
  *= require_self
  */
 
- @import "bulma";
+ @import "semantic-ui";
 
 // Elements
 
@@ -26,6 +26,10 @@ html {
 body {
     margin: 0;
     height: 100%;
+}
+
+textarea {
+    resize: none;
 }
 
 // Layout
@@ -76,10 +80,20 @@ body {
     margin: auto;
 }
 
+.floating-parent {
+    position: relative;
+}
+
+.floating {
+    position: absolute;
+    z-index: 1;
+}
+
 // Flash message notification
 .flash-container, .error-container {
     width: 30%;
     margin: auto;
+    z-index: 1;
 }
 
 // Text and background colors
@@ -105,11 +119,14 @@ label {
     max-width: 100%;
 }
 
-// Containers related to user account management
+
+.column {
+    margin: auto !important;
+}
 
 .devise-container {
-    width: 35%;
-    margin: auto;
+    width: 70%;
+    margin: auto !important;
 }
 
 // Error pages

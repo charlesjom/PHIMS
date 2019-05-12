@@ -3,7 +3,8 @@ class PersonalDemographics
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
     
-    attr_accessor :sex, :birthdate, :civil_status, :street_address, :barangay, :city, :state_or_province, :country, :weight_in_kg, :height_in_cm, :abo_blood_type, :rh_blood_type
+    ATTRIBUTES = [:sex, :birthdate, :civil_status, :street_address, :barangay, :city, :state_or_province, :country, :weight_in_kg, :height_in_cm, :abo_blood_type, :rh_blood_type]
+    attr_accessor(*ATTRIBUTES)
 
     SEX_CHOICES = %w( Male Female Intersex ).freeze
     CIVIL_STATUS_CHOICES = %w( Single Married Separated Widowed ).freeze

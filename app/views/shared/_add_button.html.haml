@@ -1,4 +1,3 @@
-= link_to '#', class: 'button' do
-    %span= "Add #{t(object.to_sym, scope: [:headers, type.to_sym, :sections])}"
-    %span.icon
-        %i.fas.fa-plus
+= link_to '#', class: 'ui olive right labeled icon button', id: "add-#{object}" do
+    = "Add #{t(object.to_sym, scope: [:headers, type.to_sym, :sections])}"
+    %i.plus.right.icon

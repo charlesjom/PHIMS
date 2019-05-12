@@ -1,9 +1,13 @@
-%tr
-    = f.simple_fields_for :insurances, wrapper: :no_label do |i|
-        %td= i.input :provider_name
-        %td= i.input :id_number
-        %td= i.input :valid_until
-        %td= i.input :name_of_insured
-        %td= i.input :birthdate_of_insured
-        %td= i.input :relationship_of_beneficiary_to_insured
-        %td= i.input :telephone_number
+.ui.segment
+    = f.simple_fields_for :insurances do |i|
+        .field
+            .fields
+                = i.input :provider_name, label: I18n.t(:provider_name, scope: [:labels, :personal_data, :insurance])
+                = i.input :id_number, label: I18n.t(:id_number, scope: [:labels, :personal_data, :insurance])
+                = i.input :valid_until, label: I18n.t(:valid_until, scope: [:labels, :personal_data, :insurance])
+        .field
+            .fields
+                = i.input :name_of_insured, label: I18n.t(:name_of_insured, scope: [:labels, :personal_data, :insurance])
+                = i.input :birthdate_of_insured, label: I18n.t(:birthdate_of_insured, scope: [:labels, :personal_data, :insurance])
+                = i.input :relationship_of_beneficiary_to_insured, label: I18n.t(:relationship_of_beneficiary_to_insured, scope: [:labels, :personal_data, :insurance])
+                = i.input :telephone_number, label: I18n.t(:telephone_number, scope: [:labels, :personal_data, :insurance])

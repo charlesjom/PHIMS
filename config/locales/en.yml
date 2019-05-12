@@ -39,6 +39,14 @@ en:
         emergency_contact: "Emergency Contact"
         insurance: "Insurance"
         personal_demographics: "Personal Demographics"
+    medical_history:
+      sections:
+        allergy: "Allergy"
+        health_condition: "Health Condition"
+        medication: "Medication"
+        vaccination: "Vaccination"
+  labels:
+    personal_data:
       emergency_contact:
         first_name: "First Name"
       insurance:
@@ -48,7 +56,7 @@ en:
         name_of_insured: "Name of Insured"
         birthdate_of_insured: "Birthdate of Insured"
         relationship_of_beneficiary_to_insured: Relationship of Beneficiary to Insured
-        telephone_number: "Telephone Number of Provider"
+        telephone_number: "Telephone Number of Beneficiary"
       personal_demographics:
         birthdate: "Birthdate"
         sex: "Sex"
@@ -58,11 +66,6 @@ en:
         abo_blood_type: "ABO Blood Type"
         rh_blood_type: "RH Blood Type"
     medical_history:
-      sections:
-        allergy: "Allergy"
-        health_condition: "Health Condition"
-        medication: "Medication"
-        vaccination: "Vaccination"
       allergy:
         allergen: "Allergen"
         symptoms: "Symptoms"

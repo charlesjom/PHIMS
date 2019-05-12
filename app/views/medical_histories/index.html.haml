@@ -1,2 +1,8 @@
-.text-center
-    = link_to 'New Medical History', new_medical_history_path
+.ui.middle.aligned.center.aligned.row
+    .column
+        .ui.page.header.center.aligned Medical History
+        - if @medical_histories.any?
+            = link_to 'New Medical History', new_medical_history_path, class: 'ui button'
+            = render 'shared/items', user_records: @medical_histories
+        - else
+            = render 'shared/empty_records'

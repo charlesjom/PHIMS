@@ -1,2 +1,9 @@
-.text-center
-    = link_to 'New Personal Data', new_personal_data_path
+.ui.middle.aligned.center.aligned.row
+    .column
+        .ui.page.header.center.aligned Personal Data
+        = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
+        - if @personal_data.any?
+            = render 'shared/items', user_records: @personal_data
+        - else
+            = render 'shared/empty_records'
+            

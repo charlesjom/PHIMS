@@ -1,4 +1,5 @@
-%tr
-    = f.simple_fields_for :vaccinations, wrapper: :no_label do |v|
-        %td= v.input :target_disease
-        %td= v.input :date_administered, as: :date, html5: true
+.ui.segment
+    .fields
+        = f.simple_fields_for :vaccinations do |v|
+            = v.input :target_disease, label: I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination])
+            = v.input :date_administered, as: :date, html5: true, label: I18n.t(:date_administered, scope: [:labels, :medical_history, :vaccination])

@@ -1,71 +1,41 @@
-.container.is-fluid
+.container.column
 	%h2.title.text-center New Personal Data
 	= simple_form_for @personal_data, url: personal_data_index_path do |f|
-		.box#personal-demographics
-			.has-text-weight-bold.has-text-centered Personal Demographics
-			= f.simple_fields_for :personal_demographics, wrapper: :horizontal_field_expanded do |p|
-				.columns
-					.column
+		.ui.three.item.tabular.menu
+			= tag.div class: 'active item', data: { tab: 'personal-demographics' } do
+				Personal Demographics
+			= tag.div class: 'item', data: { tab: 'emergency-contacts' } do
+				Emergency Contacts
+			= tag.div class: 'item', data: { tab: 'insurances' } do
+				Insurances
+
+		.ui.active.tab{data: {tab: 'personal-demographics'}}
+			.ui.dividing.header Personal Demographics
+			= f.simple_fields_for :personal_demographics do |p|
+				.field
+					.fields
 						= p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
 						= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
 						= p.input :height_in_cm, as: :integer, label: 'Height (in cm)'
-					.column
-						.field.is-horizontal.personal_data_personal_demographics_sex
-							%label.label.field-label Sex
-							.field-body
-								.field
-									.control.is-expanded
-										.select.is-fullwidth
-											= select_tag 'personal_data[personal_demographics_attributes][0][sex]',
-												options_for_select(PersonalDemographics::SEX_CHOICES)
-						
-						.field.is-horizontal.personal_data_personal_demographics_sex
-							%label.label.field-label Civil Status
-							.field-body
-								.field
-									.control.is-expanded
-										.select.is-fullwidth
-											= select_tag 'personal_data[personal_demographics_attributes][0][civil_status]',
-												options_for_select(PersonalDemographics::CIVIL_STATUS_CHOICES)
-						
-						.field.is-horizontal.personal_data_personal_demographics_sex
-							%label.label.field-label ABO Blood Type
-							.field-body
-								.field
-									.control.is-expanded
-										.select.is-fullwidth
-											= select_tag 'personal_data[personal_demographics_attributes][0][abo_blood_type]',
-												options_for_select(PersonalDemographics::ABO_BLOOD_TYPES)
-						
-						.field.is-horizontal.personal_data_personal_demographics_sex
-							%label.label.field-label RH Blood Type
-							.field-body
-								.field
-									.control.is-expanded
-										.select.is-fullwidth
-											= select_tag 'personal_data[personal_demographics_attributes][0][rh_blood_type]',
-												options_for_select(PersonalDemographics::RH_BLOOD_TYPES)
+				.field
+					.fields
+						= p.input :sex, collection: PersonalDemographics::SEX_CHOICES
+						= p.input :civil_status, collection: PersonalDemographics::CIVIL_STATUS_CHOICES
+						= p.input :abo_blood_type, collection: PersonalDemographics::ABO_BLOOD_TYPES,
+							label: "#{t(:abo_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
+						= p.input :rh_blood_type, collection: PersonalDemographics::RH_BLOOD_TYPES,
+							label: "#{t(:rh_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
 		
-		.box#emergency-contacts
-			.has-text-weight-bold.has-text-centered Emergency Contacts
-			.table-container
-				%table.table.is-fullwidth
-					%tr
-						- EmergencyContact::ATTRIBUTES.each do |attrib|
-							%th= t(attrib.to_sym, scope: [:headers, :personal_data, :emergency_contact])
-					= render 'emergency_contact', f: f
-			.has-text-centered
-				= render 'shared/add_button', type: 'personal_data', object: 'emergency_contact'
+		.ui.tab{data: {tab: 'emergency-contacts'}}
+			.ui.dividing.header Emergency Contacts
+			= render 'shared/add_button', type: 'personal_data', object: 'emergency_contact'
+			#emergency-contacts
+				= render 'emergency_contact', f: f
 		
-		.box#insurances
-			.has-text-weight-bold.has-text-centered Insurances
-			.table-container
-				%table.table.is-fullwidth
-					%tr
-						- Insurance::ATTRIBUTES.each do |attrib|
-							%th= t(attrib.to_sym, scope: [:headers, :personal_data, :insurance])
-					= render 'insurance', f: f
-			.has-text-centered
-				= render 'shared/add_button', type: 'personal_data', object: 'insurance'
+		.ui.tab{data: {tab: 'insurances'}}
+			.ui.dividing.header Insurances
+			= render 'shared/add_button', type: 'personal_data', object: 'insurance'
+			#insurances
 
-		= f.button :submit, class: 'is-primary is-fullwidth'
+		.ui.center.aligned.segment
+			= f.button :submit, "Create Personal Data"

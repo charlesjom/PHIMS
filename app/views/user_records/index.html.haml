@@ -1,11 +1,10 @@
-.main-content
-    .container.is-fluid
-        %h2.title.text-center Records
-        = link_to 'New Medical History', new_medical_history_path, class: 'button'
-        = link_to 'New Personal Data', new_personal_data_path, class: 'button'
+.ui.middle.aligned.center.aligned.row
+    .column
+        .ui.page.header.center.aligned All Records
+        = link_to 'New Medical History', new_medical_history_path, class: 'ui button'
+        = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
         
         - if @user_records.any?
-            = render 'items', user_records: @user_records
+            = render 'shared/items', user_records: @user_records
         - else
-            %h3.text-center No Records Yet
-                
+            = render 'shared/empty_records'

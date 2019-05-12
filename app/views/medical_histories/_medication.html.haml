@@ -1,10 +1,11 @@
-%tr
-    = f.simple_fields_for :medications, wrapper: :no_label do |m|
-        %td= m.input :medicine_name
-        %td= m.input :dosage_dose_amount 
-        %td= m.input :dosage_dose_unit 
-        %td= m.input :dosage_frequency_value
-        %td= m.input :dosage_frequency_unit
-        %td= m.input :dosage_duration_value
-        %td= m.input :dosage_duration_unit
-        %td= m.input_field :still_active, as: :boolean, checked_value: true, unchecked_value: false
+.ui.segment
+    .fields
+        = f.simple_fields_for :medications do |m|
+            = m.input :medicine_name
+            = m.input :dosage_dose_amount 
+            = m.input :dosage_dose_unit 
+            = m.input :dosage_frequency_value
+            = m.input :dosage_frequency_unit
+            = m.input :dosage_duration_value
+            = m.input :dosage_duration_unit
+            = m.input :still_active, as: :boolean, checked_value: true, unchecked_value: false

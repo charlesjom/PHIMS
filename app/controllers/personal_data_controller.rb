@@ -2,6 +2,7 @@ class PersonalDataController < ApplicationController
     
     def index
         # TODO: get all personal data with share keys for certain user
+        @personal_data = current_user.user_records.where(phr_type: 'personal_data').to_a || []
     end
 
     def new
@@ -32,9 +33,9 @@ class PersonalDataController < ApplicationController
 
     def personal_data_params
         params.require(:personal_data).permit(:owner_id,
-            personal_demographics_attributes: [:birthdate, :sex, :civil_status, :weight_in_kg, :height_in_cm, :abo_blood_type, :rh_blood_type],
-            emergency_contacts_attributes: [:first_name, :middle_name, :last_name, :cellphone_number, :address, :relationship],
-            insurances_attributes: [:provider_name, :id_number, :valid_until, :name_of_insured, :birthdate_of_insured, :relationship_of_beneficiary_to_insured, :telephone_number]
+            personal_demographics_attributes: PersonalDemographics::ATTRIBUTES,
+            emergency_contacts_attributes: EmergencyContact::ATTRIBUTES,
+            insurances_attributes: Insurance::ATTRIBUTES
         )
     end
 end

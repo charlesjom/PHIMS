@@ -1,5 +1,6 @@
-%tr
-    = f.simple_fields_for :allergies, wrapper: :no_label do |a| 
-        %td= a.input :allergen
-        %td= a.input :symptoms
-        %td= a.input :medications
+.ui.segment
+    .fields
+        = f.simple_fields_for :allergies do |a| 
+            = a.input :allergen
+            = a.input :symptoms, as: :text, input_html: {rows: 1, cols: 60}
+            = a.input :medications

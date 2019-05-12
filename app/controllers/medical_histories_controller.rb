@@ -2,6 +2,8 @@ class MedicalHistoriesController < ApplicationController
 
     def index
         # TODO: get all medical histories with share keys for certain user
+        @medical_histories = current_user.user_records.where(phr_type: 'medical_history').to_a || []
+        # (@user_records << current_user.records_with_access.to_a).flatten!
     end
     
     def new
@@ -35,13 +37,17 @@ class MedicalHistoriesController < ApplicationController
         # @medical_history.update(medical_history_params)
     end
 
+    def add_attribute
+        
+    end
+
     private
     def medical_history_params
         params.require(:medical_history).permit(:owner_id,
-            allergies_attributes: [:allergen, :symptoms, :medications],
-            vaccinations_attributes: [:target_disease, :date_administered],
-            health_conditions_attributes: [:name_of_condition, :date_of_diagnosis, :date_of_last_checkup],
-            medications_attributes: [:medicine_name, :dosage_amount_value, :dosage_amount_unit, :dosage_frequency_value, :dosage_frequency_unit, :still_active]
+            allergies_attributes: Allergy::ATTRIBUTES,
+            vaccinations_attributes: Vaccination::ATTRIBUTES,
+            health_conditions_attributes: HealthCondition::ATTRIBUTES,
+            medications_attributes: Medication::ATTRIBUTES
         )
     end
 end

@@ -49,10 +49,10 @@ gem 'aws-sdk-rails'
 gem 'aws-sdk-s3', '~> 1'
 # Date validator for models
 gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
-
+gem 'jquery-rails'
 gem 'awesome_print'
 gem 'simple_form'
-gem "bulma-rails", "~> 0.7.4"
+gem 'semantic-ui-sass'
 gem 'httplog'
 gem 'shog'
 gem 'enumerize'
