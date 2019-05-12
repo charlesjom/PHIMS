@@ -11,6 +11,6 @@ class UsersController < ApplicationController
     private
     
     def set_user
-        @user_record = UserRecord.find(params[:id])
+        @user = User.find(params[:id])
     end
 end
