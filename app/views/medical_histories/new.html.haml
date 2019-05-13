@@ -15,23 +15,26 @@
                         Vaccinations
 
                 .ui.active.tab{data: {tab: 'allergies'}}
-                    .ui.dividing.header Allergies
+                    .ui.dividing.header
+                        = t(:allergy, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'allergy', record: @medical_history
                     #allergies
                 
                 .ui.tab{data: {tab: 'health-conditions'}}
-                    .ui.dividing.header Health Conditions
+                    .ui.dividing.header
+                        = t(:health_condition, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'health_condition', record: @medical_history
                     #health-conditions
                 
                 .ui.tab{data: {tab: 'medications'}}
-                    .ui.dividing.header Medications
+                    .ui.dividing.header
+                        = t(:medication, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'medication', record: @medical_history
                     #medications
-                        = render 'medication', f: f
                 
                 .ui.tab{data: {tab: 'vaccinations'}}
-                    .ui.dividing.header Vaccinations
+                    .ui.dividing.header
+                        = t(:vaccination, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'vaccination', record: @medical_history
                     #vaccinations
                 

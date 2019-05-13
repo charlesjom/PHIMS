@@ -33,18 +33,26 @@ en:
   phr_types:
     medical_history: "Medical History"
     personal_data: "Personal Data"
+  models:
+    emergency_contact: Emergency Contact
+    insurance: "Insurance"
+    personal_demographics: "Personal Demographics"
+    allergy: "Allergy"
+    health_condition: "Health Condition"
+    medication: "Medication"
+    vaccination: "Vaccination"
   headers:
     personal_data:
       sections:
-        emergency_contact: "Emergency Contact"
-        insurance: "Insurance"
+        emergency_contact: "List of Emergency Contacts"
+        insurance: "List of Insurances"
         personal_demographics: "Personal Demographics"
     medical_history:
       sections:
-        allergy: "Allergy"
-        health_condition: "Health Condition"
-        medication: "Medication"
-        vaccination: "Vaccination"
+        allergy: "List of Allergies"
+        health_condition: "List of Health Conditions"
+        medication: "List of Medications"
+        vaccination: "List of Vaccinations"
   labels:
     personal_data:
       emergency_contact:
