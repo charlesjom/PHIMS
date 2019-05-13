@@ -7,7 +7,7 @@ class Medication
     ATTRIBUTES = [:medicine_name, :dosage_dose_amount, :dosage_dose_unit, :dosage_frequency_value, :dosage_frequency_unit, :dosage_duration_value, :dosage_duration_unit, :still_active]
     attr_accessor(*ATTRIBUTES)
 
-    DOSE_UNITS = %w(milligram(s) teaspoon(s), tablespoon(s))
+    DOSE_UNITS = %w(milligram(s) teaspoon(s) tablespoon(s))
     FREQUENCY_UNITS = ["per day", "per week", "per month"]
     DURATION_UNITS = %w(day(s) week(s) month(s))
     
