@@ -3,10 +3,10 @@
 - emergency_contacts = content.emergency_contacts
 
 - if personal_demographics.present?
-    .box#personal_demographics
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#personal_demographics
+        .ui.dividing.header
             = t(:personal_demographics, scope: [:headers, :personal_data, :sections])
-        %table.table.is-bordered.is-fullwidth.is-striped
+        %table.celled.striped.table
             - personal_demographics.each do |name, value|
                 %tr
                     %td.has-text-weight-bold
@@ -14,13 +14,13 @@
                     %td= value
 
 - if emergency_contacts.present?
-    .box#emergency_contacts
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#emergency_contacts
+        .ui.dividing.header
             ="#{t(:emergency_contact, scope: [:headers, :personal_data, :sections])}".pluralize(emergency_contacts.size)
         = render 'shared/horizontal_table', hashes: emergency_contacts, type: 'personal_data', section: 'emergency_contact'
 
 - if insurances.present?
-    .box#insurances
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#insurances
+        .ui.dividing.header
             = "#{t(:insurance, scope: [:headers, :personal_data, :sections])}".pluralize(insurances.size)
         = render 'shared/horizontal_table', hashes: insurances, type: 'personal_data', section: 'insurance'

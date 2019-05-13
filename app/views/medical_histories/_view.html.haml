@@ -4,22 +4,22 @@
 - vaccinations = content.vaccinations
 
 - if allergies.present?
-    .box#allergies
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#allergies
+        .ui.dividing.header
             = t(:allergy, scope: [:headers, :medical_history, :sections])
         = render 'shared/horizontal_table', hashes: allergies, type: 'medical_history', section: 'allergy'
 - if health_conditions.present?
-    .box#health-conditions
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#health-conditions
+        .ui.dividing.header
             = t(:health_condition, scope: [:headers, :medical_history, :sections])
         = render 'shared/horizontal_table', hashes: health_conditions, type: 'medical_history', section: 'health_condition'
 - if medications.present?
-    .box#medications
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#medications
+        .ui.dividing.header
             = t(:medication, scope: [:headers, :medical_history, :sections])
         = render 'shared/horizontal_table', hashes: medications, type: 'medical_history', section: 'medication'
 - if vaccinations.present?
-    .box#vaccinations
-        .has-text-weight-bold.has-text-centered
+    .ui.segment#vaccinations
+        .ui.dividing.header
             = t(:vaccination, scope: [:headers, :medical_history, :sections])
         = render 'shared/horizontal_table', hashes: vaccinations, type: 'medical_history', section: 'vaccination'
