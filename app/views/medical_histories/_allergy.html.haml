@@ -1,6 +1,12 @@
 .ui.segment
     .fields
-        = f.simple_fields_for :allergies do |a| 
-            = a.input :allergen
-            = a.input :symptoms, as: :text, input_html: {rows: 1, cols: 60}
-            = a.input :medications
+        = fields_for 'medical_history[allergies_attributes][]', @model do |a|
+            .field
+                = a.label :allergen
+                = a.text_field :allergen, autofocus: true, placeholder: "What are you allergic to?", required: true
+            .field
+                = a.label :symptoms
+                = a.text_field :symptoms, placeholder: "What are the symptoms of this allergy?", required: true
+            .field
+                = a.label :medications
+                = a.text_field :medications, placeholder: "What can treat this allergy?", required: true

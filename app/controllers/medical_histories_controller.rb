@@ -38,7 +38,13 @@ class MedicalHistoriesController < ApplicationController
     end
 
     def add_attribute
+        @attribute = params[:attribute]
+        @collection = params[:collection]
+        @model = @attribute.underscore.classify.constantize.new
         
+        respond_to do |format|
+            format.js
+        end
     end
 
     private

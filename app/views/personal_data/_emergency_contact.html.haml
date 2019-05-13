@@ -1,12 +1,33 @@
 .ui.segment
-    = f.simple_fields_for :emergency_contacts do |e|
+    = fields_for 'personal_data[emergency_contacts_attributes][]', @model do |e|
         .fields
-            = e.input :first_name
-            = e.input :middle_name
-            = e.input :last_name
+            .field
+                = e.label :first_name do
+                    = I18n.t(:first_name, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_field :first_name
+            .field
+                = e.label :middle_name do
+                    = I18n.t(:middle_name, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_field :middle_name
+            .field
+                = e.label :last_name do
+                    = I18n.t(:last_name, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_field :last_name
+            .field
+                = e.label :relationship do
+                    = I18n.t(:relationship, scope: [:labels, :personal_data, :emergency_contact])                    
+                = e.text_field :relationship
         .fields
-            = e.input :relationship
-            = e.input :telephone_number
-            = e.input :cellphone_number
-            = e.input :address
+            .field            
+                = e.label :telephone_number do
+                    = I18n.t(:telephone_number, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_field :telephone_number
+            .field
+                = e.label :cellphone_number do
+                    = I18n.t(:cellphone_number, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_field :cellphone_number
+            .field
+                = e.label :address do
+                    = I18n.t(:address, scope: [:labels, :personal_data, :emergency_contact])
+                = e.text_area :address, cols: 60, rows: 2
             

@@ -14,14 +14,24 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :medical_histories, except: [:show, :destroy]
-  resources :personal_data, except: [:show, :destroy]
+  resources :medical_histories, except: [:show, :destroy] do
+    collection do
+      get :add_attribute
+    end
+  end
+  resources :personal_data, except: [:show, :destroy] do
+    collection do
+      get :add_attribute
+    end
+  end
+
   resources :users, only: [:show]
   resources :user_records, only: [:index, :show, :edit, :update, :destroy] do
     member do
       post :view
       post :share
       get :share_form
+      post :edit_data
     end
   end
 

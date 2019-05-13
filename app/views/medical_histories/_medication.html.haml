@@ -1,22 +1,29 @@
 .ui.segment
-    = f.simple_fields_for :medications do |m|
+    = render 'shared/delete_button'
+    = fields_for 'medical_history[medications_attributes][]', @model do |m|
         .inline.fields
-            = m.input :medicine_name
-            = m.input :still_active, as: :boolean
+            .field
+                = m.label :medicine_name do
+                    = I18n.t(:medicine_name, scope: [:labels, :medical_history, :medication])
+                = m.text_field :medicine_name
+            .field
+                = m.label :still_active do
+                    = I18n.t(:still_active, scope: [:labels, :medical_history, :medication])
+                = m.check_box :still_active, checked_value: true, unchecked_value: false
         .fields
             .inline.field
                 %label Dose
                 .fields
-                    = m.input :dosage_dose_amount, as: :integer, placeholder: 'Amount', label: false
-                    = m.input :dosage_dose_unit, as: :select, placeholder: 'Unit', label: false, collection: Medication::DOSE_UNITS, prompt: 'Select unit'
+                    = m.number_field :dosage_dose_amount, placeholder: 'Amount'
+                    = m.select :dosage_dose_unit, Medication::DOSE_UNITS, { prompt: "Select Unit..." }
             .inline.field
                 %label Frequency
                 .fields
-                    = m.input :dosage_frequency_value, as: :integer, placeholder: 'Value', label: false
-                    = m.input :dosage_frequency_unit, as: :select, label: false, collection: Medication::FREQUENCY_UNITS, prompt: 'Select unit'
+                    = m.number_field :dosage_frequency_value, placeholder: 'Value'
+                    = m.select :dosage_frequency_unit, Medication::FREQUENCY_UNITS, { prompt: "Select Unit..." }
             .inline.field
                 %label Duration
                 .fields
-                    = m.input :dosage_duration_value, as: :integer, placeholder: 'Value', label: false
-                    = m.input :dosage_duration_unit, as: :select, label: false, collection: Medication::DURATION_UNITS, prompt: 'Select unit'
+                    = m.number_field :dosage_duration_value, placeholder: 'Value'
+                    = m.select :dosage_duration_unit, Medication::DURATION_UNITS, { prompt: "Select Unit..." }
         

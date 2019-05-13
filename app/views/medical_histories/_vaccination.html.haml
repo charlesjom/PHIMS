@@ -1,5 +1,11 @@
 .ui.segment
     .fields
-        = f.simple_fields_for :vaccinations do |v|
-            = v.input :target_disease, label: I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination])
-            = v.input :date_administered, as: :date, html5: true, label: I18n.t(:date_administered, scope: [:labels, :medical_history, :vaccination])
+        = fields_for 'medical_history[vaccinations_attributes][]', @model do |v|
+            .field
+                = v.label :target_disease do
+                    = I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination])
+                = v.text_field :target_disease
+            .field
+                = v.label :date_administered do
+                    = I18n.t(:date_administered, scope: [:labels, :medical_history, :vaccination])
+                = v.date_field :date_administered, html5: true

@@ -19,16 +19,19 @@ class UserRecordsController < ApplicationController
     end
 
     def share
-        status = @user_record.share_file(current_user, share_user_record_params)
+        status = @user_record.share_file(current_user, user_record_params)
     end
     
+    def edit
+    end
+
     private
 
     def set_user_record
         @user_record = UserRecord.find(params[:id])
     end
     
-    def read_user_record_params
+    def user_record_params
         params.require(:user_record).permit(:password)
     end
 

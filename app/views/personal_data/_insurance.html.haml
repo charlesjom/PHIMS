@@ -1,13 +1,34 @@
 .ui.segment
-    = f.simple_fields_for :insurances do |i|
+    = fields_for 'personal_data[insurances_attributes][]', @model do |i|
         .field
             .fields
-                = i.input :provider_name, label: I18n.t(:provider_name, scope: [:labels, :personal_data, :insurance])
-                = i.input :id_number, label: I18n.t(:id_number, scope: [:labels, :personal_data, :insurance])
-                = i.input :valid_until, label: I18n.t(:valid_until, scope: [:labels, :personal_data, :insurance])
+                .field
+                    = i.label :provider_name do
+                        = I18n.t(:provider_name, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :provider_name
+                .field
+                    = i.label :id_number do
+                        = I18n.t(:id_number, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :id_number
+                .field
+                    = i.label :valid_until do
+                        = I18n.t(:valid_until, scope: [:labels, :personal_data, :insurance])
+                    = i.date_field :valid_until
         .field
             .fields
-                = i.input :name_of_insured, label: I18n.t(:name_of_insured, scope: [:labels, :personal_data, :insurance])
-                = i.input :birthdate_of_insured, label: I18n.t(:birthdate_of_insured, scope: [:labels, :personal_data, :insurance])
-                = i.input :relationship_of_beneficiary_to_insured, label: I18n.t(:relationship_of_beneficiary_to_insured, scope: [:labels, :personal_data, :insurance])
-                = i.input :telephone_number, label: I18n.t(:telephone_number, scope: [:labels, :personal_data, :insurance])
+                .field
+                    = i.label :name_of_insured do
+                        = I18n.t(:name_of_insured, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :name_of_insured
+                .field
+                    = i.label :birthdate_of_insured do
+                        = I18n.t(:birthdate_of_insured, scope: [:labels, :personal_data, :insurance])
+                    = i.date_field :birthdate_of_insured
+                .field
+                    = i.label :relationship_of_beneficiary_to_insured do
+                        = I18n.t(:relationship_of_beneficiary_to_insured, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :relationship_of_beneficiary_to_insured
+                .field
+                    = i.label :telephone_number do
+                        = I18n.t(:telephone_number, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :telephone_number

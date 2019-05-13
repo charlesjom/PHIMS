@@ -57,6 +57,12 @@ en:
     personal_data:
       emergency_contact:
         first_name: "First Name"
+        middle_name: "Middle Name"
+        last_name: "Last Name"
+        relationship: "Relationship"
+        telephone_number: "Telephone Number"
+        cellphone_number: "Cellphone Number" 
+        address: "Address"
       insurance:
         provider_name: "Provider Name"
         id_number: "ID Number"

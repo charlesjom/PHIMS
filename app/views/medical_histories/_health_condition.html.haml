@@ -1,6 +1,15 @@
 .ui.segment
     .fields
-        = f.simple_fields_for :health_conditions do |h|
-            = h.input :name_of_condition, label: I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition])
-            = h.input :date_of_diagnosis, as: :date, html5: true, label: I18n.t(:date_of_diagnosis, scope: [:labels, :medical_history, :health_condition])
-            = h.input :date_of_last_checkup, as: :date, html5: true, label: I18n.t(:date_of_last_checkup, scope: [:labels, :medical_history, :health_condition])
+        = fields_for 'medical_history[health_conditions_attributes][]', @model do |h|
+            .field
+                = h.label :name_of_condition do
+                    = I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition])
+                = h.text_field :name_of_condition
+            .field
+                = h.label :date_of_diagnosis do
+                    = I18n.t(:date_of_diagnosis, scope: [:labels, :medical_history, :health_condition])
+                = h.date_field :date_of_diagnosis, html5: true
+            .field
+                = h.label :date_of_last_checkup do 
+                    = I18n.t(:date_of_last_checkup, scope: [:labels, :medical_history, :health_condition])
+                = h.date_field :date_of_last_checkup, html5: true

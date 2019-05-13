@@ -20,10 +20,8 @@
 							.field
 								.fields
 									= p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
-									= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
-									= p.input :height_in_cm, as: :integer, label: 'Height (in cm)'
-							.field
-								.fields
+									= p.input :weight_in_kg, as: :integer, input_html: { max: 999, min: 1 }, label: 'Weight (in kg)'
+									= p.input :height_in_cm, as: :integer, input_html: { max: 999, min: 1 }, label: 'Height (in cm)'
 									= p.input :sex, collection: PersonalDemographics::SEX_CHOICES
 									= p.input :civil_status, collection: PersonalDemographics::CIVIL_STATUS_CHOICES
 									= p.input :abo_blood_type, collection: PersonalDemographics::ABO_BLOOD_TYPES,
@@ -33,12 +31,12 @@
 				
 				.ui.tab{data: {tab: 'emergency-contacts'}}
 					.ui.dividing.header Emergency Contacts
-					= render 'shared/add_button', type: 'personal_data', object: 'emergency_contact'
+					= render 'shared/add_button', type: 'personal_data', object: 'emergency_contact', record: @personal_data
 					#emergency-contacts
 				
 				.ui.tab{data: {tab: 'insurances'}}
 					.ui.dividing.header Insurances
-					= render 'shared/add_button', type: 'personal_data', object: 'insurance'
+					= render 'shared/add_button', type: 'personal_data', object: 'insurance', record: @personal_data
 					#insurances
 
 				.ui.center.aligned.segment

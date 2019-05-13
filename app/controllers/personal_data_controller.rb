@@ -15,7 +15,7 @@ class PersonalDataController < ApplicationController
         if @personal_data.save
             redirect_to personal_data_index_path
         else
-            redirect_back fallback_location: new_user_personal_data_index_path(current_user)
+            redirect_back fallback_location: new_personal_data_path(current_user)
             # return error
         end
     end
@@ -24,9 +24,14 @@ class PersonalDataController < ApplicationController
         # @personal_data = current_user.personal_data
     end
 
-    def update
-        # @personal_data = current_user.personal_data
-        # @personal_data.update(personal_data_params)
+    def add_attribute
+        @attribute = params[:attribute]
+        @collection = params[:collection]
+        @model = @attribute.underscore.classify.constantize.new
+
+        respond_to do |format|
+            format.js
+        end
     end
 
     private

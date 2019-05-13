@@ -14,7 +14,8 @@ class PersonalDemographics
     with_options allow_blank: true do |v|
         v.validates_inclusion_of :sex, in: SEX_CHOICES
         v.validates_inclusion_of :civil_status, in: CIVIL_STATUS_CHOICES
-        v.validates_numericality_of :weight_in_kg, :height_in_cm
+        v.validates_numericality_of :weight_in_kg, greater_than: 0, less_than: 100
+        v.validates_numericality_of :height_in_cm, greater_than: 0, less_than: 100
         v.validates_inclusion_of :abo_blood_type, in: ABO_BLOOD_TYPES
         v.validates_inclusion_of :rh_blood_type, in: RH_BLOOD_TYPES
         v.validates_date :birthdate, :on_or_before => :today
