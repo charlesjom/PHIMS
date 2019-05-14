@@ -7,7 +7,7 @@ class UserRecordsController < ApplicationController
     end
 
     def view
-        output = @user_record.read_file(current_user, read_user_record_params)
+        output = @user_record.read_file(current_user, user_record_params)
         send_file(output, type: 'application/pdf', disposition: 'inline')
     end
 
