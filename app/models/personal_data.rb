@@ -8,14 +8,12 @@ class PersonalData
     include HasManageableFile
 
     attr_accessor :personal_demographics, :emergency_contacts, :insurances, :owner_id
-    attr_accessor :errors
 
     ## Associations with other models
     ## TODO: need to fix association with user
     # belongs_to :user, foreign_key: "owner"
 
     def initialize(attributes = {})
-        super
         attributes.each do |name, value|
             send("#{name}=", value)
         end
@@ -34,15 +32,25 @@ class PersonalData
 
     def emergency_contacts_attributes=(attributes)
         @emergency_contacts ||= []
-        attributes.each do |i, emergency_contact_params|
-            @emergency_contacts.push(EmergencyContact.new(emergency_contact_params))
+        attributes.each do |emergency_contact_params|
+            emergency_contact = EmergencyContact.new(emergency_contact_params)
+            if emergency_contact.invalid?
+                errors.merge!(emergency_contact.errors)
+            else
+                @emergency_contacts.push()
+            end
         end
     end
 
     def insurances_attributes=(attributes)
         @insurances ||= []
-        attributes.each do |i, insurance_params|
-            @insurances.push(Insurance.new(insurance_params))
+        attributes.each do |insurance_params|
+            insurance = Insurance.new(insurance_params)
+            if insurance.invalid?
+                errors.merge!(insurance.errors)
+            else
+                @insurances.push(insurance)
+            end
         end
     end
 

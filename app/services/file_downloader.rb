@@ -10,7 +10,7 @@ class FileDownloader
         @errors = []
     end
 
-    def process(password = nil)
+    def process(password = nil, readonly = true)
         return if user_record.nil? || user.nil? || password.nil?
         
         # if owner of user record is the one downloading the file,
@@ -25,10 +25,16 @@ class FileDownloader
 
         decrypted_data = decrypt_file(password, encrypted_file_key)
 
-        # read type based on file
         type = user_record.phr_type
         object = type.classify.constantize.new
-        object.from_json(decrypted_data)
+
+        if (user_record.user_id == user.id) && (!readonly)
+            resolved_object = resolve_object(object, decrypted_data)
+            return resolved_object
+        else
+            # read type based on file
+            object.from_json(decrypted_data)
+        end
 
         # TODO: should return a PDF file
         # Create service to transform serialized hash to PDF
@@ -68,6 +74,10 @@ class FileDownloader
         Rails.logger.error "[FileDownloader] Error encountered while decrypting file. Error: #{e.message}"
         Rails.logger.error e.backtrace.join("\n")
         errors << "[FileDownloader] Error encountered while decrypting file. Error: #{e.message}"
+    end
+
+    def resolve_object(object, json)
+        
     end
 
 end
