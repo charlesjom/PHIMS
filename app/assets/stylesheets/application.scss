@@ -29,7 +29,7 @@ body {
 }
 
 textarea {
-    resize: none;
+    resize: none !important;
 }
 
 // Layout
@@ -80,20 +80,10 @@ textarea {
     margin: auto;
 }
 
-.floating-parent {
-    position: relative;
-}
-
-.floating {
-    position: absolute;
-    z-index: 1;
-}
-
 // Flash message notification
 .flash-container, .error-container {
     width: 30%;
     margin: auto;
-    z-index: 1;
 }
 
 // Text and background colors

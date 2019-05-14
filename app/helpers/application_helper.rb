@@ -2,11 +2,11 @@ module ApplicationHelper
     def flash_class(key)
         case key
         when 'alert'
-            'is-warning'
+            'warning'
         when 'notice'
-            'is-info'
+            'info'
         when 'error'
-            'is-danger'
+            'error'
         end
     end
 end

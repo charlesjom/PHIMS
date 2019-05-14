@@ -14,8 +14,6 @@
                     = i.label :valid_until do
                         = I18n.t(:valid_until, scope: [:labels, :personal_data, :insurance])
                     = i.date_field :valid_until
-        .field
-            .fields
                 .field
                     = i.label :name_of_insured do
                         = I18n.t(:name_of_insured, scope: [:labels, :personal_data, :insurance])
@@ -24,6 +22,12 @@
                     = i.label :birthdate_of_insured do
                         = I18n.t(:birthdate_of_insured, scope: [:labels, :personal_data, :insurance])
                     = i.date_field :birthdate_of_insured
+        .field
+            .fields
+                .field
+                    = i.label :primary_beneficiary do
+                        = I18n.t(:primary_beneficiary, scope: [:labels, :personal_data, :insurance])
+                    = i.text_field :primary_beneficiary
                 .field
                     = i.label :relationship_of_beneficiary_to_insured do
                         = I18n.t(:relationship_of_beneficiary_to_insured, scope: [:labels, :personal_data, :insurance])

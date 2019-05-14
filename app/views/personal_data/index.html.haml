@@ -2,7 +2,7 @@
     .middle.aligned.center.aligned.row
         .ui.vertical.center.aligned.segment
             .ui.huge.header.center.aligned Personal Data
-            = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
+            = link_to 'New Personal Data', new_personal_data_path, class: 'ui teal button'
             - if @personal_data.any?
                 = render 'shared/items', user_records: @personal_data
             - else

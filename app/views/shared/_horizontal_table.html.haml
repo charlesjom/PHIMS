@@ -3,8 +3,7 @@
     %thead
         %tr
             - headers.each do |header|
-                %th.has-text-weight-bold.has-text-centered
-                    = t(header, scope: [:headers, type.to_sym, section.to_sym])
+                %td= t(header, scope: [:labels, type.to_sym, section.to_sym])
     %tbody
         - hashes.each do |hash|
             %tr

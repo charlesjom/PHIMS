@@ -1,6 +1,6 @@
-%table.table.is-bordered.is-fullwidth.is-striped
+%table.ui.celled.striped.table
     - section.each do |name, value|
         %tr
             %td.has-text-weight-bold
-                = t(name, scope: [:headers, type.to_sym, section.to_sym])
+                = t(name, scope: [:labels, type.to_sym, section.to_sym])
             %td= value
