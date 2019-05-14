@@ -1,0 +1,10 @@
+.eight.wide.column
+    .centered.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.huge.header.center.aligned Edit #{t("phr_types.#{@user_record.phr_type}")}
+            = form_tag edit_data_user_record_path(@user_record), method: :post, class: 'ui form' do
+                .field
+                    = label :password, :password, 'Enter password to edit record'
+                    = password_field_tag 'user_record[password]', nil
+                .field
+                    = submit_tag 'Submit', class: 'ui primary button fluid'

@@ -1,0 +1,42 @@
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.page.header.center.aligned New Medical History
+            = simple_form_for @medical_history, url: medical_histories_path do |f|
+                = render "users/shared/error_messages", resource: @medical_history
+                .ui.four.item.tabular.menu
+                    = tag.div class: 'active item', data: { tab: 'allergies' } do
+                        Allergies
+                    = tag.div class: 'item', data: { tab: 'health-conditions' } do
+                        Health Conditions
+                    = tag.div class: 'item', data: { tab: 'medications' } do
+                        Medications
+                    = tag.div class: 'item', data: { tab: 'vaccinations' } do
+                        Vaccinations
+
+                .ui.active.tab{data: {tab: 'allergies'}}
+                    .ui.dividing.header
+                        = t(:allergy, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'allergy', record: @medical_history
+                    #allergies
+                
+                .ui.tab{data: {tab: 'health-conditions'}}
+                    .ui.dividing.header
+                        = t(:health_condition, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'health_condition', record: @medical_history
+                    #health-conditions
+                
+                .ui.tab{data: {tab: 'medications'}}
+                    .ui.dividing.header
+                        = t(:medication, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'medication', record: @medical_history
+                    #medications
+                
+                .ui.tab{data: {tab: 'vaccinations'}}
+                    .ui.dividing.header
+                        = t(:vaccination, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'vaccination', record: @medical_history
+                    #vaccinations
+                
+                .ui.center.aligned.segment
+                    = f.button :submit, "Create Medical History"

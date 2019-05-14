@@ -1,59 +1,25 @@
-.devise-container
-  .level.floating-parent
-    .level-left.floating
-      = link_to :back, class: 'is-pulled-left button is-small' do
-        %span.icon
-          %i.fas.fa-arrow-left
-        %span Back
-    .level-item
-      %h2.text-center Edit #{resource_name.to_s.humanize}
-    
-  .box
-    = render "users/shared/error_messages", resource: resource
-    
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      .field
-        = f.label :first_name, "First Name"
-        .control
-          = f.text_field :first_name, autofocus: true, placeholder: "First Name", required: true, class: 'input'
-      .field
-        = f.label "Middle Name"
-        .control
-          = f.text_field :middle_name, placeholder: "Middle Name", required: true, class: 'input'
-      .field
-        = f.label "Last Name"
-        .control
-          = f.text_field :last_name, placeholder: "Last Name", required: true, class: 'input'
-      .field
-        = f.label "Username"
-        .control
-          = f.text_field :username, placeholder: "Username", required: true, class: 'input'
-      .field
-        = f.label :email, "Email Address"
-        .control
-          = f.email_field :email, autocomplete: "email", class: 'input'
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %div
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-      .field
-        = f.label :password
-        %i (leave blank if you don't want to change it)
-        .control
-          = f.password_field :password, autocomplete: "new-password", class: 'input'
-        - if @minimum_password_length
-          %p.help
-            #{@minimum_password_length} characters minimum
-      .field
-        = f.label :password_confirmation
-        .control
-          = f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'
-      .field
-        = f.label :current_password
-        %i (we need your current password to confirm your changes)
-        .control
-          = f.password_field :current_password, autocomplete: "current-password", class: 'input'
-      .field
-        .control.has-text-centered
-        = f.submit "Update", class: 'button is-primary is-fullwidth'
-    
-    = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'button is-danger is-fullwidth'
+.eight.wide.column
+    .centered.aligned.row
+        .ui.vertical.segment
+            .ui.huge.centered.align.header Edit #{resource_name.to_s.humanize}
+            = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+                = render "users/shared/error_messages", resource: resource
+                .required.field
+                    %label Name
+                    .fields
+                        = f.input :first_name, autofocus: true, placeholder: "First Name", required: true, label: false
+                        = f.input :middle_name, placeholder: "Middle Name", required: true, label: false
+                        = f.input :last_name, placeholder: "Last Name", required: true, label: false
+                = f.input :username, placeholder: "Username", required: true
+                = f.input :email, autocomplete: "email", placeholder: "Email Address", required: true
+
+                - if @minimum_password_length
+                    = f.input :password, hint: "#{@minimum_password_length} characters minimum (leave blank if you don't want to change it)"
+                - else
+                    = f.input :password
+                = f.input :password_confirmation
+
+                = f.input :current_password, required: true, hint: "We need your current password to confirm your changes"
+                = f.button :submit, class: 'fluid'
+            
+            = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'ui button fluid'
