@@ -19,9 +19,6 @@ class Medication
     validates_inclusion_of :dosage_frequency_unit, in: FREQUENCY_UNITS
     validates_inclusion_of :dosage_duration_unit, in: DURATION_UNITS
 
-
-    before_validation :set_date_modified, on: [:create, :update]
-
     def attributes
         instance_values
     end
