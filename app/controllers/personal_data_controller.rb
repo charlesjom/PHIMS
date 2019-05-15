@@ -19,8 +19,8 @@ class PersonalDataController < ApplicationController
         end
     end
 
-    def edit
-        # @personal_data = current_user.personal_data
+    def update
+        # @personal_data.new(personal_data_params)
     end
 
     def add_attribute

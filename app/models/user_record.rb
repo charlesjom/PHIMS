@@ -2,7 +2,7 @@ class UserRecord < ApplicationRecord
     extend Enumerize
 
     has_one_attached :file, dependent: :destroy
-    has_many :share_keys
+    has_many :share_keys, dependent: :destroy
     belongs_to :user
 
     validates_presence_of :encrypted_file_key, :encrypted_cipher_key, :encrypted_cipher_iv, :phr_type

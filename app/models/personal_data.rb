@@ -20,7 +20,7 @@ class PersonalData
     end
 
     def save
-        # TODO: validation goes here
+        return if errors.present?
         run_callbacks :save
     end
     
@@ -56,6 +56,7 @@ class PersonalData
 
     def attributes=(hash)
         hash.each do |key, value|
+            next if key == 'errors'
             send("#{key}=", value)
         end
     end

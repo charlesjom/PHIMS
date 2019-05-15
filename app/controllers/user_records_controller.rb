@@ -15,9 +15,7 @@ class UserRecordsController < ApplicationController
     def view
         output = @user_record.read_file(current_user, user_record_params)
         if @user_record.errors.empty?
-            File.open(output, 'r') do |f|
-                send_data(f.read.force_encoding('BINARY'), type: 'application/pdf', disposition: 'inline')
-            end
+            send_data(output.force_encoding('BINARY'), type: 'application/pdf', disposition: 'inline')
         else
             redirect_to user_record_path(@user_record), error: @user_record.errors.full_messages.join(". ")
         end
@@ -25,6 +23,7 @@ class UserRecordsController < ApplicationController
 
     def destroy
         @user_record.destroy
+        redirect_to root_path
     end
 
     def share_form

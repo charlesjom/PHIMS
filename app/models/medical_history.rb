@@ -19,14 +19,13 @@ class MedicalHistory
     end
 
     def save
-        # TODO: validation goes here
-        # validate
+        return if errors.present?
         run_callbacks :save
     end
 
     def allergies_attributes=(attributes)
         @allergies ||= []
-        attributes.each do |i, allergy_params|
+        attributes.each do |allergy_params|
             allergy = Allergy.new(allergy_params)
             if allergy.invalid?
                 errors.merge!(allergy.errors)
@@ -38,7 +37,7 @@ class MedicalHistory
 
     def health_conditions_attributes=(attributes)
         @health_conditions ||= []
-        attributes.each do |i, health_condition_params|
+        attributes.each do |health_condition_params|
             health_condition = HealthCondition.new(health_condition_params)
             if health_condition.invalid?
                 errors.merge!(health_condition.errors)
@@ -50,7 +49,7 @@ class MedicalHistory
 
     def medications_attributes=(attributes)
         @medications ||= []
-        attributes.each do |i, medical_condition_params|
+        attributes.each do |medical_condition_params|
             medication = Medication.new(medical_condition_params)
             if medication.invalid?
                 errors.merge!(medication.errors)
@@ -62,7 +61,7 @@ class MedicalHistory
 
     def vaccinations_attributes=(attributes)
         @vaccinations ||= []
-        attributes.each do |i, vaccination_params|
+        attributes.each do |vaccination_params|
             vaccination = Vaccination.new(vaccination_params)
             if vaccination.invalid?
               errors.merge!(vaccination.errors)  
@@ -74,6 +73,7 @@ class MedicalHistory
 
     def attributes=(hash)
         hash.each do |key, value|
+            next if key == 'errors'
             send("#{key}=", value)
         end
     end
