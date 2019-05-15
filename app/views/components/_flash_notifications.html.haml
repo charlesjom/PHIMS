@@ -1,7 +1,7 @@
 - if flash.present?
     .flash-container
         - flash.each do |key, message|
-            .ui.floating.message{class: flash_class(key)}
+            .ui.floating.message{class: key}
                 %i.close.icon
                 .header
                     %strong= "#{key.capitalize}!"
