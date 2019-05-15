@@ -14,8 +14,9 @@ class UserRecord < ApplicationRecord
         password = args[:password]
         return if password.nil?
         downloader = FileDownloader.new(self, user)
-        output_file = downloader.process(password)
-        return output_file
+        output = downloader.process(password)
+        errors.add(:base, 'Error encountered while decrypting record') if downloader.errors.any?
+        return output
     end
 
     def share_file(owner = nil, args = {})
@@ -26,5 +27,15 @@ class UserRecord < ApplicationRecord
         sharer = FileSharer.new(self, owner, share_recipient)
         status = sharer.process(password)
         return status
+    end
+    
+    def is_owner?(user = nil)
+        return false if user.nil?
+        self.user == User.find(user.id)
+    end
+
+    def has_access?(user = nil)
+        return false if user.nil?
+        self.share_keys.exists?(user: user) || is_owner?(user)
     end
 end

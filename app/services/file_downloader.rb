@@ -44,6 +44,7 @@ class FileDownloader
         errors << "[FileDownloader] Error: #{e.message}"
         Rails.logger.error "[FileDownloader] Error: #{e.message}"
         Rails.logger.error e.backtrace.join("\n")
+        return
     end
 
     private
