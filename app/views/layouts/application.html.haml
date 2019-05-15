@@ -9,7 +9,9 @@
 		= javascript_include_tag "https://use.fontawesome.com/releases/v5.7.2/js/all.js", integrity: "sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP", crossorigin: "anonymous"
 		= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 	%body
-		= render partial: 'components/header'
+		.ui.basic.segment
+			= render partial: 'components/flash_notifications'
+			= render partial: 'components/navbar'
 		= render partial: 'components/modal'
 		.ui.grid.container
 			= yield
