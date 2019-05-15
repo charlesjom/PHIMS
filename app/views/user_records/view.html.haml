@@ -1,11 +1,12 @@
 - phr_type = user_record.phr_type
-.ui.dividing.header
+%h2.title.has-text-centered
     = "#{t("phr_types.#{phr_type}")} of #{user_record.user.fullname}"
-.ui.segment
-    - if phr_type.present?
-        = render "#{phr_type.pluralize}/view", content: content
-    - else
-        = render 'invalid', content: content
+.box
+    .ui.container
+        - if phr_type.present?
+            = render "#{phr_type.pluralize}/view", content: content
+        - else
+            = render 'invalid', content: content
 .ui.footer.segment
     .ui.container
         User Record created at

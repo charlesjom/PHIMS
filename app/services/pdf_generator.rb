@@ -25,11 +25,5 @@ class PdfGenerator
                 zoom: 1.0,
             )
         )
-
-        File.open(pdf_path, 'wb') do |file|
-            file << pdf
-        end
-        
-        return pdf_path
     end
 end

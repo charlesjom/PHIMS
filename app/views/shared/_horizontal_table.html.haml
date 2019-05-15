@@ -1,11 +1,16 @@
 - headers = hashes.first.keys
-%table.celled.striped.collapsing.table
-    %thead
-        %tr
-            - headers.each do |header|
-                %td= t(header, scope: [:labels, type.to_sym, section.to_sym])
-    %tbody
-        - hashes.each do |hash|
+- excluded = %w(errors validation_context)
+.container
+    %table.table.is-bordered.is-fullwidth.is-striped
+        %thead
             %tr
-                - hash.each do |key, value|
-                    %td= value
+                - headers.each do |header|
+                    - next if header.in?(excluded)
+                    %th
+                        = t(header, scope: [:labels, type.to_sym, section.to_sym])
+        %tbody
+            - hashes.each do |hash|
+                %tr
+                    - hash.each do |key, value|
+                        - next if key.in?(excluded)
+                        %td= value

@@ -78,7 +78,7 @@ class FileDownloader
     end
 
     def resolve_object(object, json)
-        
+       return object 
     end
 
 end
