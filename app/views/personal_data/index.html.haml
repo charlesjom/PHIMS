@@ -6,5 +6,5 @@
             - if @personal_data.any?
                 = render 'shared/items', user_records: @personal_data
             - else
-                = render 'shared/empty_records'
+                = render 'shared/empty_placeholder', object: 'record'
             

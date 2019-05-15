@@ -6,4 +6,4 @@
             - if @medical_histories.any?
                 = render 'shared/items', user_records: @medical_histories
             - else
-                = render 'shared/empty_records'
+                = render 'shared/empty_placeholder', object: 'record'
