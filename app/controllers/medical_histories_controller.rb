@@ -16,8 +16,7 @@ class MedicalHistoriesController < ApplicationController
         if @medical_history.save
             redirect_to medical_histories_path
         else
-            redirect_back fallback_location: new_medical_history_path(current_user)
-            # return error
+            render :new
         end
     end
 

@@ -1,18 +1,16 @@
 .six.wide.column
-	.centered.aligned.row
-		.ui.vertical.center.aligned.segment
-			.ui.huge.header Personal Health Information Management System
-			= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { autocomplete: 'off' } do |f|
-				= render "users/shared/error_messages", resource: resource
-				.field
-					.ui.left.icon.input
-						%i.user.icon
-						= f.email_field :email, placeholder: 'Email Address', autofocus: true, autocomplete: "off"
-				.field
-					.ui.left.icon.input
-						%i.lock.icon
-						= f.password_field :password, placeholder: 'Password', autocomplete: "off"
-				- if devise_mapping.rememberable?
-					= f.input :remember_me, as: :boolean
-				= f.button :submit, "Login", class: 'fluid'
-			= render "users/shared/links"
+	.ui.vertical.center.aligned.segment
+		.ui.huge.header Personal Health Information Management System
+		= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { autocomplete: 'off' } do |f|
+			.field
+				.ui.left.icon.input
+					%i.user.icon
+					= f.email_field :email, placeholder: 'Email Address', autofocus: true, autocomplete: "off"
+			.field
+				.ui.left.icon.input
+					%i.lock.icon
+					= f.password_field :password, placeholder: 'Password', autocomplete: "off"
+			- if devise_mapping.rememberable?
+				= f.input :remember_me, as: :boolean
+			= f.button :submit, "Login", class: 'fluid'
+		= render "users/shared/links"

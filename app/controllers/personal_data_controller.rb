@@ -6,7 +6,7 @@ class PersonalDataController < ApplicationController
     end
 
     def new
-        @personal_data = PersonalData.new(personal_demographics: [PersonalDemographics.new], emergency_contacts: [EmergencyContact.new], insurances: [Insurance.new])
+        @personal_data = PersonalData.new(personal_demographics: [PersonalDemographics.new])
     end
     
     def create
@@ -15,8 +15,7 @@ class PersonalDataController < ApplicationController
         if @personal_data.save
             redirect_to personal_data_index_path
         else
-            redirect_back fallback_location: new_personal_data_path(current_user)
-            # return error
+            render :new
         end
     end
 
