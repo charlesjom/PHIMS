@@ -1,11 +1,38 @@
-.eight.wide.column
-    .centered.aligned.row
-        .ui.vertical.center.aligned.segment
-            .ui.huge.header.center.aligned
-                = "#{t("phr_types.#{@user_record.phr_type}")} of #{@user_record.user.fullname}"
-            = form_tag view_user_record_path(@user_record), method: :post, class: 'ui form' do
-                .field
-                    = label :password, :password, 'Enter password to view record'
-                    = password_field_tag 'user_record[password]', nil
-                .field
-                    = submit_tag 'Submit', class: 'ui primary button fluid'
+.column
+    .ui.vertical.center.aligned.segment
+        .ui.huge.dividing.header
+            = "#{t("phr_types.#{@user_record.phr_type}")} of #{@user_record.user.fullname}"
+        .ui.two.column.centered.grid
+            - if @user_record.is_owner?(current_user)
+                .vertical.center.aligned.eight.wide.column
+                    %h3.ui.header Share Keys
+                    = link_to share_form_user_record_path(@user_record), class: 'ui green right labeled icon button' do
+                        Add Share Key
+                        %i.plus.right.icon
+                    .ui.segment
+                        - if @share_keys.present?
+                            %table.ui.celled.striped.table
+                                %thead
+                                    %tr
+                                        %th Name
+                                        %th Email
+                                        %th Actions
+                                %tbody
+                                    - @share_keys.each do |share_key|
+                                        %tr
+                                            %td= share_key.user.fullname
+                                            %td= share_key.user.email
+                                            %td
+                                                = link_to user_record_share_key_path(@user_record, share_key), title: 'Delete Share Key', remote: true, method: :delete, data: {confirm: "Are you sure you want to remove this share key?"} do
+                                                    %i.trash.icon
+                        - else
+                            = render 'shared/empty_placeholder', object: 'share_key'
+            .vertical.center.aligned.eight.wide.column
+                %h3.ui.header View Record
+                .ui.segment
+                    = form_tag view_user_record_path(@user_record), method: :post, class: 'ui form' do
+                        .field
+                            = label :user_record, :password, 'Enter password to view record'
+                            = password_field_tag 'user_record[password]', nil
+                        .field
+                            = submit_tag 'Submit', class: 'ui primary button'

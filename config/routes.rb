@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get :share_form
       post :edit_data
     end
+    resources :share_keys
   end
 
 end
