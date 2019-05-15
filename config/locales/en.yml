@@ -69,6 +69,7 @@ en:
         valid_until: "Valid Until"
         name_of_insured: "Name of Insured"
         birthdate_of_insured: "Birthdate of Insured"
+        primary_beneficiary: "Primary Beneficiary"
         relationship_of_beneficiary_to_insured: Relationship of Beneficiary to Insured
         telephone_number: "Telephone Number of Beneficiary"
       personal_demographics:
