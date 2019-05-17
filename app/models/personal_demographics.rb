@@ -11,16 +11,14 @@ class PersonalDemographics
     ABO_BLOOD_TYPES = %w( A B AB O ).freeze
     RH_BLOOD_TYPES = %w( + - ).freeze
 
-    with_options allow_blank: true do |v|
-        v.validates_inclusion_of :sex, in: SEX_CHOICES
-        v.validates_inclusion_of :civil_status, in: CIVIL_STATUS_CHOICES
-        v.validates_numericality_of :weight_in_kg, greater_than: 0, less_than: 100
-        v.validates_numericality_of :height_in_cm, greater_than: 0, less_than: 100
-        v.validates_inclusion_of :abo_blood_type, in: ABO_BLOOD_TYPES
-        v.validates_inclusion_of :rh_blood_type, in: RH_BLOOD_TYPES
-        v.validates_date :birthdate, :on_or_before => :today
-    end
-    validates_presence_of :abo_blood_type, :if => lambda { self.rh_blood_type.present? }
+    validates_presence_of(*ATTRIBUTES)
+    validates_inclusion_of :sex, in: SEX_CHOICES
+    validates_inclusion_of :civil_status, in: CIVIL_STATUS_CHOICES
+    validates_numericality_of :weight_in_kg, greater_than: 0, less_than: 200
+    validates_numericality_of :height_in_cm, greater_than: 0, less_than: 400
+    validates_inclusion_of :abo_blood_type, in: ABO_BLOOD_TYPES
+    validates_inclusion_of :rh_blood_type, in: RH_BLOOD_TYPES
+    validates_date :birthdate, :on_or_before => :today
 
     def attributes
         instance_values

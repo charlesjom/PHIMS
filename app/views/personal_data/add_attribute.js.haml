@@ -1,1 +1,1 @@
-$("#" + "#{@collection}").append("<%= escape_javascript render(partial: "#{@attribute}") %>")
+$("#" + "#{@collection}").append("#{ escape_javascript(render partial: "#{@attribute}", model: @model) }")

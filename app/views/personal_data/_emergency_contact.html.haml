@@ -1,33 +1,55 @@
+- emergency_contact = emergency_contact.present? ? emergency_contact : nil
 .ui.segment
     = fields_for 'personal_data[emergency_contacts_attributes][]', @model do |e|
         .fields
-            .field
+            .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:first_name].any? )}
                 = e.label :first_name do
                     = I18n.t(:first_name, scope: [:labels, :personal_data, :emergency_contact])
-                = e.text_field :first_name
-            .field
+                = e.text_field :first_name, required: true
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:first_name].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:first_name].first
+            .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:middle_name].any? )}
                 = e.label :middle_name do
                     = I18n.t(:middle_name, scope: [:labels, :personal_data, :emergency_contact])
-                = e.text_field :middle_name
-            .field
+                = e.text_field :middle_name, required: true
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:middle_name].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:middle_name].first
+            .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:last_name].any? )}
                 = e.label :last_name do
                     = I18n.t(:last_name, scope: [:labels, :personal_data, :emergency_contact])
-                = e.text_field :last_name
-            .field
+                = e.text_field :last_name, required: true
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:last_name].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:last_name].first
+            .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:relationship].any? )}
                 = e.label :relationship do
                     = I18n.t(:relationship, scope: [:labels, :personal_data, :emergency_contact])                    
-                = e.text_field :relationship
+                = e.text_field :relationship, required: true
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:relationship].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:relationship].first
         .fields
             .field            
                 = e.label :telephone_number do
                     = I18n.t(:telephone_number, scope: [:labels, :personal_data, :emergency_contact])
                 = e.text_field :telephone_number
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:telephone_number].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:telephone_number].first
             .field
                 = e.label :cellphone_number do
                     = I18n.t(:cellphone_number, scope: [:labels, :personal_data, :emergency_contact])
                 = e.text_field :cellphone_number
-            .field
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:cellphone_number].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:cellphone_number].first
+            .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:address].any? )}
                 = e.label :address do
                     = I18n.t(:address, scope: [:labels, :personal_data, :emergency_contact])
-                = e.text_area :address, cols: 60, rows: 2
+                = e.text_area :address, cols: 60, rows: 2, required: true
+                - if emergency_contact.try(:errors).present? && emergency_contact.errors[:address].any?
+                    .ui.red.pointing.above.label.error
+                        = emergency_contact.errors[:address].first
             

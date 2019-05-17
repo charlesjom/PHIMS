@@ -3,7 +3,7 @@
         .ui.vertical.center.aligned.segment
             .ui.page.header.center.aligned New Medical History
             = simple_form_for @medical_history, url: medical_histories_path do |f|
-                = render "users/shared/error_messages", resource: @medical_history
+                = f.error :base
                 .ui.four.item.tabular.menu
                     = tag.div class: 'active item', data: { tab: 'allergies' } do
                         Allergies

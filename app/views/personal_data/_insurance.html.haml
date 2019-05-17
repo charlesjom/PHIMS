@@ -1,38 +1,63 @@
+- insurance = insurance.present? ? insurance : nil
 .ui.segment
     = fields_for 'personal_data[insurances_attributes][]', @model do |i|
         .field
             .fields
-                .field
+                .field.required{class: ("error" if insurance.try(:errors).present? && insurance.errors[:provider_name].any? )}
                     = i.label :provider_name do
                         = I18n.t(:provider_name, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :provider_name
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:provider_name].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:provider_name].first
+                .field{class: ("error" if insurance.try(:errors).present? && insurance.errors[:id_number].any? )}
                     = i.label :id_number do
                         = I18n.t(:id_number, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :id_number
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:id_number].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:id_number].first
+                .field{class: ("error" if insurance.try(:errors).present? && insurance.errors[:valid_until].any? )}
                     = i.label :valid_until do
                         = I18n.t(:valid_until, scope: [:labels, :personal_data, :insurance])
                     = i.date_field :valid_until
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:valid_until].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:valid_until].first
+                .field.required{class: ("error" if insurance.try(:errors).present? && insurance.errors[:name_of_insured].any? )}
                     = i.label :name_of_insured do
                         = I18n.t(:name_of_insured, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :name_of_insured
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:name_of_insured].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:name_of_insured].first
+                .field.required{class: ("error" if insurance.try(:errors).present? && insurance.errors[:birthdate_of_insured].any? )}
                     = i.label :birthdate_of_insured do
                         = I18n.t(:birthdate_of_insured, scope: [:labels, :personal_data, :insurance])
                     = i.date_field :birthdate_of_insured
+                    - if insurance.try(:errors).present? && insurance.errors[:birthdate_of_insured].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:birthdate_of_insured].first
         .field
             .fields
-                .field
+                .field.required{class: ("error" if insurance.try(:errors).present? && insurance.errors[:primary_beneficiary].any? )}
                     = i.label :primary_beneficiary do
                         = I18n.t(:primary_beneficiary, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :primary_beneficiary
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:primary_beneficiary].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:primary_beneficiary].first
+                .field.required{class: ("error" if insurance.try(:errors).present? && insurance.errors[:relationship_of_beneficiary_to_insured].any? )}
                     = i.label :relationship_of_beneficiary_to_insured do
                         = I18n.t(:relationship_of_beneficiary_to_insured, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :relationship_of_beneficiary_to_insured
-                .field
+                    - if insurance.try(:errors).present? && insurance.errors[:relationship_of_beneficiary_to_insured].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:relationship_of_beneficiary_to_insured].first
+                .field{class: ("error" if insurance.try(:errors).present? && insurance.errors[:telephone_number].any? )}
                     = i.label :telephone_number do
                         = I18n.t(:telephone_number, scope: [:labels, :personal_data, :insurance])
                     = i.text_field :telephone_number
+                    - if insurance.try(:errors).present? && insurance.errors[:telephone_number].any?
+                        .ui.red.pointing.above.label.error
+                            = insurance.errors[:telephone_number].first

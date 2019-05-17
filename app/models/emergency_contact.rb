@@ -7,7 +7,7 @@ class EmergencyContact
     attr_accessor(*ATTRIBUTES)
 
     # validators for each attributes
-    validates_presence_of :first_name, :middle_name, :last_name, :relationship
+    validates_presence_of :first_name, :middle_name, :last_name, :relationship, :address
     validates_length_of :first_name, maximum: 30
     validates_length_of :middle_name, maximum: 30
     validates_length_of :last_name, maximum: 30

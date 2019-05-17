@@ -57,6 +57,7 @@ gem 'bulma-rails', '~> 0.7.4'
 gem 'httplog'
 gem 'shog'
 gem 'enumerize'
+gem 'country_select', '~> 4.0', require: 'country_select_without_sort_alphabetical'
 
 # For PDF generation
 gem 'wicked_pdf'

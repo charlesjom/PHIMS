@@ -25,9 +25,11 @@ class PersonalData
     end
     
 
-    def personal_demographics_attributes=(attributes)
-        patient_demographic_params = attributes.values.first
+    def personal_demographics_attributes=(patient_demographic_params)
         @personal_demographics = PersonalDemographics.new(patient_demographic_params)
+        if @personal_demographics.invalid?
+            errors.merge!(@personal_demographics.errors)
+        end
     end
 
     def emergency_contacts_attributes=(attributes)
@@ -36,9 +38,8 @@ class PersonalData
             emergency_contact = EmergencyContact.new(emergency_contact_params)
             if emergency_contact.invalid?
                 errors.merge!(emergency_contact.errors)
-            else
-                @emergency_contacts.push()
             end
+            @emergency_contacts.push(emergency_contact)
         end
     end
 
@@ -48,9 +49,8 @@ class PersonalData
             insurance = Insurance.new(insurance_params)
             if insurance.invalid?
                 errors.merge!(insurance.errors)
-            else
-                @insurances.push(insurance)
             end
+            @insurances.push(insurance)
         end
     end
 

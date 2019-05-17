@@ -6,7 +6,7 @@ class PersonalDataController < ApplicationController
     end
 
     def new
-        @personal_data = PersonalData.new(personal_demographics: [PersonalDemographics.new])
+        @personal_data = PersonalData.new(personal_demographics: PersonalDemographics.new)
     end
     
     def create
