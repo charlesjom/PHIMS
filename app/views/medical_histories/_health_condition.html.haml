@@ -1,15 +1,17 @@
+- health_condition = health_condition.present? ? health_condition : nil
 .ui.segment
     .fields
         = fields_for 'medical_history[health_conditions_attributes][]', @model do |h|
             .field
                 = h.label :name_of_condition do
                     = I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition])
-                = h.text_field :name_of_condition
+                = h.text_field :name_of_condition, placeholder: I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition]),
+                                value: health_condition.present? ? health_condition.try(:name_of_condition) : nil
             .field
                 = h.label :date_of_diagnosis do
                     = I18n.t(:date_of_diagnosis, scope: [:labels, :medical_history, :health_condition])
-                = h.date_field :date_of_diagnosis, html5: true
+                = h.date_field :date_of_diagnosis, html5: true, value: health_condition.present? ? health_condition.try(:date_of_diagnosis) : nil
             .field
                 = h.label :date_of_last_checkup do 
                     = I18n.t(:date_of_last_checkup, scope: [:labels, :medical_history, :health_condition])
-                = h.date_field :date_of_last_checkup, html5: true
+                = h.date_field :date_of_last_checkup, html5: true, value: health_condition.present? ? health_condition.try(:date_of_last_checkup) : nil

@@ -1,12 +1,13 @@
+- allergy = allergy.present? ? allergy : nil
 .ui.segment
     .fields
         = fields_for 'medical_history[allergies_attributes][]', @model do |a|
             .field
                 = a.label :allergen
-                = a.text_field :allergen, autofocus: true, placeholder: "What are you allergic to?", required: true
+                = a.text_field :allergen, value: allergy.present? ? allergy.try(:allergen) : nil, autofocus: true, placeholder: "What are you allergic to?", required: true
             .field
                 = a.label :symptoms
-                = a.text_field :symptoms, placeholder: "What are the symptoms of this allergy?", required: true
+                = a.text_field :symptoms, value: allergy.present? ? allergy.try(:symptoms) : nil, placeholder: "What are the symptoms of this allergy?", required: true
             .field
                 = a.label :medications
-                = a.text_field :medications, placeholder: "What can treat this allergy?", required: true
+                = a.text_field :medications, value: allergy.present? ? allergy.try(:medications) : nil, placeholder: "What can treat this allergy?", required: true

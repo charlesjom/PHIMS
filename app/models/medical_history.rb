@@ -29,9 +29,8 @@ class MedicalHistory
             allergy = Allergy.new(allergy_params)
             if allergy.invalid?
                 errors.merge!(allergy.errors)
-            else
-                @allergies.push(allergy)
             end
+            @allergies.push(allergy)
         end
     end
 
@@ -41,9 +40,8 @@ class MedicalHistory
             health_condition = HealthCondition.new(health_condition_params)
             if health_condition.invalid?
                 errors.merge!(health_condition.errors)
-            else
-                @health_conditions.push(health_condition)
             end
+            @health_conditions.push(health_condition)
         end
     end
 
@@ -53,9 +51,8 @@ class MedicalHistory
             medication = Medication.new(medical_condition_params)
             if medication.invalid?
                 errors.merge!(medication.errors)
-            else
-                @medications.push(medication)
             end
+            @medications.push(medication)
         end
     end
 
@@ -65,9 +62,8 @@ class MedicalHistory
             vaccination = Vaccination.new(vaccination_params)
             if vaccination.invalid?
               errors.merge!(vaccination.errors)  
-            else
-                @vaccinations.push(vaccination)
             end
+            @vaccinations.push(vaccination)
         end
     end
 

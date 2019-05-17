@@ -1,11 +1,13 @@
+- vaccination = vaccination.present? ? vaccination : nil
 .ui.segment
     .fields
         = fields_for 'medical_history[vaccinations_attributes][]', @model do |v|
             .field
                 = v.label :target_disease do
                     = I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination])
-                = v.text_field :target_disease
+                = v.text_field :target_disease, placeholder: I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination]),
+                                value: vaccination.present? ? vaccination.try(:target_disease) : nil
             .field
                 = v.label :date_administered do
                     = I18n.t(:date_administered, scope: [:labels, :medical_history, :vaccination])
-                = v.date_field :date_administered, html5: true
+                = v.date_field :date_administered, html5: true, value: vaccination.present? ? vaccination.try(:date_administered) : nil

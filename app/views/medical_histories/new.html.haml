@@ -19,24 +19,36 @@
                         = t(:allergy, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'allergy', record: @medical_history
                     #allergies
+                        - if @medical_history.try(:allergies).present?
+                            - @medical_history.allergies.each do |allergy|
+                                = render partial: 'allergy', locals: { :@model => Allergy.new, :allergy => allergy }
                 
                 .ui.tab{data: {tab: 'health-conditions'}}
                     .ui.dividing.header
                         = t(:health_condition, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'health_condition', record: @medical_history
                     #health-conditions
+                        - if @medical_history.try(:health_conditions).present?
+                            - @medical_history.health_conditions.each do |health_condition|
+                                = render partial: 'health_condition', locals: { :@model => HealthCondition.new, :health_condition => health_condition }
                 
                 .ui.tab{data: {tab: 'medications'}}
                     .ui.dividing.header
                         = t(:medication, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'medication', record: @medical_history
                     #medications
+                        - if @medical_history.try(:medications).present?
+                            - @medical_history.medications.each do |medication|
+                                = render partial: 'medication', locals: { :@model => Medication.new, :medication => medication }
                 
                 .ui.tab{data: {tab: 'vaccinations'}}
                     .ui.dividing.header
                         = t(:vaccination, scope: [:headers, :medical_history, :sections])
                     = render 'shared/add_button', type: 'medical_history', object: 'vaccination', record: @medical_history
                     #vaccinations
+                        - if @medical_history.try(:vaccinations).present?
+                            - @medical_history.vaccinations.each do |vaccination|
+                                = render partial: 'vaccination', locals: { :@model => Vaccination.new, :vaccination => vaccination }
                 
                 .ui.center.aligned.segment
                     = f.button :submit, "Create Medical History"

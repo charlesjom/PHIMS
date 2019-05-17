@@ -1,3 +1,4 @@
+- medication = medication.present? ? medication : nil
 .ui.segment
     = render 'shared/delete_button'
     = fields_for 'medical_history[medications_attributes][]', @model do |m|
@@ -5,25 +6,25 @@
             .field
                 = m.label :medicine_name do
                     = I18n.t(:medicine_name, scope: [:labels, :medical_history, :medication])
-                = m.text_field :medicine_name
+                = m.text_field :medicine_name, placeholder: 'Medicine Name', value: medication.present? ? medication.try(:medicine_name) : nil
             .field
                 = m.label :still_active do
                     = I18n.t(:still_active, scope: [:labels, :medical_history, :medication])
-                = m.check_box :still_active, checked_value: true, unchecked_value: false
+                = m.check_box :still_active, checked_value: "true", unchecked_value: "false", value: medication.present? ? medication.try(:still_active) : nil
         .fields
             .inline.field
                 %label Dose
                 .fields
                     = m.number_field :dosage_dose_amount, placeholder: 'Amount'
-                    = m.select :dosage_dose_unit, Medication::DOSE_UNITS, { prompt: "Select Unit..." }
+                    = m.select :dosage_dose_unit, Medication::DOSE_UNITS, { prompt: "Select Unit..." }, value: medication.present? ? medication.try(:dosage_dose_unit) : nil
             .inline.field
                 %label Frequency
                 .fields
                     = m.number_field :dosage_frequency_value, placeholder: 'Value'
-                    = m.select :dosage_frequency_unit, Medication::FREQUENCY_UNITS, { prompt: "Select Unit..." }
+                    = m.select :dosage_frequency_unit, Medication::FREQUENCY_UNITS, { prompt: "Select Unit..." }, value: medication.present? ? medication.try(:dosage_frequency_value) : nil
             .inline.field
                 %label Duration
                 .fields
                     = m.number_field :dosage_duration_value, placeholder: 'Value'
-                    = m.select :dosage_duration_unit, Medication::DURATION_UNITS, { prompt: "Select Unit..." }
+                    = m.select :dosage_duration_unit, Medication::DURATION_UNITS, { prompt: "Select Unit..." }, value: medication.present? ? medication.try(:dosage_duration_value) : nil
         
