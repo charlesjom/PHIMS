@@ -1,13 +1,15 @@
-.devise-container
-  %h2.title.text-center Resend confirmation instructions
-  .box
+.column
+  .ui.vertical.center.aligned.segment
     = render "users/shared/error_messages", resource: resource
-    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-      .field
-        = f.label :email
-        .control
-          = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'input'
-      .field
-        .control.has-text-centered
-          = f.submit "Resend confirmation instructions", class: 'button is-primary is-fullwidth'
-  = render "users/shared/links"
+    .ui.huge.dividing.header Resend Confirmation Instructions
+    .ui.centered.grid
+      .vertical.center.aligned.six.wide.column
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'ui form' }) do |f|
+          .field
+            = f.label :email
+            .control
+              = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'input'
+          .field
+            .control.has-text-centered
+              = f.submit "Resend confirmation instructions", class: 'ui primary button'
+        = render "users/shared/links"
