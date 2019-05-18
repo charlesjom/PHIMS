@@ -81,6 +81,8 @@ textarea {
 .flash-container, .error-container {
     width: 30%;
     margin: auto;
+    z-index: 200;
+    position: relative;
 }
 
 // Text and background colors
