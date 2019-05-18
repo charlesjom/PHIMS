@@ -1,9 +1,9 @@
 class MedicalHistoriesController < ApplicationController
 
     def index
-        # TODO: get all medical histories with share keys for certain user
-        @medical_histories = current_user.user_records.where(phr_type: 'medical_history').to_a || []
-        # (@user_records << current_user.records_with_access.to_a).flatten!
+        owned_medical_histories = current_user.user_records.where(phr_type: 'medical_history').to_a
+        medical_histories_with_access = current_user.records_with_access.where(phr_type: 'medical_history').to_a
+        @medical_histories = owned_medical_histories + medical_histories_with_access
     end
     
     def new

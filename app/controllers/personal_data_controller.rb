@@ -1,8 +1,9 @@
 class PersonalDataController < ApplicationController
     
     def index
-        # TODO: get all personal data with share keys for certain user
-        @personal_data = current_user.user_records.where(phr_type: 'personal_data').to_a || []
+        owned_personal_data = current_user.user_records.where(phr_type: 'personal_data').to_a 
+        personal_data_with_access = current_user.records_with_access.where(phr_type: 'personal_data').to_a
+        @personal_data = owned_personal_data + personal_data_with_access
     end
 
     def new
