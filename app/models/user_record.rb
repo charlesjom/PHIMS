@@ -10,22 +10,27 @@ class UserRecord < ApplicationRecord
     enumerize :phr_type, in: [:medical_history, :personal_data], i18n_scope: "phr_types", scope: true, predicates: true
 
     def read_file(user = nil, args = {})
-        return if user.nil?
         password = args[:password]
-        return if password.nil?
         downloader = FileDownloader.new(self, user)
         output = downloader.process(password)
-        errors.add(:base, 'Error encountered while decrypting record') if downloader.errors.any?
+        if downloader.errors.any?
+            downloader.errors.each do |error|
+                errors.add(:base, error)
+            end
+        end
         return output
     end
 
     def share_file(owner = nil, args = {})
-        return false if owner.nil?
         password = args[:password]
         share_recipient = args[:share_recipient]
-        return false if password.nil? || share_recipient.nil?
         sharer = FileSharer.new(self, owner, share_recipient)
         status = sharer.process(password)
+        if sharer.errors.any?
+            sharer.errors.each do |error|
+                errors.add(:base, error)
+            end
+        end
         return status
     end
     

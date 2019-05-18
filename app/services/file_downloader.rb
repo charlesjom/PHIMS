@@ -11,8 +11,12 @@ class FileDownloader
     end
 
     def process(password = nil, readonly = true)
-        return if user_record.nil? || user.nil? || password.nil?
-        
+        if user_record.blank? || user.blank?
+            message = "can't be blank"
+            add_error(:user_record, message) if user_record.blank?
+            add_error(:owner, message) if owner.blank?
+        end
+        Rails.logger.debug "[FileDownloader] Downloading file for user"
         # if owner of user record is the one downloading the file,
         # then use encrypted_file_key of user record
         # else, use share key of user for that user record
@@ -22,6 +26,11 @@ class FileDownloader
             Base64.decode64(user_record.share_keys.find_by(user_id: user.id).share_key)
         end
         return if encrypted_file_key.nil?
+
+        if !(user.valid_password?(password))
+            add_error(:password)
+            return false
+        end
 
         decrypted_data = decrypt_file(password, encrypted_file_key)
 
@@ -72,13 +81,17 @@ class FileDownloader
         decrypted_data = cipher.update(encrypted_data)
         decrypted_data << cipher.final
     rescue => e
-        Rails.logger.error "[FileDownloader] Error encountered while decrypting file. Error: #{e.message}"
-        Rails.logger.error e.backtrace.join("\n")
-        errors << "[FileDownloader] Error encountered while decrypting file. Error: #{e.message}"
+        raise e
     end
+
+    private
 
     def resolve_object(object, json)
        return object 
+    end
+
+    def add_error(attribute, message = "is invalid")
+        errors << "#{attribute.to_s.humanize} #{message}"
     end
 
 end

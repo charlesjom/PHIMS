@@ -17,7 +17,7 @@ class UserRecordsController < ApplicationController
         if @user_record.errors.empty?
             send_data(output.force_encoding('BINARY'), type: 'application/pdf', disposition: 'inline')
         else
-            redirect_to user_record_path(@user_record), error: @user_record.errors.full_messages.join(". ")
+            redirect_to user_record_path(@user_record), error: @user_record.errors.full_messages
         end
     end
 
@@ -31,6 +31,11 @@ class UserRecordsController < ApplicationController
 
     def share
         status = @user_record.share_file(current_user, share_user_record_params)
+        if status
+            redirect_to share_form_user_record_path(@user_record)
+        else
+            redirect_to share_form_user_record_path(@user_record), error: @user_record.errors.full_messages
+        end
     end
 
     def edit

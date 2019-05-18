@@ -1,8 +1,13 @@
 - if flash.present?
     .flash-container
-        - flash.each do |key, message|
+        - flash.each do |key, content|
             .ui.floating.message{class: key}
                 %i.close.icon
                 .header
                     %strong= "#{key.capitalize}!"
-                = message.html_safe
+                - if content.is_a? String
+                    = content.html_safe
+                - else
+                    %ul.list
+                        - content.each do |message|
+                            %li= message.html_safe
