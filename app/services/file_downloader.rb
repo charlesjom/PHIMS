@@ -45,8 +45,7 @@ class FileDownloader
             object.from_json(decrypted_data)
         end
 
-        # TODO: should return a PDF file
-        # Create service to transform serialized hash to PDF
+        # transform object to PDF
         pdf_generator = PdfGenerator.new(object, user_record)
         pdf_generator.process   # return PDF file
     rescue => e
@@ -87,7 +86,9 @@ class FileDownloader
     private
 
     def resolve_object(object, json)
-       return object 
+        Rails.logger.debug "[FileDownloader] Resolving object"
+        
+        return object
     end
 
     def add_error(attribute, message = "is invalid")

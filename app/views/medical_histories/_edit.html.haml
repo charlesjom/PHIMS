@@ -1,8 +1,8 @@
 .column
     .middle.aligned.center.aligned.row
         .ui.vertical.center.aligned.segment
-            .ui.page.header.center.aligned New Medical History
-            = simple_form_for @medical_history, url: medical_histories_path do |f|
+            .ui.page.header.center.aligned Edit Medical History
+            = simple_form_for content, url: medical_histories_path do |f|
                 = render "users/shared/error_messages", resource: @medical_history
                 .ui.four.item.tabular.menu
                     = tag.div class: 'active item', data: { tab: 'allergies' } do

@@ -1,7 +1,3 @@
 - if @user_record.phr_type.present?
     - phr_type = @user_record.phr_type
-    .eight.wide.column
-        .centered.aligned.row
-            .ui.vertical.center.aligned.segment
-                .ui.huge.header.center.aligned Edit #{t("phr_types.#{phr_type}")}
     = render "#{phr_type.pluralize}/edit", content: @output

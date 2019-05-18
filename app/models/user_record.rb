@@ -21,6 +21,18 @@ class UserRecord < ApplicationRecord
         return output
     end
 
+    def edit_file(user = nil, args = {})
+        password = args[:password]
+        downloader = FileDownloader.new(self, user)
+        output = downloader.process(password, false)
+        if downloader.errors.any?
+            downloader.errors.each do |error|
+                errors.add(:base, error)
+            end
+        end
+        return output
+    end
+
     def share_file(owner = nil, args = {})
         password = args[:password]
         share_recipient = args[:share_recipient]

@@ -42,7 +42,10 @@ class UserRecordsController < ApplicationController
     end
 
     def edit_data
-        @output = @user_record.read_file(current_user, user_record_params)
+        @output = @user_record.edit_file(current_user, user_record_params)
+        if @user_record.errors.any?
+            redirect_to edit_user_record_path(@user_record), error: @user_record.errors.full_messages
+        end
     end
     
     private
