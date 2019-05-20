@@ -20,13 +20,6 @@ class MedicalHistoriesController < ApplicationController
         end
     end
 
-    def update
-        # TODO: Steps in updating
-        # Create new file with updated values
-        # Delete previous record or keep it (?)
-        # @medical_history.new(medical_history_params)
-    end
-
     def add_attribute
         @attribute = params[:attribute]
         @collection = params[:collection]

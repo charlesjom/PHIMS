@@ -47,6 +47,19 @@ class UserRecordsController < ApplicationController
             redirect_to edit_user_record_path(@user_record), error: @user_record.errors.full_messages
         end
     end
+
+    def update
+        user_record = UserRecord.find(params[:id])
+        if params.has_key?(:medical_history)
+            params[:medical_history].merge!({owner_id: current_user.id})
+            @medical_history = MedicalHistory.new(medical_history_params)
+            @medical_history.update(user_record)
+        elsif params.has_key?(:personal_data)
+            params[:personal_data].merge!({owner_id: current_user.id})
+            @personal_data = PersonalData.new(personal_data_params)
+            @personal_data.update(user_record)
+        end
+    end
     
     private
 
@@ -65,5 +78,22 @@ class UserRecordsController < ApplicationController
 
     def share_user_record_params
         params.require(:user_record).permit(:password, :share_recipient)
+    end
+    
+    def medical_history_params
+        params.require(:medical_history).permit(:owner_id,
+            allergies_attributes: Allergy::ATTRIBUTES,
+            vaccinations_attributes: Vaccination::ATTRIBUTES,
+            health_conditions_attributes: HealthCondition::ATTRIBUTES,
+            medications_attributes: Medication::ATTRIBUTES
+        )
+    end
+
+    def personal_data_params
+        params.require(:personal_data).permit(:owner_id,
+            personal_demographics_attributes: PersonalDemographics::ATTRIBUTES,
+            emergency_contacts_attributes: EmergencyContact::ATTRIBUTES,
+            insurances_attributes: Insurance::ATTRIBUTES
+        )
     end
 end

@@ -17,7 +17,6 @@ class FileUploader
         file_name = "#{owner.identifier}_#{object.class.to_s.downcase}_#{DateTime.now.to_s(:number)}.phr"
         file_key, encrypted_key, encrypted_iv = encrypt_file(file_name)
 
-        Rails.logger.info "[FileUploader] Encrypting PHR file"
         # encrypt file_key using the owner's public_key
         owner_public_key = OpenSSL::PKey::RSA.new(owner.public_key)
         encrypted_file_key = Base64.encode64(owner_public_key.public_encrypt(file_key))
@@ -30,19 +29,34 @@ class FileUploader
 
             begin
                 ActiveRecord::Base.transaction do
-                    # create a record model
-                    owner_records = owner.user_records.create!(
-                        encrypted_file_key: encrypted_file_key,
-                        encrypted_cipher_key: encrypted_key,
-                        encrypted_cipher_iv: encrypted_iv,
-                        phr_type: object_type
-                    )
-                    # attach file to record model
-                    file_to_attach = File.open(file_name)
-                    owner_records.file.attach(
-                        io: file_to_attach,
-                        filename: file_name
-                    )
+                    if object.record_id.present?
+                        # update record model
+                        owner_records = owner.user_records.find(object.record_id)
+                        file_to_attach = File.open(file_name)
+                        owner_records.update(
+                            encrypted_file_key: encrypted_file_key,
+                            encrypted_cipher_key: encrypted_key,
+                            encrypted_cipher_iv: encrypted_iv
+                        )
+                        owner_records.file.attach(
+                            io: file_to_attach,
+                            filename: file_name
+                        )
+                    else
+                        # create a record model
+                        owner_records = owner.user_records.create!(
+                            encrypted_file_key: encrypted_file_key,
+                            encrypted_cipher_key: encrypted_key,
+                            encrypted_cipher_iv: encrypted_iv,
+                            phr_type: object_type
+                        )
+                        # attach file to record model
+                        file_to_attach = File.open(file_name)
+                        owner_records.file.attach(
+                            io: file_to_attach,
+                            filename: file_name
+                        )
+                    end                    
                 end
             rescue ActiveRecord::ActiveRecordError => e
                 Rails.logger.error "[FileUploader] Encrypted PHR file was not saved. Error: #{e.message}"
@@ -68,6 +82,7 @@ class FileUploader
     private
 
     def encrypt_file(file_name)
+        Rails.logger.info "[FileUploader] Encrypting PHR file"
         cipher = OpenSSL::Cipher::AES256.new(:CBC)
         cipher.encrypt # set to encryption mode
         cipher_key = cipher.random_key

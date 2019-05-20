@@ -2,7 +2,7 @@
     .middle.aligned.center.aligned.row
         .ui.vertical.center.aligned.segment
             .ui.page.header.center.aligned Edit Personal Data
-            = simple_form_for content, url: personal_data_index_path do |f|
+            = simple_form_for content, url: user_record_path(user_record), method: :put do |f|
                 = f.error :base
                 .ui.three.item.tabular.menu
                     = tag.div class: 'active item', data: { tab: 'personal-demographics' } do
@@ -52,4 +52,4 @@
                                 = render partial: 'insurance', locals: { :@model => Insurance.new, :insurance => insurance }
 
                 .ui.center.aligned.segment
-                    = f.button :submit, "Create Personal Data"
+                    = f.button :submit, "Update Personal Data"

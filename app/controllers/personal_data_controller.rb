@@ -20,10 +20,6 @@ class PersonalDataController < ApplicationController
         end
     end
 
-    def update
-        # @personal_data.new(personal_data_params)
-    end
-
     def add_attribute
         @attribute = params[:attribute]
         @collection = params[:collection]

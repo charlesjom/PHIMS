@@ -35,10 +35,11 @@ class FileDownloader
         decrypted_data = decrypt_file(password, encrypted_file_key)
 
         type = user_record.phr_type
-        object = type.classify.constantize.new
+        object_class = type.classify.constantize
+        object = object_class.new
 
         if (user_record.user_id == user.id) && (!readonly)
-            resolved_object = resolve_object(object, decrypted_data)
+            resolved_object = resolve_object(object_class, object, decrypted_data)
             return resolved_object
         else
             # read type based on file
@@ -85,10 +86,28 @@ class FileDownloader
 
     private
 
-    def resolve_object(object, json)
+    def resolve_object(object_class, object, json)
         Rails.logger.debug "[FileDownloader] Resolving object"
-        
-        return object
+        object.from_json(json)
+        params = {}
+        object.attributes.each do |name, values|
+            next if name == 'owner_id' || name == 'record_id'
+            resolved_name = name + "_attributes"
+            type = name.singularize.classify.constantize
+            attributes = []
+            values.each do |value|
+                value.each do |k, v|
+                    next if type::ATTRIBUTES.include? k.to_sym
+                    value.delete(k)
+                end
+                attributes << value unless type == "PersonalDemographics"
+                attributes = value if type == "PersonalDemographics"
+            end
+            params[resolved_name.to_sym] = attributes
+        end
+
+        resolved_object = object_class.new(params)
+        return resolved_object
     end
 
     def add_error(attribute, message = "is invalid")

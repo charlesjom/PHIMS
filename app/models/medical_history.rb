@@ -7,6 +7,7 @@ class MedicalHistory
     include HasManageableFile
 
     attr_accessor :allergies, :health_conditions, :medications, :vaccinations, :owner_id
+    attr_reader :record_id
 
     ## Associations with other models
     ## TODO: need to fix association with user
@@ -16,10 +17,18 @@ class MedicalHistory
         attributes.each do |name, value|
             send("#{name}=", value)
         end
+        @record_id = nil
     end
 
     def save
         return if errors.present?
+        run_callbacks :save
+    end
+
+    def update(record = nil)
+        return if errors.present?
+        return unless record.present?
+        @record_id = record.id
         run_callbacks :save
     end
 
@@ -69,7 +78,7 @@ class MedicalHistory
 
     def attributes=(hash)
         hash.each do |key, value|
-            next if key == 'errors'
+            next if key == 'errors' || key == 'record_id'
             send("#{key}=", value)
         end
     end

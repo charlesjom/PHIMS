@@ -1,3 +1,3 @@
 - if @user_record.phr_type.present?
     - phr_type = @user_record.phr_type
-    = render "#{phr_type.pluralize}/edit", content: @output
+    = render "#{phr_type.pluralize}/edit", content: @output, user_record: @user_record
