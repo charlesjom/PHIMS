@@ -1,0 +1,24 @@
+.vertical.center.aligned.six.wide.column
+    .ui.segment
+        %h3.ui.header Share Keys
+        = link_to share_form_user_record_path(record), class: 'ui green right labeled icon button' do
+            Add Share Key
+            %i.plus.right.icon
+        .ui.segment
+            - if share_keys.present?
+                %table.ui.celled.striped.table
+                    %thead
+                        %tr
+                            %th Name
+                            %th Email
+                            %th Actions
+                    %tbody
+                        - share_keys.each do |share_key|
+                            %tr
+                                %td= share_key.user.fullname
+                                %td= share_key.user.email
+                                %td
+                                    = link_to user_record_share_key_path(record, share_key), title: 'Delete Share Key', remote: true, method: :delete, data: {confirm: "Are you sure you want to remove this share key?"} do
+                                        %i.trash.icon
+            - else
+                = render 'shared/empty_placeholder', object: 'share_key'
