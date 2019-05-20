@@ -7,7 +7,12 @@
             = render "#{phr_type.pluralize}/view", content: content
         - else
             = render 'invalid', content: content
-.ui.footer.segment
-    .ui.container
-        User Record created at
-        = user_record.created_at
+%footer.footer
+    .content.has-text-centered
+        .list
+            .list-item
+                This PDF is created on
+                = Time.now
+            .list-item
+                Access ID: 
+                = access_id    

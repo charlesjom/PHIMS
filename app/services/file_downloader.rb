@@ -2,12 +2,13 @@ require 'tempfile'
 require "openssl"
 
 class FileDownloader
-    attr_reader :user_record, :errors, :user
+    attr_reader :user_record, :errors, :user, :access_log
     
     def initialize(user_record = nil, user = nil)
         @user_record = user_record
         @user = user
         @errors = []
+        @access_log = nil
     end
 
     def process(password = nil, readonly = true)
@@ -23,8 +24,11 @@ class FileDownloader
         encrypted_file_key = if user_record.user_id == user.id
             Base64.decode64(user_record.encrypted_file_key)
         else
-            Base64.decode64(user_record.share_keys.find_by(user_id: user.id).share_key)
+            user_share_key = user_record.share_keys.find_by(user_id: user.id)
+            @access_log = user_record.access_logs.create(user_id: user.id, share_key_id: user_share_key.id)
+            Base64.decode64(user_share_key.share_key)
         end
+
         return if encrypted_file_key.nil?
 
         if !(user.valid_password?(password))
@@ -47,7 +51,7 @@ class FileDownloader
         end
 
         # transform object to PDF
-        pdf_generator = PdfGenerator.new(object, user_record)
+        pdf_generator = PdfGenerator.new(object, user_record, access_log.id)
         pdf_generator.process   # return PDF file
     rescue => e
         errors << "[FileDownloader] Error: #{e.message}"
@@ -110,8 +114,10 @@ class FileDownloader
         return resolved_object
     end
 
-    def add_error(attribute, message = "is invalid")
-        errors << "#{attribute.to_s.humanize} #{message}"
+    def add_error(attribute, error = "is invalid")
+        message = "#{attribute.to_s.humanize} #{error}"
+        AccessLog.find(access_log.id).update(message: message) if access_log.present?
+        errors << message
     end
 
 end

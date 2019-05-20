@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_070604) do
+ActiveRecord::Schema.define(version: 2019_05_20_083045) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  create_table "access_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "user_record_id"
+    t.bigint "share_key_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["share_key_id"], name: "index_access_logs_on_share_key_id"
+    t.index ["user_id"], name: "index_access_logs_on_user_id"
+    t.index ["user_record_id"], name: "index_access_logs_on_user_record_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false

@@ -1,10 +1,11 @@
 class PdfGenerator
-    attr_reader :object, :user_record, :type
+    attr_reader :object, :user_record, :type, :access_id
 
-    def initialize(object, user_record)
+    def initialize(object, user_record, access_id)
         @object = object
         @type = user_record.phr_type
         @user_record = user_record
+        @access_id = access_id
     end
 
     def process
@@ -21,7 +22,7 @@ class PdfGenerator
                 pdf: file_name,
                 layout: 'layouts/pdf',
                 template: 'user_records/view.html.haml',
-                locals: { content: object, user_record: user_record },
+                locals: { content: object, user_record: user_record, access_id: access_id },
                 zoom: 1.0,
             )
         )

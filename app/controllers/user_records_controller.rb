@@ -9,6 +9,7 @@ class UserRecordsController < ApplicationController
     def show
         if @user_record.is_owner?(current_user)
             @share_keys = @user_record.share_keys
+            @access_logs = @user_record.access_logs.includes(:user)
         end
     end
 
