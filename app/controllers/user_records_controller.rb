@@ -13,11 +13,15 @@ class UserRecordsController < ApplicationController
     end
 
     def view
-        output = @user_record.read_file(current_user, user_record_params)
-        if @user_record.errors.empty?
-            send_data(output.force_encoding('BINARY'), type: 'application/pdf', disposition: 'inline')
+        if request.post?
+            output = @user_record.read_file(current_user, user_record_params)
+            if @user_record.errors.empty?
+                send_data(output.force_encoding('BINARY'), type: 'application/pdf', disposition: 'inline')
+            else
+                redirect_to user_record_path(@user_record), error: @user_record.errors.full_messages
+            end
         else
-            redirect_to user_record_path(@user_record), error: @user_record.errors.full_messages
+            redirect_to user_record_path(@user_record), information: "Please enter your password"
         end
     end
 
@@ -42,9 +46,13 @@ class UserRecordsController < ApplicationController
     end
 
     def edit_data
-        @output = @user_record.edit_file(current_user, user_record_params)
-        if @user_record.errors.any?
-            redirect_to edit_user_record_path(@user_record), error: @user_record.errors.full_messages
+        if request.post?
+            @output = @user_record.edit_file(current_user, user_record_params)
+            if @user_record.errors.any?
+                redirect_to edit_user_record_path(@user_record), error: @user_record.errors.full_messages
+            end
+        else
+            redirect_to edit_user_record_path(@user_record), information: "Please enter your password"
         end
     end
 

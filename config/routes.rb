@@ -29,8 +29,10 @@ Rails.application.routes.draw do
   resources :user_records, only: [:index, :show, :edit, :update, :destroy] do
     member do
       post :view
+      get :view
       post :share
       get :share_form
+      get :edit_data
       post :edit_data
     end
     resources :share_keys
