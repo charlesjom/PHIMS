@@ -49,16 +49,17 @@ class UserRecordsController < ApplicationController
     end
 
     def update
-        user_record = UserRecord.find(params[:id])
+        @user_record = UserRecord.find(params[:id])
         if params.has_key?(:medical_history)
             params[:medical_history].merge!({owner_id: current_user.id})
             @medical_history = MedicalHistory.new(medical_history_params)
-            @medical_history.update(user_record)
+            @medical_history.update(@user_record)
         elsif params.has_key?(:personal_data)
             params[:personal_data].merge!({owner_id: current_user.id})
             @personal_data = PersonalData.new(personal_data_params)
             @personal_data.update(user_record)
         end
+        redirect_to user_record_path(@user_record), success: "PHR updated successfully."
     end
     
     private
