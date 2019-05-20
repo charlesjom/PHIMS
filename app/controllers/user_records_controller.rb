@@ -34,11 +34,13 @@ class UserRecordsController < ApplicationController
     end
 
     def share
+        share_recipient = share_user_record_params[:share_recipient]
         status = @user_record.share_file(current_user, share_user_record_params)
         if status
-            redirect_to share_form_user_record_path(@user_record)
+            redirect_to user_record_path(@user_record), success: "Successfully shared record to #{share_recipient}"
         else
-            redirect_to share_form_user_record_path(@user_record), error: @user_record.errors.full_messages
+            flash[:error] = @user_record.errors.full_messages
+            render :share_form
         end
     end
 
