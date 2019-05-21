@@ -90,7 +90,7 @@ group :test do
   gem 'chromedriver-helper'
 end
 
-group :production do
+group :staging, :production do
   gem 'wkhtmltopdf-heroku'
 end
 
