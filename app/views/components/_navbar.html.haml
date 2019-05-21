@@ -9,6 +9,8 @@
 				= link_to "Personal Data", personal_data_index_path
 			.right.menu
 				.item
+					= current_user.fullname
+				.item
 					= link_to "Logout", destroy_user_session_path, method: :delete, class: 'ui grey button'
 		- else
 			.right.menu
