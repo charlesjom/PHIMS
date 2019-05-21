@@ -1,5 +1,8 @@
 - emergency_contact = emergency_contact.present? ? emergency_contact : nil
 .ui.segment
+    .remove_attribute
+        Remove
+        %i.close.icon
     = fields_for 'personal_data[emergency_contacts_attributes][]', @model do |e|
         .fields
             .field.required{class: ("error" if emergency_contact.try(:errors).present? && emergency_contact.errors[:first_name].any? )}

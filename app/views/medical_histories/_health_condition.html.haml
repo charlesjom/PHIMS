@@ -1,17 +1,29 @@
 - health_condition = health_condition.present? ? health_condition : nil
 .ui.segment
+    .remove_attribute
+        Remove
+        %i.close.icon
     .fields
         = fields_for 'medical_history[health_conditions_attributes][]', @model do |h|
-            .field
+            .field.required{class: ("error" if health_condition.try(:errors).present? && health_condition.errors[:name_of_condition].any? )}
                 = h.label :name_of_condition do
                     = I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition])
                 = h.text_field :name_of_condition, placeholder: I18n.t(:name_of_condition, scope: [:labels, :medical_history, :health_condition]),
                                 value: health_condition.present? ? health_condition.try(:name_of_condition) : nil
-            .field
+                - if health_condition.try(:errors).present? && health_condition.errors[:name_of_condition].any?
+                    .ui.red.pointing.above.label.error
+                        = health_condition.errors[:name_of_condition].first
+            .field.required{class: ("error" if health_condition.try(:errors).present? && health_condition.errors[:date_of_diagnosis].any? )}
                 = h.label :date_of_diagnosis do
                     = I18n.t(:date_of_diagnosis, scope: [:labels, :medical_history, :health_condition])
                 = h.date_field :date_of_diagnosis, html5: true, value: health_condition.present? ? health_condition.try(:date_of_diagnosis) : nil
-            .field
+                - if health_condition.try(:errors).present? && health_condition.errors[:date_of_diagnosis].any?
+                    .ui.red.pointing.above.label.error
+                        = health_condition.errors[:date_of_diagnosis].first
+            .field.required{class: ("error" if health_condition.try(:errors).present? && health_condition.errors[:date_of_last_checkup].any? )}
                 = h.label :date_of_last_checkup do 
                     = I18n.t(:date_of_last_checkup, scope: [:labels, :medical_history, :health_condition])
                 = h.date_field :date_of_last_checkup, html5: true, value: health_condition.present? ? health_condition.try(:date_of_last_checkup) : nil
+                - if health_condition.try(:errors).present? && health_condition.errors[:date_of_last_checkup].any?
+                    .ui.red.pointing.above.label.error
+                        = health_condition.errors[:date_of_last_checkup].first

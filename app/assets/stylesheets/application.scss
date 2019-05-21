@@ -113,6 +113,12 @@ label {
     margin: auto !important;
 }
 
+.remove_attribute {
+    cursor: pointer;
+    position: absolute;
+    right: 0.5em;
+}
+
 // Error pages
 
 .page-error {

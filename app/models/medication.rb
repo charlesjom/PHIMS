@@ -13,7 +13,7 @@ class Medication
     
     # validators for each attributes
     validates_presence_of(*ATTRIBUTES)
-    validates_inclusion_of :still_active, in: [true, false]
+    validates_inclusion_of :still_active, in: ["true", "false"]
     validates_numericality_of :dosage_dose_amount, :dosage_frequency_value, :dosage_duration_value
     validates_inclusion_of :dosage_dose_unit, in: DOSE_UNITS
     validates_inclusion_of :dosage_frequency_unit, in: FREQUENCY_UNITS

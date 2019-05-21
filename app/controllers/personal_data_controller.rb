@@ -16,6 +16,7 @@ class PersonalDataController < ApplicationController
         if @personal_data.save
             redirect_to personal_data_index_path
         else
+            flash[:error] = "Please check the data you provided."
             render :new
         end
     end

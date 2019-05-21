@@ -64,7 +64,7 @@ class PersonalData
 
     def attributes=(hash)
         hash.each do |key, value|
-            next if key == 'errors'
+            next if key == 'errors' || key == 'record_id'
             send("#{key}=", value)
         end
     end

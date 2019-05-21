@@ -20,4 +20,10 @@ $(document).on ("turbolinks:load" ,function(){
     $('.message .close').on('click', function() {
         $(this).closest('.message').transition('fade');
     })
+
+    $('.segment .remove_attribute').on('click', function() {
+        $(this).closest('.segment').remove();
+    })
+
+    $('.ui.checkbox').checkbox();
 })

@@ -1,13 +1,25 @@
 - allergy = allergy.present? ? allergy : nil
 .ui.segment
+    .remove_attribute
+        Remove
+        %i.close.icon
     .fields
         = fields_for 'medical_history[allergies_attributes][]', @model do |a|
-            .field
+            .field.required{class: ("error" if allergy.try(:errors).present? && allergy.errors[:allergen].any? )}
                 = a.label :allergen
                 = a.text_field :allergen, value: allergy.present? ? allergy.try(:allergen) : nil, autofocus: true, placeholder: "What are you allergic to?", required: true
-            .field
+                - if allergy.try(:errors).present? && allergy.errors[:allergen].any?
+                    .ui.red.pointing.above.label.error
+                        = allergy.errors[:allergen].first
+            .field.required{class: ("error" if allergy.try(:errors).present? && allergy.errors[:symptoms].any? )}
                 = a.label :symptoms
                 = a.text_field :symptoms, value: allergy.present? ? allergy.try(:symptoms) : nil, placeholder: "What are the symptoms of this allergy?", required: true
-            .field
+                - if allergy.try(:errors).present? && allergy.errors[:symptoms].any?
+                    .ui.red.pointing.above.label.error
+                        = allergy.errors[:symptoms].first
+            .field.required{class: ("error" if allergy.try(:errors).present? && allergy.errors[:medications].any? )}
                 = a.label :medications
                 = a.text_field :medications, value: allergy.present? ? allergy.try(:medications) : nil, placeholder: "What can treat this allergy?", required: true
+                - if allergy.try(:errors).present? && allergy.errors[:medications].any?
+                    .ui.red.pointing.above.label.error
+                        = allergy.errors[:medications].first

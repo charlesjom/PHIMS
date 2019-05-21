@@ -30,6 +30,7 @@ class FileUploader
             begin
                 ActiveRecord::Base.transaction do
                     if object.record_id.present?
+                        Rails.logger.debug "[FileUploader] Updating user record"
                         # update record model
                         owner_records = owner.user_records.find(object.record_id)
                         file_to_attach = File.open(file_name)
@@ -43,6 +44,7 @@ class FileUploader
                             filename: file_name
                         )
                     else
+                        Rails.logger.debug "[FileUploader] Creaating new user record"
                         # create a record model
                         owner_records = owner.user_records.create!(
                             encrypted_file_key: encrypted_file_key,

@@ -96,20 +96,26 @@ class FileDownloader
         params = {}
         object.attributes.each do |name, values|
             next if name == 'owner_id' || name == 'record_id'
+            type = name.classify.constantize
             resolved_name = name + "_attributes"
-            type = name.singularize.classify.constantize
-            attributes = []
-            values.each do |value|
-                value.each do |k, v|
+            if type.to_s == "PersonalDemographics"
+                values.each do |k, v|
                     next if type::ATTRIBUTES.include? k.to_sym
-                    value.delete(k)
+                    values.delete(k)
                 end
-                attributes << value unless type == "PersonalDemographics"
-                attributes = value if type == "PersonalDemographics"
+            else
+                values.each do |value, out|
+                    # delete unnecessary fields per attribute
+                    value.each do |k, v|
+                        next if type::ATTRIBUTES.include? k.to_sym
+                        value.delete(k)
+                    end
+                    attributes << value
+                end
             end
-            params[resolved_name.to_sym] = attributes
+            params[resolved_name.to_sym] = type.to_s == "PersonalDemographics" ? values : attributes
         end
-
+        
         resolved_object = object_class.new(params)
         return resolved_object
     end

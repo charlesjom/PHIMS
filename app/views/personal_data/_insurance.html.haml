@@ -1,5 +1,8 @@
 - insurance = insurance.present? ? insurance : nil
 .ui.segment
+    .remove_attribute
+        Remove
+        %i.close.icon
     = fields_for 'personal_data[insurances_attributes][]', @model do |i|
         .field
             .fields

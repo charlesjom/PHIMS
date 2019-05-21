@@ -16,6 +16,7 @@ class MedicalHistoriesController < ApplicationController
         if @medical_history.save
             redirect_to medical_histories_path
         else
+            flash[:error] = "Please check the data you provided."
             render :new
         end
     end

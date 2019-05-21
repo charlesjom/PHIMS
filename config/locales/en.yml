@@ -96,7 +96,7 @@ en:
         dosage_frequency_value: "Dosage Frequency Value"
         dosage_frequency_unit: "Dosage Frequency Unit"
         frequency: "Frequency"
-        still_active: "Still Active?"
+        still_active: "Medication is still Active"
       vaccination:
         target_disease: "Target Disease"
         date_administered: "Date Administered"
