@@ -10,6 +10,5 @@
             .control
               = f.email_field :email, autofocus: true, autocomplete: "email", class: 'input'
           .field
-            .control.has-text-centered
-              = f.submit "Send me reset password instructions", class: 'ui primary button'
+            = f.submit "Send me reset password instructions", class: 'ui primary button'
         = render "users/shared/links"
