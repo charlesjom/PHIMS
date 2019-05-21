@@ -42,7 +42,7 @@ class FileDownloader
         object_class = type.classify.constantize
         object = object_class.new
 
-        if (user_record.user_id == user.id) && (!readonly)
+        if (user_record.is_owner?(user)) && (!readonly)
             resolved_object = resolve_object(object_class, object, decrypted_data)
             return resolved_object
         else
@@ -51,7 +51,7 @@ class FileDownloader
         end
 
         # transform object to PDF
-        pdf_generator = PdfGenerator.new(object, user_record, access_log.id)
+        pdf_generator = PdfGenerator.new(object, user_record, user_record.is_owner?(user) ? nil : access_log.id)
         pdf_generator.process   # return PDF file
     rescue => e
         errors << "[FileDownloader] Error: #{e.message}"
