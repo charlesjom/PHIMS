@@ -104,5 +104,5 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options[:protocol] = { host: 'https://phims.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'https://phims.herokuapp.com' }
 end
