@@ -96,8 +96,6 @@ class User < ApplicationRecord
     # re-encrypt private key with new password
     self.encrypted_private_key = Base64.encode64(keypair.export(cipher, new_password))
     save
-    update_owned_records(current_encrypted_private_key, current_password)
-    update_share_keys(current_encrypted_private_key, current_password)
   rescue => e
     raise e
     Rails.logger.error "Error in updating user keys"
@@ -110,33 +108,5 @@ class User < ApplicationRecord
     # delete all user records and share keys since it can't be decrypted anymore
     user_records.delete_all
     share_keys.delete_all
-  end
-
-  def update_owned_records(encrypted_private_key, current_password)
-    Rails.logger.debug "Updating owned records..."
-    user_records.each do |user_record|
-      encrypted_file_key = Base64.decode64(user_record.encrypted_file_key)
-      private_key = OpenSSL::PKey::RSA.new(Base64.decode64(encrypted_private_key), current_password)
-      file_key = private_key.private_decrypt(encrypted_file_key)
-
-      #  re-encrypt file_key with public key of user
-      owner_public_key = OpenSSL::PKey::RSA.new(self.public_key)
-      user_record.encrypted_file_key = Base64.encode64(owner_public_key.public_encrypt(file_key))
-      save
-    end
-  end
-
-  def update_share_keys(encrypted_private_key, current_password)
-    Rails.logger.debug "Updating share keys..."
-    share_keys.each do |share_key|
-      encrypted_file_key = Base64.decode64(share_key.share_key)
-      private_key = OpenSSL::PKey::RSA.new(Base64.decode64(encrypted_private_key), current_password)
-      file_key = private_key.private_decrypt(encrypted_file_key)
-
-      #  re-encrypt file_key with public key of user
-      user_public_key = OpenSSL::PKey::RSA.new(self.public_key)
-      share_key.share_key = Base64.encode64(user_public_key.public_encrypt(file_key))
-      save
-    end
   end
 end
