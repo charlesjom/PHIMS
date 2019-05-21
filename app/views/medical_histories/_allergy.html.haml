@@ -1,8 +1,6 @@
 - allergy = allergy.present? ? allergy : nil
 .ui.segment
-    .remove_attribute
-        Remove
-        %i.close.icon
+    = render 'shared/remove_button'
     .fields
         = fields_for 'medical_history[allergies_attributes][]', @model do |a|
             .field.required{class: ("error" if allergy.try(:errors).present? && allergy.errors[:allergen].any? )}

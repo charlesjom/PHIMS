@@ -1,8 +1,6 @@
 - medication = medication.present? ? medication : nil
 .ui.segment
-    .remove_attribute
-        Remove
-        %i.close.icon
+    = render 'shared/remove_button'
     = fields_for 'medical_history[medications_attributes][]', @model do |m|
         .fields
             .field.required{class: ("error" if medication.try(:errors).present? && medication.errors[:medicine_name].any? )}

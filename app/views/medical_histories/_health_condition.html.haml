@@ -1,8 +1,6 @@
 - health_condition = health_condition.present? ? health_condition : nil
 .ui.segment
-    .remove_attribute
-        Remove
-        %i.close.icon
+    = render 'shared/remove_button'
     .fields
         = fields_for 'medical_history[health_conditions_attributes][]', @model do |h|
             .field.required{class: ("error" if health_condition.try(:errors).present? && health_condition.errors[:name_of_condition].any? )}

@@ -17,23 +17,22 @@
                         = t(:personal_demographics, scope: [:headers, :personal_data, :sections])
                     .ui.segment
                         = f.simple_fields_for :personal_demographics do |p|
-                            .field
-                                .fields
-                                    = p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
-                                    = p.input :weight_in_kg, as: :integer, input_html: { max: 999, min: 1 }, label: 'Weight (in kg)'
-                                    = p.input :height_in_cm, as: :integer, input_html: { max: 999, min: 1 }, label: 'Height (in cm)'
-                                    = p.input :sex, collection: PersonalDemographics::SEX_CHOICES
-                                    = p.input :civil_status, collection: PersonalDemographics::CIVIL_STATUS_CHOICES
-                                    = p.input :abo_blood_type, collection: PersonalDemographics::ABO_BLOOD_TYPES,
-                                        label: "#{t(:abo_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
-                                    = p.input :rh_blood_type, collection: PersonalDemographics::RH_BLOOD_TYPES,
-                                        label: "#{t(:rh_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
-                                .fields
-                                    = p.input :street_address
-                                    = p.input :barangay
-                                    = p.input :city
-                                    = p.input :state_or_province
-                                    = p.input :country, include_blank: 'Select a country'
+                            .fields
+                                = p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
+                                = p.input :weight_in_kg, as: :integer, input_html: { max: 999, min: 1 }, label: 'Weight (in kg)'
+                                = p.input :height_in_cm, as: :integer, input_html: { max: 999, min: 1 }, label: 'Height (in cm)'
+                                = p.input :sex, collection: PersonalDemographics::SEX_CHOICES
+                                = p.input :civil_status, collection: PersonalDemographics::CIVIL_STATUS_CHOICES
+                                = p.input :abo_blood_type, collection: PersonalDemographics::ABO_BLOOD_TYPES,
+                                    label: "#{t(:abo_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
+                                = p.input :rh_blood_type, collection: PersonalDemographics::RH_BLOOD_TYPES,
+                                    label: "#{t(:rh_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
+                            .fields
+                                = p.input :street_address
+                                = p.input :barangay
+                                = p.input :city
+                                = p.input :state_or_province
+                                = p.input :country, include_blank: 'Select a country'
                 
                 .ui.tab{data: {tab: 'emergency-contacts'}}
                     .ui.dividing.header Emergency Contacts

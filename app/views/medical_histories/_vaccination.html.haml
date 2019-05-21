@@ -1,8 +1,6 @@
 - vaccination = vaccination.present? ? vaccination : nil
 .ui.segment
-    .remove_attribute
-        Remove
-        %i.close.icon
+    = render 'shared/remove_button'
     .fields
         = fields_for 'medical_history[vaccinations_attributes][]', @model do |v|
             .field.required{class: ("error" if vaccination.try(:errors).present? && vaccination.errors[:target_disease].any? )}
