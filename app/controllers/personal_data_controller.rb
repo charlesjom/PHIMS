@@ -14,6 +14,7 @@ class PersonalDataController < ApplicationController
         params[:personal_data].merge!({owner_id: current_user.id})
         @personal_data = PersonalData.new(personal_data_params)
         if @personal_data.save
+            flash.clear
             redirect_to personal_data_index_path
         else
             flash[:error] = "Please check the data you provided."

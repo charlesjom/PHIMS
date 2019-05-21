@@ -14,6 +14,7 @@ class MedicalHistoriesController < ApplicationController
         params[:medical_history].merge!({owner_id: current_user.id})
         @medical_history = MedicalHistory.new(medical_history_params)
         if @medical_history.save
+            flash.clear
             redirect_to medical_histories_path
         else
             flash[:error] = "Please check the data you provided."
