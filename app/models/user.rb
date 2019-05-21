@@ -14,7 +14,6 @@ class User < ApplicationRecord
 
   before_create :generate_identifier
   before_create :generate_user_keys
-  after_update :generate_new_user_keys, if: Proc.new { |user| user.encrypted_password_changed? }
   
   # Model associations
   has_many :share_keys, dependent: :destroy
@@ -58,6 +57,12 @@ class User < ApplicationRecord
     result
   end
 
+  def reset_password(new_password, new_password_confirmation)
+    result = super
+
+    generate_new_user_keys if result
+  end
+
   private
 
   def generate_identifier
@@ -99,7 +104,9 @@ class User < ApplicationRecord
   end
 
   def generate_new_user_keys
+    # generate new user keys using new password
     generate_user_keys
+    save
     # delete all user records and share keys since it can't be decrypted anymore
     user_records.delete_all
     share_keys.delete_all
