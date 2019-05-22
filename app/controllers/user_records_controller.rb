@@ -63,14 +63,20 @@ class UserRecordsController < ApplicationController
         @user_record = UserRecord.find(params[:id])
         if params.has_key?(:medical_history)
             params[:medical_history].merge!({owner_id: current_user.id})
-            @medical_history = MedicalHistory.new(medical_history_params)
-            @medical_history.update(@user_record)
+            @output = MedicalHistory.new(medical_history_params)
+            status = @output.update(@user_record)
         elsif params.has_key?(:personal_data)
             params[:personal_data].merge!({owner_id: current_user.id})
-            @personal_data = PersonalData.new(personal_data_params)
-            @personal_data.update(@user_record)
+            @output = PersonalData.new(personal_data_params)
+            status = @output.update(@user_record)
         end
-        redirect_to user_record_path(@user_record), success: "PHR updated successfully."
+        
+        if status
+            redirect_to user_record_path(@user_record), success: "PHR updated successfully."
+        else
+            flash[:error] = ["Please check the data you provided."]
+            render :edit_data
+        end
     end
     
     private
@@ -93,7 +99,7 @@ class UserRecordsController < ApplicationController
     end
     
     def medical_history_params
-        params.require(:medical_history).permit(:owner_id,
+        params.require(:medical_history).permit(:owner_id, :password,
             allergies_attributes: Allergy::ATTRIBUTES,
             vaccinations_attributes: Vaccination::ATTRIBUTES,
             health_conditions_attributes: HealthCondition::ATTRIBUTES,
@@ -102,7 +108,7 @@ class UserRecordsController < ApplicationController
     end
 
     def personal_data_params
-        params.require(:personal_data).permit(:owner_id,
+        params.require(:personal_data).permit(:owner_id, :password,
             personal_demographics_attributes: PersonalDemographics::ATTRIBUTES,
             emergency_contacts_attributes: EmergencyContact::ATTRIBUTES,
             insurances_attributes: Insurance::ATTRIBUTES

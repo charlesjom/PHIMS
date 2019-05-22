@@ -27,8 +27,8 @@ class PersonalData
     end
 
     def update(record = nil)
-        return if errors.present?
-        return unless record.present?
+        return false if errors.present?
+        return false unless record.present?
         @record_id = record.id
         run_callbacks :save
     end
