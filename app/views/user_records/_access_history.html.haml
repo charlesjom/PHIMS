@@ -1,20 +1,21 @@
-.vertical.center.aligned.ten.wide.column
-    .ui.segment
-        %h3.ui.header Access History
+.ui.centered.grid
+    .vertical.center.aligned.column
         .ui.segment
-            - if history.present?
-                %table.ui.celled.striped.table
-                    %thead
-                        %tr
-                            %th Name
-                            %th Access ID
-                            %th Accessed on
-                    %tbody
-                        - history.each do |item|
+            %h3.ui.header Access History
+            .ui.segment
+                - if history.present?
+                    %table.ui.celled.striped.table
+                        %thead
                             %tr
-                                %td= item.user.fullname
-                                %td= item.id
-                                %td= item.created_at.localtime.strftime("%b %d, %Y %T %:z")
-            - else
-                = render 'shared/empty_placeholder', object: 'access_history'
+                                %th Name
+                                %th Access ID
+                                %th Accessed on
+                        %tbody
+                            - history.each do |item|
+                                %tr
+                                    %td= item.user.fullname
+                                    %td= item.id
+                                    %td= item.created_at.localtime.strftime("%b %d, %Y %T %:z")
+                - else
+                    = render 'shared/empty_placeholder', object: 'access_history'
 

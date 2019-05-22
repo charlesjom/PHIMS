@@ -15,15 +15,18 @@
                                 = submit_tag 'Submit', class: 'ui primary button'
             - if @user_record.is_owner?(current_user)
                 .vertical.center.aligned.four.wide.column
-                    .ui.segment
-                        = link_to edit_user_record_path(@user_record), class: 'ui blue right labeled icon button' do
-                            Edit Record
-                            %i.edit.right.icon
-                    .ui.segment
-                        = link_to user_record_path(@user_record), method: :delete, class: 'ui red right labeled icon button' do
-                            Delete Record
-                            %i.trash.right.icon
+                    .container
+                        .ui.vertical.segment
+                            = link_to edit_user_record_path(@user_record), class: 'ui blue labeled icon button' do
+                                Edit Record
+                                %i.edit.right.icon
+                        .ui.vertical.segment
+                            = link_to user_record_path(@user_record), method: :delete, class: 'ui red labeled icon button' do
+                                Delete Record
+                                %i.trash.right.icon
+                        .ui.vertical.segment
+                            = link_to share_form_user_record_path(@user_record), method: :delete, class: 'ui teal labeled icon button' do
+                                Share Record
+                                %i.share.right.icon
         - if @user_record.is_owner?(current_user)
-            .ui.two.column.centered.grid
-                = render 'share_keys', share_keys: @share_keys, record: @user_record
-                = render 'access_history', history: @access_logs
+            = render 'access_history', history: @access_logs

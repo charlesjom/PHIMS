@@ -30,3 +30,4 @@
                                 Your password will not be used by the recipient 
                         .field
                             = submit_tag 'Submit', class: 'ui primary fluid button'
+            = render 'share_keys', share_keys: @user_record.share_keys, record: @user_record
