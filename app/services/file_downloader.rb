@@ -42,13 +42,10 @@ class FileDownloader
         object_class = type.classify.constantize
         object = object_class.new
 
-        if (user_record.is_owner?(user)) && (!readonly)
-            resolved_object = resolve_object(object_class, object, decrypted_data)
-            return resolved_object
-        else
-            # read type based on file
-            object.from_json(decrypted_data)
-        end
+        # resolve object from decrypted data
+        resolved_object = resolve_object(object_class, object, decrypted_data)
+        # no need to transfer to PDF if the owner is accessing the record and the object is for edit
+        return resolved_object if (user_record.is_owner?(user)) && (!readonly)
 
         # transform object to PDF
         pdf_generator = PdfGenerator.new(object, user_record, user_record.is_owner?(user) ? nil : access_log.id)
