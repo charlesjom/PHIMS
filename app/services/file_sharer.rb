@@ -35,6 +35,11 @@ class FileSharer
             add_error(:recipient, "is the same as the owner")
         end
 
+        if ShareKey.exists?(user: recipient, user_record: user_record)
+            Rails.logger.debug "[FileSharer] Cannot create share key for user with share key already"
+            add_error(:recipient, "already has a share key")
+        end
+
         return false if errors.any?
         
         # decrypt_file_key

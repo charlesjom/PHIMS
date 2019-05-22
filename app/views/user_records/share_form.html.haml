@@ -18,12 +18,15 @@
                                     = link_to user_path(@user_record.user) do
                                         = @user_record.user.fullname
                                 Owner Name
-                = form_tag share_user_record_path(@user_record), method: :post, class: 'ui form' do
-                    .field
-                        = label :share_recipient, :share_recipient, 'Recipient'
-                        = text_field_tag 'user_record[share_recipient]', nil, placeholder: 'Enter email address of recipient (that has a confirmed account)'
-                    .field
-                        = label :password, :password, 'Password'
-                        = password_field_tag 'user_record[password]', nil, placeholder: 'Enter password to share record'
-                    .field
-                        = submit_tag 'Submit', class: 'ui primary button'
+                .ui.left.aligned.segment
+                    = form_tag share_user_record_path(@user_record), method: :post, class: 'ui form' do
+                        .field.required
+                            = label :share_recipient, :share_recipient, 'Recipient'
+                            = text_field_tag 'user_record[share_recipient]', @user_record.try(:share_recipient), placeholder: 'Enter email address of recipient (that has a confirmed account)'
+                        .field.required
+                            = label :password, :password, 'Your Password'
+                            = password_field_tag 'user_record[password]', nil, placeholder: 'Enter password to share record'
+                            .hint
+                                Your password will not be used by the recipient 
+                        .field
+                            = submit_tag 'Submit', class: 'ui primary fluid button'
