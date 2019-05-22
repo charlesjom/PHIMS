@@ -11,6 +11,12 @@ class MedicalHistoriesController < ApplicationController
     end
     
     def create
+        if params[:medical_history].nil?
+            flash[:error] = "You can't submit an empty record."
+            @medical_history = MedicalHistory.new
+            render :new
+            return
+        end
         params[:medical_history].merge!({owner_id: current_user.id})
         @medical_history = MedicalHistory.new(medical_history_params)
         if @medical_history.save

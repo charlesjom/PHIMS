@@ -7,6 +7,7 @@ class UserRecordsController < ApplicationController
     end
 
     def show
+        flash.clear if flash.present?
         if @user_record.is_owner?(current_user)
             @share_keys = @user_record.share_keys
             @access_logs = @user_record.access_logs.includes(:user)
@@ -73,6 +74,18 @@ class UserRecordsController < ApplicationController
             params[:personal_data].merge!({owner_id: current_user.id})
             @output = PersonalData.new(personal_data_params)
             status = @output.update(@user_record)
+        else
+            flash[:error] = "You can't update a record to an empty record."
+            @output = if @user_record.phr_type == 'medical_history'
+                MedicalHistory.new
+            elsif
+                PersonalData.new
+            else
+                nil
+            end
+                
+            render :edit_data and return if @output.present?
+            redirect_to edit_user_record_path(@user_record), error: "You're updating an invalid record"
         end
         
         if status

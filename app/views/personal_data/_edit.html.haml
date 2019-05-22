@@ -52,3 +52,5 @@
 
                 .ui.center.aligned.segment
                     = f.button :submit, "Update Personal Data"
+                    = link_to user_record_path(user_record), class: 'ui button' do
+                        Cancel Update
