@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     member do
       post :view
       get :view
+      get :share
       post :share
       get :share_form
       get :edit_data
