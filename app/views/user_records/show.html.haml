@@ -25,7 +25,7 @@
                                 Delete Record
                                 %i.trash.right.icon
                         .ui.vertical.segment
-                            = link_to share_form_user_record_path(@user_record), method: :delete, class: 'ui teal labeled icon button' do
+                            = link_to share_form_user_record_path(@user_record), class: 'ui teal labeled icon button' do
                                 Share Record
                                 %i.share.right.icon
         - if @user_record.is_owner?(current_user)
