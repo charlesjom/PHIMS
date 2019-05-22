@@ -40,7 +40,7 @@
                     #emergency-contacts
                         - if content.try(:emergency_contacts).present?
                             - content.emergency_contacts.each do |emergency_contact|
-                                = render partial: 'emergency_contact', locals: { :@model => EmergencyContact.new, :emergency_contact => emergency_contact }
+                                = render partial: 'personal_data/emergency_contact', locals: { :@model => EmergencyContact.new, :emergency_contact => emergency_contact }
                 
                 .ui.tab{data: {tab: 'insurances'}}
                     .ui.dividing.header Insurances
@@ -48,7 +48,7 @@
                     #insurances
                         - if content.try(:insurances).present?
                             - content.insurances.each do |insurance|
-                                = render partial: 'insurance', locals: { :@model => Insurance.new, :insurance => insurance }
+                                = render partial: 'personal_data/insurance', locals: { :@model => Insurance.new, :insurance => insurance }
 
                 .ui.center.aligned.segment
                     = f.button :submit, "Update Personal Data"
