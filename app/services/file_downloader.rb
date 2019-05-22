@@ -98,6 +98,7 @@ class FileDownloader
             next if name == 'owner_id' || name == 'record_id'
             type = name.classify.constantize
             resolved_name = name + "_attributes"
+            attributes = []
             if type.to_s == "PersonalDemographics"
                 values.each do |k, v|
                     next if type::ATTRIBUTES.include? k.to_sym
