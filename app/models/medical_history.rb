@@ -26,6 +26,7 @@ class MedicalHistory
     end
 
     def update(record = nil, password = nil)
+        return false if errors.present?
         return false unless record.present?
         @record_id = record.id
         run_callbacks :save
