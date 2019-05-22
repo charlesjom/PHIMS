@@ -68,7 +68,7 @@ class UserRecordsController < ApplicationController
         elsif params.has_key?(:personal_data)
             params[:personal_data].merge!({owner_id: current_user.id})
             @personal_data = PersonalData.new(personal_data_params)
-            @personal_data.update(user_record)
+            @personal_data.update(@user_record)
         end
         redirect_to user_record_path(@user_record), success: "PHR updated successfully."
     end
