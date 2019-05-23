@@ -7,7 +7,6 @@ class UserRecordsController < ApplicationController
     end
 
     def show
-        flash.clear if flash.present?
         if @user_record.is_owner?(current_user)
             @share_keys = @user_record.share_keys
             @access_logs = @user_record.access_logs.includes(:user)
