@@ -12,4 +12,18 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require jquery
+//= require semantic-ui
 //= require_tree .
+
+$(document).on ("turbolinks:load" ,function(){
+    $('.message .close').on('click', function() {
+        $(this).closest('.message').transition('fade');
+    })
+
+    $('.segment .remove-attribute').off('click').on('click', function() {
+        $(this).closest('.segment').remove();
+    })
+
+    $('.ui.checkbox').checkbox();
+})

@@ -12,9 +12,10 @@
  *
  *= require_tree .
  *= require_self
+ *= stub pdf
  */
 
- @import "bulma";
+ @import "semantic-ui";
 
 // Elements
 
@@ -26,6 +27,10 @@ html {
 body {
     margin: 0;
     height: 100%;
+}
+
+textarea {
+    resize: none !important;
 }
 
 // Layout
@@ -72,14 +77,12 @@ body {
     float: right !important;
 }
 
-.center {
-    margin: auto;
-}
-
 // Flash message notification
 .flash-container, .error-container {
     width: 30%;
     margin: auto;
+    z-index: 200;
+    position: relative;
 }
 
 // Text and background colors
@@ -105,11 +108,16 @@ label {
     max-width: 100%;
 }
 
-// Containers related to user account management
-
 .devise-container {
-    width: 35%;
-    margin: auto;
+    width: 70%;
+    margin: auto !important;
+}
+
+.remove-attribute {
+    cursor: pointer;
+    position: absolute;
+    right: 0em;
+    top: 0em;
 }
 
 // Error pages

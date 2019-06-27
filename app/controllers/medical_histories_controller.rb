@@ -1,45 +1,50 @@
 class MedicalHistoriesController < ApplicationController
 
     def index
-        # TODO: get all medical histories with share keys for certain user
+        owned_medical_histories = current_user.user_records.where(phr_type: 'medical_history').to_a
+        medical_histories_with_access = current_user.records_with_access.where(phr_type: 'medical_history').to_a
+        @medical_histories = owned_medical_histories + medical_histories_with_access
     end
     
     def new
-        @medical_history = MedicalHistory.new(allergies: [Allergy.new], health_conditions: [HealthCondition.new], medications: [Medication.new], vaccinations: [Vaccination.new])
+        @medical_history = MedicalHistory.new
     end
     
     def create
-        @medical_history = current_user.medical_history.new(medical_history_params)
-        if @medical_history.create_file
-            redirect_to user_path(current_user)
+        if params[:medical_history].nil?
+            flash[:error] = "You can't submit an empty record."
+            @medical_history = MedicalHistory.new
+            render :new
+            return
+        end
+        params[:medical_history].merge!({owner_id: current_user.id})
+        @medical_history = MedicalHistory.new(medical_history_params)
+        if @medical_history.save
+            flash.clear
+            redirect_to medical_histories_path
         else
-            redirect_back fallback_location: new_user_medical_history_path(current_user)
-            # return error
+            flash[:error] = "Please check the data you provided."
+            render :new
         end
     end
 
-    def edit
-        # TODO: Steps in editing
-        # Retrieve record
-        # Decrypt record
-        # Create new @medical_history, and fill with details from retrieved record
-        @medical_history = current_user.medical_history
-    end
+    def add_attribute
+        @attribute = params[:attribute]
+        @collection = params[:collection]
+        @model = @attribute.underscore.classify.constantize.new
 
-    def update
-        # TODO: Steps in updating
-        # Create new file with updated values
-        # Delete previous record or keep it (?)
-        @medical_history = current_user.medical_history
-        @medical_history.update(medical_history_params)
-    end
-
-    def destroy
-        @medical_history = current_user.medical_history
-        @medical_history.destroy
+        respond_to do |format|
+            format.js
+        end
     end
 
     private
     def medical_history_params
+        params.require(:medical_history).permit(:owner_id,
+            allergies_attributes: Allergy::ATTRIBUTES,
+            vaccinations_attributes: Vaccination::ATTRIBUTES,
+            health_conditions_attributes: HealthCondition::ATTRIBUTES,
+            medications_attributes: Medication::ATTRIBUTES
+        )
     end
 end

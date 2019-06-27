@@ -1,0 +1,56 @@
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.page.header.center.aligned Edit Medical History
+            = simple_form_for content, url: user_record_path(user_record), method: :put do |f|
+                = f.error :base
+                .ui.four.item.tabular.menu
+                    = tag.div class: 'active item', data: { tab: 'allergies' } do
+                        Allergies
+                    = tag.div class: 'item', data: { tab: 'health-conditions' } do
+                        Health Conditions
+                    = tag.div class: 'item', data: { tab: 'medications' } do
+                        Medications
+                    = tag.div class: 'item', data: { tab: 'vaccinations' } do
+                        Vaccinations
+
+                .ui.active.tab{data: {tab: 'allergies'}}
+                    .ui.dividing.header
+                        = t(:allergy, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'allergy', record: content
+                    #allergies
+                        - if content.try(:allergies).present?
+                            - content.allergies.each do |allergy|
+                                = render partial: 'medical_histories/allergy', locals: { :@model => Allergy.new, :allergy => allergy }
+                
+                .ui.tab{data: {tab: 'health-conditions'}}
+                    .ui.dividing.header
+                        = t(:health_condition, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'health_condition', record: content
+                    #health-conditions
+                        - if content.try(:health_conditions).present?
+                            - content.health_conditions.each do |health_condition|
+                                = render partial: 'medical_histories/health_condition', locals: { :@model => HealthCondition.new, :health_condition => health_condition }
+                
+                .ui.tab{data: {tab: 'medications'}}
+                    .ui.dividing.header
+                        = t(:medication, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'medication', record: content
+                    #medications
+                        - if content.try(:medications).present?
+                            - content.medications.each do |medication|
+                                = render partial: 'medical_histories/medication', locals: { :@model => Medication.new, :medication => medication }
+
+                .ui.tab{data: {tab: 'vaccinations'}}
+                    .ui.dividing.header
+                        = t(:vaccination, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'vaccination', record: content
+                    #vaccinations
+                        - if content.try(:vaccinations).present?
+                            - content.vaccinations.each do |vaccination|
+                                = render partial: 'medical_histories/vaccination', locals: { :@model => Vaccination.new, :vaccination => vaccination }
+                
+                .ui.center.aligned.segment
+                    = f.button :submit, "Update Medical History"
+                    = link_to user_record_path(user_record), class: 'ui button' do
+                        Cancel Update

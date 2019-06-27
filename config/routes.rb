@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   devise_for :users, path: 'accounts', controllers: { registrations: 'users/registrations'}
 
   devise_scope :user do
-    authenticated :users do
-      root 'users#show', as: :authenticated_root
+    authenticated :user do
+      root 'user_records#index'
     end
 
     unauthenticated do
@@ -12,8 +14,29 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'user/me', to: 'users#show'
-  resources :medical_histories
-  resources :personal_data
+  resources :medical_histories, except: [:show, :destroy] do
+    collection do
+      get :add_attribute
+    end
+  end
+  resources :personal_data, except: [:show, :destroy] do
+    collection do
+      get :add_attribute
+    end
+  end
+
+  resources :users, only: [:show]
+  resources :user_records, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+      post :view
+      get :view
+      get :share
+      post :share
+      get :share_form
+      get :edit_data
+      post :edit_data
+    end
+    resources :share_keys
+  end
 
 end

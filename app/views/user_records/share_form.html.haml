@@ -1,0 +1,33 @@
+.column
+    .ui.vertical.center.aligned.segment
+        .ui.huge.dividing.header.center.aligned
+            = "Share #{t("phr_types.#{@user_record.phr_type}")}"
+        .ui.centered.grid
+            .vertical.center.aligned.eight.wide.column
+                .ui.left.aligned.segment
+                    .ui.relaxed.horizontal.divided.list
+                        .item
+                            .content
+                                .header
+                                    = link_to user_record_path(@user_record) do
+                                        = @user_record.id
+                                User Record ID
+                        .item
+                            .content
+                                .header
+                                    = link_to user_path(@user_record.user) do
+                                        = @user_record.user.fullname
+                                Owner Name
+                .ui.left.aligned.segment
+                    = form_tag share_user_record_path(@user_record), method: :post, class: 'ui form' do
+                        .field.required
+                            = label :share_recipient, :share_recipient, 'Recipient'
+                            = text_field_tag 'user_record[share_recipient]', @user_record.try(:share_recipient), placeholder: 'Enter email address of recipient (that has a confirmed account)'
+                        .field.required
+                            = label :password, :password, 'Your Password'
+                            = password_field_tag 'user_record[password]', nil, placeholder: 'Enter password to share record'
+                            .hint
+                                Your password will not be used by the recipient 
+                        .field
+                            = submit_tag 'Submit', class: 'ui primary fluid button'
+            = render 'share_keys', share_keys: @user_record.share_keys, record: @user_record

@@ -1,48 +1,70 @@
 class PersonalData
-    include ActiveModel::Model
     include ActiveModel::Serializers::JSON
     include ActiveModel::Validations
+    include ActiveModel::Model
     extend ActiveModel::Naming
+    extend ActiveModel::Callbacks
 
-    # def initialize
-    #     @errors = ActiveModel::Errors.new(self)
-    # end
+    include HasManageableFile
 
-    attr_accessor :patient_demographics, :emergency_contacts, :insurances
-    attr_reader :errors
-
-    def initialize(attributes = {})
-        # @errors = ActiveModel::Errors.new(self)
-        attributes.each do |name, value|
-            send("#{name}=", value)
-        end
-    end
+    attr_accessor :personal_demographics, :emergency_contacts, :insurances, :owner_id
+    attr_reader :record_id
 
     ## Associations with other models
     ## TODO: need to fix association with user
     # belongs_to :user, foreign_key: "owner"
-    
 
-    def patient_demographics_attributes=(attributes)
-        @patient_demographics = PatientDemographics.new(patient_demographics_params)
+    def initialize(attributes = {})
+        attributes.each do |name, value|
+            send("#{name}=", value)
+        end
+        @record_id = nil
+    end
+
+    def save
+        return if errors.present?
+        run_callbacks :save
+    end
+
+    def update(record = nil)
+        return false if errors.present?
+        return false unless record.present?
+        @record_id = record.id
+        run_callbacks :save
+    end
+
+    def personal_demographics_attributes=(patient_demographic_params)
+        @personal_demographics = PersonalDemographics.new(patient_demographic_params)
+        if @personal_demographics.invalid?
+            errors.merge!(@personal_demographics.errors)
+        end
     end
 
     def emergency_contacts_attributes=(attributes)
         @emergency_contacts ||= []
-        attributes.each do |i, emergency_contact_params|
-            @emergency_contacts.push(EmergencyContact.new(emergency_contact_params))
+        attributes.each do |emergency_contact_params|
+            emergency_contact = EmergencyContact.new(emergency_contact_params)
+            if emergency_contact.invalid?
+                errors.merge!(emergency_contact.errors)
+            end
+            @emergency_contacts.push(emergency_contact)
         end
     end
 
     def insurances_attributes=(attributes)
         @insurances ||= []
-        attributes.each do |i, insurances|
-            @insurances.push(Insurance.new(insurance_params))
+        attributes.each do |insurance_params|
+            insurance = Insurance.new(insurance_params)
+            if insurance.invalid?
+                errors.merge!(insurance.errors)
+            end
+            @insurances.push(insurance)
         end
     end
 
     def attributes=(hash)
         hash.each do |key, value|
+            next if key == 'errors' || key == 'record_id'
             send("#{key}=", value)
         end
     end

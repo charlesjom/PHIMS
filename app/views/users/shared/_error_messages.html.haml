@@ -1,10 +1,8 @@
 - if resource.errors.any?
-    .notification-container
-        - resource.errors.full_messages.each do |error|
-            .message.is-small.is-danger
-                .message-header
-                    %strong
-                        Error!
-                    %button.delete.is-small
-                .message-body
-                    = error
+    .error-container
+        .ui.floating.negative.message
+            %i.close.icon
+            .header Error!
+            .list
+                - resource.errors.full_messages.each do |error|
+                    %li= error

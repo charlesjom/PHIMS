@@ -1,38 +1,44 @@
 class PersonalDataController < ApplicationController
     
     def index
-        # TODO: get all personal data with share keys for certain user
+        owned_personal_data = current_user.user_records.where(phr_type: 'personal_data').to_a 
+        personal_data_with_access = current_user.records_with_access.where(phr_type: 'personal_data').to_a
+        @personal_data = owned_personal_data + personal_data_with_access
     end
 
     def new
-        @personal_data = PersonalData.new(patient_demographics: [PatientDemographics.new], emergency_contacts: [EmergencyContact.new], insurances: [Insurance.new])
+        @personal_data = PersonalData.new(personal_demographics: PersonalDemographics.new)
     end
     
     def create
+        params[:personal_data].merge!({owner_id: current_user.id})
         @personal_data = PersonalData.new(personal_data_params)
-        if @personal_data.create_file
-            redirect_to user_path(current_user)
+        if @personal_data.save
+            flash.clear
+            redirect_to personal_data_index_path
         else
-            redirect_back fallback_location: new_user_personal_data_path(current_user)
-            # return error
+            flash[:error] = "Please check the data you provided."
+            render :new
         end
     end
 
-    def edit
-        @personal_data = current_user.personal_data
-    end
+    def add_attribute
+        @attribute = params[:attribute]
+        @collection = params[:collection]
+        @model = @attribute.underscore.classify.constantize.new
 
-    def update
-        @personal_data = current_user.personal_data
-        @personal_data.update(personal_data_params)
-    end
-
-    def destroy
-        @personal_data = current_user.personal_data
-        @personal_data.destroy
+        respond_to do |format|
+            format.js
+        end
     end
 
     private
+
     def personal_data_params
+        params.require(:personal_data).permit(:owner_id,
+            personal_demographics_attributes: PersonalDemographics::ATTRIBUTES,
+            emergency_contacts_attributes: EmergencyContact::ATTRIBUTES,
+            insurances_attributes: Insurance::ATTRIBUTES
+        )
     end
 end

@@ -1,0 +1,18 @@
+- phr_type = user_record.phr_type
+%h2.title.has-text-centered
+    = "#{t("phr_types.#{phr_type}")} of #{user_record.user.fullname}"
+.box
+    .ui.container
+        - if phr_type.present?
+            = render "#{phr_type.pluralize}/view", content: content
+        - else
+            = render 'invalid', content: content
+%footer.footer
+    .content.has-text-centered
+        .list
+            .list-item
+                This PDF is created on
+                = Time.now
+            .list-item
+                Access ID: 
+                = access_id    

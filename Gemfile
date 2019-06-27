@@ -38,7 +38,7 @@ gem 'mongoid', '~> 6.0'
 # Use bson_ext to accelerate Ruby BSON serialization
 gem 'bson_ext'
 # Use HAML for HTML
-gem 'haml-rails'
+gem 'haml-rails', '~> 1'
 # Use Devise for user authentication
 gem 'devise'
 # For encryption
@@ -49,10 +49,18 @@ gem 'aws-sdk-rails'
 gem 'aws-sdk-s3', '~> 1'
 # Date validator for models
 gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
-
+gem 'jquery-rails'
 gem 'awesome_print'
 gem 'simple_form'
-gem "bulma-rails", "~> 0.7.4"
+gem 'semantic-ui-sass'
+gem 'bulma-rails', '~> 0.7.4'
+gem 'httplog'
+gem 'shog'
+gem 'enumerize'
+gem 'country_select', '~> 4.0', require: 'country_select_without_sort_alphabetical'
+
+# For PDF generation
+gem 'wicked_pdf'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -62,16 +70,16 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'solargraph'
-  gem 'httplog'
-  gem 'shog'
   gem 'ruby-debug-ide'
   gem 'debase'
-  gem "letter_opener"
+  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.0'
+  gem 'wkhtmltopdf-binary-edge', '~> 0.12.4.0'
 end
 
 group :test do
@@ -80,6 +88,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+end
+
+group :staging, :production do
+  gem 'wkhtmltopdf-heroku'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

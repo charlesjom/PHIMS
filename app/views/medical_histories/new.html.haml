@@ -1,26 +1,54 @@
-.container.is-fluid
-	%h2.title.text-center New Medical History
-	= simple_form_for @medical_history, url: medical_histories_path do |f|
-		%span Allergies
-		= f.simple_fields_for :allergies do |a|
-			= a.input :allergen
-			= a.input :symptoms
-			= a.input :medications
-		%span Health Conditions
-		= f.simple_fields_for :health_conditions do |h|
-			= h.input :name_of_condition
-			= h.input :date_of_diagnosis, as: :date, html5: true
-			= h.input :date_of_last_checkup, as: :date, html5: true
-		%span Medications
-		= f.simple_fields_for :medications do |m|
-			= m.input :medicine_name
-			= m.input :dosage_amount_value
-			= m.input :dosage_amount_unit
-			= m.input :dosage_frequency_value
-			= m.input :dosage_frequency_unit
-			= m.input :still_active, as: :radio_buttons, collection: [['Yes', true], ['No', false]], item_label_class: 'radio'
-		%span Vaccinations
-		= f.simple_fields_for :vaccinations do |v|
-			= v.input :target_disease
-			= v.input :date_administered, as: :date, html5: true
-		= f.button :submit, class: 'is-primary'
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.page.header.center.aligned New Medical History
+            = simple_form_for @medical_history, url: medical_histories_path do |f|
+                = f.error :base
+                .ui.four.item.tabular.menu
+                    = tag.div class: 'active item', data: { tab: 'allergies' } do
+                        Allergies
+                    = tag.div class: 'item', data: { tab: 'health-conditions' } do
+                        Health Conditions
+                    = tag.div class: 'item', data: { tab: 'medications' } do
+                        Medications
+                    = tag.div class: 'item', data: { tab: 'vaccinations' } do
+                        Vaccinations
+
+                .ui.active.tab{data: {tab: 'allergies'}}
+                    .ui.dividing.header
+                        = t(:allergy, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'allergy', record: @medical_history
+                    #allergies
+                        - if @medical_history.try(:allergies).present?
+                            - @medical_history.allergies.each do |allergy|
+                                = render partial: 'allergy', locals: { :@model => Allergy.new, :allergy => allergy }
+                
+                .ui.tab{data: {tab: 'health-conditions'}}
+                    .ui.dividing.header
+                        = t(:health_condition, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'health_condition', record: @medical_history
+                    #health-conditions
+                        - if @medical_history.try(:health_conditions).present?
+                            - @medical_history.health_conditions.each do |health_condition|
+                                = render partial: 'health_condition', locals: { :@model => HealthCondition.new, :health_condition => health_condition }
+                
+                .ui.tab{data: {tab: 'medications'}}
+                    .ui.dividing.header
+                        = t(:medication, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'medication', record: @medical_history
+                    #medications
+                        - if @medical_history.try(:medications).present?
+                            - @medical_history.medications.each do |medication|
+                                = render partial: 'medication', locals: { :@model => Medication.new, :medication => medication }
+                
+                .ui.tab{data: {tab: 'vaccinations'}}
+                    .ui.dividing.header
+                        = t(:vaccination, scope: [:headers, :medical_history, :sections])
+                    = render 'shared/add_button', type: 'medical_history', object: 'vaccination', record: @medical_history
+                    #vaccinations
+                        - if @medical_history.try(:vaccinations).present?
+                            - @medical_history.vaccinations.each do |vaccination|
+                                = render partial: 'vaccination', locals: { :@model => Vaccination.new, :vaccination => vaccination }
+                
+                .ui.center.aligned.segment
+                    = f.button :submit, "Create Medical History"

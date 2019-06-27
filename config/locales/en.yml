@@ -30,4 +30,73 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  phr_types:
+    medical_history: "Medical History"
+    personal_data: "Personal Data"
+  models:
+    emergency_contact: Emergency Contact
+    insurance: "Insurance"
+    personal_demographics: "Personal Demographics"
+    allergy: "Allergy"
+    health_condition: "Health Condition"
+    medication: "Medication"
+    vaccination: "Vaccination"
+  headers:
+    personal_data:
+      sections:
+        emergency_contact: "List of Emergency Contacts"
+        insurance: "List of Insurances"
+        personal_demographics: "Personal Demographics"
+    medical_history:
+      sections:
+        allergy: "List of Allergies"
+        health_condition: "List of Health Conditions"
+        medication: "List of Medications"
+        vaccination: "List of Vaccinations"
+  labels:
+    personal_data:
+      emergency_contact:
+        first_name: "First Name"
+        middle_name: "Middle Name"
+        last_name: "Last Name"
+        relationship: "Relationship"
+        telephone_number: "Telephone Number"
+        cellphone_number: "Cellphone Number" 
+        address: "Address"
+      insurance:
+        provider_name: "Provider Name"
+        id_number: "ID Number"
+        valid_until: "Valid Until"
+        name_of_insured: "Name of Insured"
+        birthdate_of_insured: "Birthdate of Insured"
+        primary_beneficiary: "Primary Beneficiary"
+        relationship_of_beneficiary_to_insured: Relationship of Beneficiary to Insured
+        telephone_number: "Telephone Number of Beneficiary"
+      personal_demographics:
+        birthdate: "Birthdate"
+        sex: "Sex"
+        civil_status: "Civil Status"
+        weight_in_kg: "Weight (in kg)"
+        height_in_cm: "Height (in cm)"
+        abo_blood_type: "ABO Blood Type"
+        rh_blood_type: "RH Blood Type"
+    medical_history:
+      allergy:
+        allergen: "Allergen"
+        symptoms: "Symptoms"
+        medications: "Medications"
+      health_condition:
+        name_of_condition: "Name of Condition"
+        date_of_diagnosis: "Date of Diagnosis"
+        date_of_last_checkup: "Date of Last Checkup"
+      medication:
+        medicine_name: "Medicine Name"
+        dosage_amount_value: "Dosage Amount Value"
+        dosage_amount_unit: "Dosage Amount Unit"
+        dosage_frequency_value: "Dosage Frequency Value"
+        dosage_frequency_unit: "Dosage Frequency Unit"
+        frequency: "Frequency"
+        still_active: "Medication is still Active"
+      vaccination:
+        target_disease: "Target Disease"
+        date_administered: "Date Administered"

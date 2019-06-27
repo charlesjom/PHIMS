@@ -3,7 +3,9 @@ class Allergy
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
 
-    attr_accessor :allergen, :symptoms, :medications
+    ATTRIBUTES = [:allergen, :symptoms, :medications]
+
+    attr_accessor(*ATTRIBUTES)
 
     # validators for each attributes
     validates_presence_of :allergen, :symptoms, :medications

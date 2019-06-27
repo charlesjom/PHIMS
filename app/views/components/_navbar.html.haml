@@ -1,4 +1,22 @@
-- if user_signed_in?
-	.navbar
-		.container
-			= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+.ui.top.fixed.inverted.menu
+	.ui.container
+		.item
+			= link_to "PHIMS", root_path
+		- if user_signed_in?
+			.item
+				= link_to "Medical History", medical_histories_path
+			.item
+				= link_to "Personal Data", personal_data_index_path
+			.right.menu
+				.item
+					= current_user.fullname
+				.item
+					= link_to "Logout", destroy_user_session_path, method: :delete, class: 'ui grey button'
+		- else
+			.right.menu
+				- if controller_name != 'sessions'
+					.item
+						= link_to "Log in", new_session_path(resource_name), class: 'ui primary button'
+				- if devise_mapping.registerable? && controller_name != 'registrations'
+					.item
+						= link_to "Sign Up", new_registration_path(resource_name), class: 'ui teal button'

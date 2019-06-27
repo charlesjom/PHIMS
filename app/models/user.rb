@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  validates_presence_of   :email
+  validates_presence_of   :email, :first_name, :last_name
   validates_format_of     :email, with: URI::MailTo::EMAIL_REGEXP
   validates_uniqueness_of :username, :email
   validates_length_of     :first_name, :middle_name, :last_name, maximum: 30, allow_nil: true
@@ -16,10 +16,54 @@ class User < ApplicationRecord
   before_create :generate_user_keys
   
   # Model associations
-  has_one :medical_history, dependent: :destroy
-  has_one :personal_data, dependent: :destroy
   has_many :share_keys, dependent: :destroy
   has_many :user_records, dependent: :destroy
+
+  def fullname
+    [first_name, middle_name, last_name].join(" ")
+  end
+
+  def records_with_access
+    ids = share_keys.pluck(:user_record_id)
+    UserRecord.where(id: ids)
+  end
+
+  def update_with_password(params, *options)
+    current_password = params.delete(:current_password)
+    new_password = params.fetch(:password, nil)
+    new_password_confirmation = params.fetch(:password_confirmation, nil)
+
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = if valid_password?(current_password)
+      begin
+        temp_result = update(params, *options)  
+        update_user_keys(current_password, new_password) if temp_result && new_password.present?
+        temp_result
+      rescue => e
+        Rails.logger.error e.message
+      end
+    else
+      assign_attributes(params, *options)
+      valid?
+      errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+      false
+    end
+
+    clean_up_passwords
+    result
+  end
+
+  def reset_password(new_password, new_password_confirmation)
+    result = super
+
+    generate_new_user_keys if result
+  end
+
+  private
 
   def generate_identifier
     self.identifier = "USER-#{DateTime.now.to_s(:number)}"
@@ -28,20 +72,41 @@ class User < ApplicationRecord
   def generate_user_keys
     keypair = OpenSSL::PKey::RSA.new(4096)
 
-    cipher_encrypt = OpenSSL::Cipher::AES256.new(:CBC)
-    cipher_encrypt.encrypt # set to encryption mode
+    cipher = OpenSSL::Cipher::AES256.new(:CBC)
+    cipher.encrypt # set to encryption mode
     key = cipher.random_key
     iv = cipher.random_iv
 
-    self.encrypted_private_key = keypair.export(cipher_encrypt, self.password)
+    self.encrypted_private_key = Base64.encode64(keypair.export(cipher, self.password))
 		self.public_key = keypair.public_key
   end
 
-  def aes256_cipher_decrypt
+  def update_user_keys(current_password, new_password)
+    Rails.logger.debug "Updating user keys..."
+    # save current encrypted private key that will be used in updating records and share keys later
+    current_encrypted_private_key = Base64.decode64(self.encrypted_private_key)
+    
+    # decrypt current private key using current password
+    keypair = OpenSSL::PKey::RSA.new(current_encrypted_private_key, current_password)
     cipher = OpenSSL::Cipher::AES256.new(:CBC)
-    cipher.decrypt # set to decryption mode
+    cipher.encrypt # set to encryption mode
     key = cipher.random_key
     iv = cipher.random_iv
-    cipher
-	end
+    
+    # re-encrypt private key with new password
+    self.encrypted_private_key = Base64.encode64(keypair.export(cipher, new_password))
+    save
+  rescue => e
+    raise e
+    Rails.logger.error "Error in updating user keys"
+  end
+
+  def generate_new_user_keys
+    # generate new user keys using new password
+    generate_user_keys
+    save
+    # delete all user records and share keys since it can't be decrypted anymore
+    user_records.delete_all
+    share_keys.delete_all
+  end
 end

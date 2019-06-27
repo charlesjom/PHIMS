@@ -1,0 +1,9 @@
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.huge.header.center.aligned Medical History
+            = link_to 'New Medical History', new_medical_history_path, class: 'ui olive button'
+            - if @medical_histories.any?
+                = render 'shared/items', user_records: @medical_histories
+            - else
+                = render 'shared/empty_placeholder', object: 'record'

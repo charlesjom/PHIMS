@@ -1,30 +1,54 @@
-.container.is-fluid
-	%h2.title.text-center New Personal Data
-	= simple_form_for @personal_data, url: personal_data_path do |f|
-		%span Patient Demographics
-		= f.simple_fields_for :patient_demographics do |p|
-			= p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
-			= p.input :sex, as: :radio_buttons, collection: PatientDemographics::SEX_CHOICES, item_label_class: 'radio'
-			= p.input :civil_status, as: :radio_buttons, collection: PatientDemographics::CIVIL_STATUS_CHOICES, label: 'Civil Status', item_label_class: 'radio'
-			= p.input :weight_in_kg, as: :integer, label: 'Weight (in kg)'
-			= p.input :height_in_cm, as: :integer, label: 'Height (in cm)'
-			= p.input :abo_blood_type, as: :radio_buttons, collection: PatientDemographics::ABO_BLOOD_TYPES, label: 'ABO Blood Type', item_label_class: 'radio'
-			= p.input :rh_blood_type, as: :radio_buttons, collection: PatientDemographics::RH_BLOOD_TYPES, label: 'RH Blood Type', item_label_class: 'radio'
-		%span Emergency Contacts
-		= f.simple_fields_for :emergency_contacts do |e|
-			= e.input :first_name
-			= e.input :middle_name
-			= e.input :last_name
-			= e.input :cellphone_number
-			= e.input :address
-			= e.input :relationship
-		%span Insurances
-		= f.simple_fields_for :insurances do |i|
-			= i.input :provider_name
-			= i.input :id_number, label: "ID Number"
-			= i.input :valid_until
-			= i.input :name_of_insured
-			= i.input :birthdate_of_insured
-			= i.input :relationship_of_beneficiary_to_insured
-			= i.input :telephone_number
-		= f.button :submit, class: 'is-primary'
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.page.header.center.aligned New Personal Data
+            = simple_form_for @personal_data, url: personal_data_index_path do |f|
+                = f.error :base
+                .ui.three.item.tabular.menu
+                    = tag.div class: 'active item', data: { tab: 'personal-demographics' } do
+                        Personal Demographics
+                    = tag.div class: 'item', data: { tab: 'emergency-contacts' } do
+                        Emergency Contacts
+                    = tag.div class: 'item', data: { tab: 'insurances' } do
+                        Insurances
+
+                .ui.active.tab{data: {tab: 'personal-demographics'}}
+                    .ui.dividing.header
+                        = t(:personal_demographics, scope: [:headers, :personal_data, :sections])
+                    .ui.segment
+                        = f.simple_fields_for :personal_demographics do |p|
+                            .fields
+                                = p.input :birthdate, as: :date, end_year: Date.today.year, html5: true
+                                = p.input :weight_in_kg, as: :integer, input_html: { max: 999, min: 1 }, label: 'Weight (in kg)'
+                                = p.input :height_in_cm, as: :integer, input_html: { max: 999, min: 1 }, label: 'Height (in cm)'
+                                = p.input :sex, collection: PersonalDemographics::SEX_CHOICES
+                                = p.input :civil_status, collection: PersonalDemographics::CIVIL_STATUS_CHOICES
+                                = p.input :abo_blood_type, collection: PersonalDemographics::ABO_BLOOD_TYPES,
+                                    label: "#{t(:abo_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
+                                = p.input :rh_blood_type, collection: PersonalDemographics::RH_BLOOD_TYPES,
+                                    label: "#{t(:rh_blood_type, scope: [:labels, :personal_data, :personal_demographics])}"
+                            .fields
+                                = p.input :street_address
+                                = p.input :barangay
+                                = p.input :city
+                                = p.input :state_or_province
+                                = p.input :country, include_blank: 'Select a country'
+            
+                .ui.tab{data: {tab: 'emergency-contacts'}}
+                    .ui.dividing.header Emergency Contacts
+                    = render 'shared/add_button', type: 'personal_data', object: 'emergency_contact', record: @personal_data
+                    #emergency-contacts
+                        - if @personal_data.try(:emergency_contacts).present?
+                            - @personal_data.emergency_contacts.each do |emergency_contact|
+                                = render partial: 'emergency_contact', locals: { :@model => EmergencyContact.new, :emergency_contact => emergency_contact }
+                
+                .ui.tab{data: {tab: 'insurances'}}
+                    .ui.dividing.header Insurances
+                    = render 'shared/add_button', type: 'personal_data', object: 'insurance', record: @personal_data
+                    #insurances
+                        - if @personal_data.try(:insurances).present?
+                            - @personal_data.insurances.each do |insurance|
+                                = render partial: 'insurance', locals: { :@model => Insurance.new, :insurance => insurance }
+
+                .ui.center.aligned.segment
+                    = f.button :submit, "Create Personal Data"

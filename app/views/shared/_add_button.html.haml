@@ -1,0 +1,3 @@
+= link_to '#', class: "ui green right labeled icon button add-button #{type}", id: "add-#{object.dasherize}", data: {collection: "#{object.dasherize.pluralize}", object: "#{object}"} do
+    = "Add #{t(object.to_sym, scope: [:models])}"
+    %i.plus.right.icon

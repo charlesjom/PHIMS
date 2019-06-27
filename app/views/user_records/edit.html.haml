@@ -1,0 +1,26 @@
+.column
+    .ui.vertical.center.aligned.segment
+        .ui.huge.header.center.aligned
+            = "Edit #{t("phr_types.#{@user_record.phr_type}")}"
+        .ui.centered.grid
+            .vertical.center.aligned.eight.wide.column
+                .ui.left.aligned.segment
+                    .ui.relaxed.horizontal.divided.list
+                        .item
+                            .content
+                                .header
+                                    = link_to user_record_path(@user_record) do
+                                        = @user_record.id
+                                User Record ID
+                        .item
+                            .content
+                                .header
+                                    = link_to user_path(@user_record.user) do
+                                        = @user_record.user.fullname
+                                Owner Name
+                = form_tag edit_data_user_record_path(@user_record), method: :post, class: 'ui form' do
+                    .field
+                        = label :password, :password, 'Enter password to edit record'
+                        = password_field_tag 'user_record[password]', nil
+                    .field
+                        = submit_tag 'Submit', class: 'ui primary button fluid'

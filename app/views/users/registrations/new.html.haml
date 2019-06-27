@@ -1,40 +1,20 @@
-.devise-container
-  %h2.title.text-center PHIMS
-  .box
-    = render "users/shared/error_messages", resource: resource
-    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      .field
-        = f.label :first_name, "First Name"
-        .control
-          = f.text_field :first_name, autofocus: true, placeholder: "First Name", required: true, class: 'input'
-      .field
-        = f.label :middle_name, "Middle Name"
-        .control
-          = f.text_field :middle_name, placeholder: "Middle Name", required: true, class: 'input'
-      .field
-        = f.label :last_name, "Last Name"
-        .control
-          = f.text_field :last_name, placeholder: "Last Name", required: true, class: 'input'
-      .field
-        = f.label :username, "Username"
-        .control
-          = f.text_field :username, placeholder: "Username", required: true, class: 'input'
-      .field
-        = f.label :email, "Email Address"
-        .control
-          = f.email_field :email, autocomplete: "email", placeholder: "Email Address", required: true, class: 'input'
-      .field
-        = f.label :password, "Password"
-        .control
-          = f.password_field :password, autocomplete: "new-password", class: 'input'
-        - if @minimum_password_length
-          %p.help
-            #{@minimum_password_length} characters minimum
-      .field
-        = f.label :password_confirmation
-        .control
-          = f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'
-      .field
-        .control.has-text-centered
-          = f.submit "Sign up", class: 'button is-primary is-fullwidth'
-  = render "users/shared/links"
+.eight.wide.column
+    .centered.aligned.row
+        .ui.vertical.segment
+            .ui.huge.centered.align.header Create an Account
+            = simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f|
+                .required.field
+                    %label Name
+                    .fields
+                        = f.input :first_name, autofocus: true, placeholder: "First Name", required: true, label: false
+                        = f.input :middle_name, placeholder: "Middle Name", required: true, label: false
+                        = f.input :last_name, placeholder: "Last Name", required: true, label: false
+                = f.input :username, placeholder: "Username", required: true
+                = f.input :email, autocomplete: "email", placeholder: "Email Address", required: true
+                - if @minimum_password_length
+                    = f.input :password, required: true, hint: "#{@minimum_password_length} characters minimum"
+                - else
+                    = f.input :password, required: true
+                = f.input :password_confirmation, required: true
+                = f.button :submit, class: 'fluid'
+            = render "users/shared/links"

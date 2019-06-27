@@ -1,0 +1,25 @@
+- allergies = content.allergies
+- health_conditions = content.health_conditions
+- medications = content.medications
+- vaccinations = content.vaccinations
+
+- if allergies.present?
+    .box#allergies
+        .has-text-weight-bold.has-text-centered
+            = t(:allergy, scope: [:headers, :medical_history, :sections])
+        = render 'shared/horizontal_table', hashes: allergies, type: 'medical_history', section: 'allergy'
+- if health_conditions.present?
+    .box#health-conditions
+        .has-text-weight-bold.has-text-centered
+            = t(:health_condition, scope: [:headers, :medical_history, :sections])
+        = render 'shared/horizontal_table', hashes: health_conditions, type: 'medical_history', section: 'health_condition'
+- if medications.present?
+    .box#medications
+        .has-text-weight-bold.has-text-centered
+            = t(:medication, scope: [:headers, :medical_history, :sections])
+        = render 'shared/horizontal_table', hashes: medications, type: 'medical_history', section: 'medication'
+- if vaccinations.present?
+    .box#vaccinations
+        .has-text-weight-bold.has-text-centered
+            = t(:vaccination, scope: [:headers, :medical_history, :sections])
+        = render 'shared/horizontal_table', hashes: vaccinations, type: 'medical_history', section: 'vaccination'

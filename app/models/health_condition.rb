@@ -3,7 +3,8 @@ class HealthCondition
     include ActiveModel::Serializers::JSON
     include ActiveModel::Model
 
-    attr_accessor :name_of_condition, :date_of_diagnosis, :date_of_last_checkup
+    ATTRIBUTES = [:name_of_condition, :date_of_diagnosis, :date_of_last_checkup]
+    attr_accessor(*ATTRIBUTES)
 
     # validators for each attributes
     validates_presence_of :name_of_condition, :date_of_diagnosis, :date_of_last_checkup

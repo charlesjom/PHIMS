@@ -16,7 +16,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -88,4 +88,21 @@ Rails.application.configure do
 
   # Store files on Amazon S3.
   config.active_storage.service = :amazon
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.credentials[:production][:gmail][:address],
+    port:                 587,
+    user_name:            Rails.application.credentials[:production][:gmail][:username],
+    password:             Rails.application.credentials[:production][:gmail][:password],
+    authentication:       'login',
+    enable_starttls_auto: true
+  }
+
+  config.action_mailer.default_url_options = { host: 'https://phims.herokuapp.com' }
 end

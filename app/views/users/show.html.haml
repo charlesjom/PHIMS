@@ -1,2 +1,13 @@
-.main-content
-    %h2.title.text-center Own Records
+.column
+    .middle.aligned.center.aligned.row
+        .ui.vertical.center.aligned.segment
+            .ui.huge.header= @user.fullname
+            = link_to 'New Medical History', new_medical_history_path, class: 'ui button'
+            = link_to 'New Personal Data', new_personal_data_path, class: 'ui button'
+            = link_to 'Change Password', edit_user_password_path, class: 'ui button'
+            
+            - if @user_records.any?
+                = render 'shared/items', user_records: @user_records
+            - else
+                %h3.text-center No Records Yet
+                    

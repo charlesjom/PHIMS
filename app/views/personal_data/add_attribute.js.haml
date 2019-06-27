@@ -1,0 +1,6 @@
+$("#" + "#{@collection}").append("#{ escape_javascript(render partial: "#{@attribute}", model: @model) }")
+
+:plain
+    $('.segment .remove-attribute').off('click').on('click', function() {
+        $(this).closest('.segment').remove();
+    });

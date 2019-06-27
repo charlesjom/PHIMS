@@ -1,0 +1,20 @@
+- vaccination = vaccination.present? ? vaccination : nil
+.ui.segment
+    = render 'shared/remove_button'
+    .fields
+        = fields_for 'medical_history[vaccinations_attributes][]', @model do |v|
+            .field.required{class: ("error" if vaccination.try(:errors).present? && vaccination.errors[:target_disease].any? )}
+                = v.label :target_disease do
+                    = I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination])
+                = v.text_field :target_disease, placeholder: I18n.t(:target_disease, scope: [:labels, :medical_history, :vaccination]),
+                                value: vaccination.present? ? vaccination.try(:target_disease) : nil
+                - if vaccination.try(:errors).present? && vaccination.errors[:target_disease].any?
+                    .ui.red.pointing.above.label.error
+                        = vaccination.errors[:target_disease].first
+            .field.required{class: ("error" if vaccination.try(:errors).present? && vaccination.errors[:date_administered].any? )}
+                = v.label :date_administered do
+                    = I18n.t(:date_administered, scope: [:labels, :medical_history, :vaccination])
+                = v.date_field :date_administered, html5: true, value: vaccination.present? ? vaccination.try(:date_administered) : nil
+                - if vaccination.try(:errors).present? && vaccination.errors[:date_administered].any?
+                    .ui.red.pointing.above.label.error
+                        = vaccination.errors[:date_administered].first
