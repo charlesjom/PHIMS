@@ -32,7 +32,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # PostgreSQL for ActiveRecord database
-gem 'pg'
+gem 'pg', '~> 1.1.3'
 # Use Mongoid for database
 gem 'mongoid', '~> 6.0'
 # Use bson_ext to accelerate Ruby BSON serialization
@@ -40,7 +40,7 @@ gem 'bson_ext'
 # Use HAML for HTML
 gem 'haml-rails', '~> 1'
 # Use Devise for user authentication
-gem 'devise'
+gem 'devise',  '>= 4.7.1'
 # For encryption
 gem 'openssl', git: 'https://github.com/ruby/openssl'
 # AWS SDK
@@ -51,11 +51,11 @@ gem 'aws-sdk-s3', '~> 1'
 gem 'validates_timeliness', '~> 4.0', '>= 4.0.2'
 gem 'jquery-rails'
 gem 'awesome_print'
-gem 'simple_form'
+gem 'simple_form', '>= 5.0.0'
 gem 'semantic-ui-sass'
 gem 'bulma-rails', '~> 0.7.4'
 gem 'httplog'
-gem 'shog'
+gem 'shog', '~> 0.2.0'
 gem 'enumerize'
 gem 'country_select', '~> 4.0', require: 'country_select_without_sort_alphabetical'
 
@@ -85,7 +85,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
